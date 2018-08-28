@@ -1,0 +1,6 @@
+{
+  "dryrun.py::test_dialog": true,
+  "dryrun.py::test_training": true,
+  "testing.py::test_dialog": true,
+  "testing.py::test_training": true
+}
