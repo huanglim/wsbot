@@ -115,8 +115,8 @@ class MudRobot(object):
         return self
 
     def __exit__(self, exc_ty, exc_val, tb):
-        # time.sleep(5)
-        # self.send_message('各位施主, 我要去学习了, 下次再见!')
+        time.sleep(5)
+        self.send_message('*再见')
         self.driver.quit()
 
     # def init_chatbot(self):
@@ -474,11 +474,12 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 res = RE_COMMAND_TRAINING.match(content)
 
-                if not is_enabled:
-                    self.send_message('师傅说真一现在已经学有小成, 吸收消化一段时间. 现在暂不接受施主训练啦.')
-                    return
-
                 if res and training_flag:
+
+                    if not is_enabled:
+                        self.send_message('师傅说真一现在已经学有小成, 吸收消化一段时间. 现在暂不接受施主训练啦.')
+                        return
+
                     logging.info('in the training')
                     auth = self.get_message_auth(msg)
                     q_content, a_content = res.groups()[2].strip(), res.groups()[3].strip()
@@ -698,10 +699,10 @@ if __name__ == '__main__':
     xszy_thr = Thread(target=xszy_robot, args=args_xszy)
     xszy_thr.start()
 
-    args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
-    xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
-    xnmh_thr.start()
-    # 
+    # args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
+    # xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
+    # xnmh_thr.start()
+    # #
     # args_xdxy=(session, LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy)
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
     # xdxy_thr.start()
