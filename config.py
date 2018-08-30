@@ -2,6 +2,10 @@ import os, sys
 
 MYSQL = False
 
+IS_REMOTE = False
+
+host_ip = '47.100.242.240'
+port = '5555'
 db_file = os.path.dirname(__file__)
 
 WSMUD_URL = 'http://game.wsmud.com'

@@ -31,14 +31,16 @@ if __name__ == '__main__':
     #
     session=Session()
     #
-    # c = session.query(TrainingData).all()
+    c = session.query(TrainingData).all()
     # for item in c:
     #     print(item.auth, item.q_content, item.a_content)
 
-    c = session.query(TrainingData).filter(TrainingData.q_content.like('%老公%')).all()
+    # c = session.query(TrainingData).filter(TrainingData.a_content.like('%萧慧%')).all()
+    # c = session.query(TrainingData).filter(TrainingData.a_content.like('%叼丝%')).all()
+    # 青青姐姐
     for item in c:
         print(item.auth, item.q_content, item.a_content)
-        session.delete(item)
+        # session.delete(item)
     #
     # session.query(TrainingData).delete()
     session.commit()

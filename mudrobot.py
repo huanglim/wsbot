@@ -20,7 +20,9 @@ from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy, \
                     LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy, \
                     LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
-                    LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh
+                    LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
+                    host_ip, port, \
+                    IS_REMOTE
 
 from chatppattern import CHATPATTERN, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -102,7 +104,7 @@ class MudRobot(object):
                 self.options.add_argument('headless')
                 #self.options.add_argument('isable-gpu')
                 #self.options.add_argument('window-size=1200x600')
-                self.options.add_experimental_option('prefs', self.prefs)
+                # self.options.add_experimental_option('prefs', self.prefs)
                 try:
                     self.driver = webdriver.Remote(''.join(['http://',self.host,':',str(self.port),'/wd/hub']),
                             #desired_capabilities=DesiredCapabilities.CHROME,
@@ -355,11 +357,12 @@ class MudRobot(object):
             return message_content
 
     def filter_q(self, q_content):
-        re_all = re.compile('\.\*(.*)(\.\*)?')
+        re_all = re.compile('(\.)?\*(.*)(\.\*)?')
+        RE_EXCEPTION = re.compile('(\.\+|\.\*|\.\?|\\\S|\\\s|\*)')
 
-        if re_all.match(q_content):
+        if re_all.match(q_content) or \
+                RE_EXCEPTION.match(q_content):
             return True
-            # return  re_all.match(q_content).groups()[0]
 
     def filter_a(self, a_content):
         re_bad_wording = re.compile('(平胸|飞机场|巫婆|丑|醜|难看|青稞|真一|女装)')
@@ -462,7 +465,7 @@ class MudRobot(object):
                         logging.info(message)
                         self.send_message(message)
 
-    def response_to_training(self, dialogs, session):
+    def response_to_training(self, dialogs, session, is_enabled=False):
 
         training_flag = True
         for msg in dialogs:
@@ -471,27 +474,27 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 res = RE_COMMAND_TRAINING.match(content)
 
+                if not is_enabled:
+                    self.send_message('师傅说真一现在已经学有小成, 吸收消化一段时间. 现在暂不接受施主训练啦.')
+                    return
+
                 if res and training_flag:
                     logging.info('in the training')
                     auth = self.get_message_auth(msg)
                     q_content, a_content = res.groups()[2].strip(), res.groups()[3].strip()
 
-                    if RE_COMMAND_LIST.search(a_content):
+                    if RE_COMMAND_LIST.search(q_content) or self.filter_q(q_content):
                         self.send_message('{}施主不要调皮啦, 让真一安安静静的做一个好沙弥.'.format(auth))
+                        return
+
+                    if RE_COMMAND_LIST.search(a_content) or self.filter_a(a_content):
+                        self.send_message('{}施主,师傅说不能这样教真一!'.format(auth))
                         return
 
                     for key in CHATPATTERN:
                         if re.match(key, q_content):
                             self.send_message('{}施主, 这个问题师傅已经教导过真一啦.'.format(auth))
                             return
-
-                    if self.filter_q(q_content):
-                        self.send_message('{}施主,师傅说不能这样教真一!'.format(auth))
-                        return
-
-                    if self.filter_a(a_content):
-                        self.send_message('{}施主,师傅说不能这样教真一!'.format(auth))
-                        return
 
                     self.save_training_data(session, q_content, a_content, auth)
 
@@ -539,24 +542,39 @@ class MudRobot(object):
             return random.choice(CHATPATTERN['greeting'])
 
         for key in CHATPATTERN:
+            logging.debug(key)
             if re.match(key, chat_content):
                 return random.choice(CHATPATTERN[key])
 
+        logging.debug('pass general pattern')
+
         for key in CHATPATTERN_DUNGEON:
+            logging.debug(key)
             if re.match(key, chat_content):
                 return random.choice(CHATPATTERN_DUNGEON[key])
 
+        logging.debug('pass dungeon pattern')
+
         for key in CHATPATTERN_FOLLOWER:
+            logging.debug(key)
             if re.match(key, chat_content):
                 return random.choice(CHATPATTERN_FOLLOWER[key])
 
-        for key in USER_TRAINING_SET:
-            if re.match(key, chat_content):
-                return random.choice(USER_TRAINING_SET[key])
+        logging.debug('pass follower pattern')
+
+        # for key in USER_TRAINING_SET:
+        #     logging.debug(key)
+        #     if re.match(key, chat_content):
+        #         return random.choice(USER_TRAINING_SET[key])
+
+        logging.debug('pass training pattern')
 
         for key in CHATPATTERN_LOW_PRORITY:
+            logging.debug(key)
             if re.match(key, chat_content):
                 return random.choice(CHATPATTERN_LOW_PRORITY[key])
+
+        logging.debug('pass low pattern')
 
         return random.choice([
             '*不知道',
@@ -581,7 +599,8 @@ class MudRobot(object):
         return message
 
 def xszy_robot(session, login_nm, login_pwd):
-    with MudRobot() as robot:
+
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
 
         robot.login(login_nm, login_pwd)
         # robot.start_mining()
@@ -608,7 +627,7 @@ def xdxy_robot(session, login_nm, login_pwd):
 
     logging.info("小道玄一 is running")
 
-    with MudRobot() as robot:
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
 
         robot.login(login_nm, login_pwd)
         # robot.start_mining()
@@ -656,14 +675,14 @@ def skrp_robot(session, login_nm, login_pwd):
                 logging.error(e)
 
 def xnmh_robot(session, login_nm, login_pwd):
-    with MudRobot() as robot:
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
 
         robot.login(login_nm, login_pwd)
         robot.load_from_training_db(session=session)
         logging.info("小尼明慧 is running")
         # robot.start_mining()
         while True:
-            time.sleep(5)
+            time.sleep(10)
             try:
                 commands = robot.get_commands()
                 if commands:
