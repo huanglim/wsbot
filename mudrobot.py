@@ -14,7 +14,7 @@ from sqlalchemy import func
 from db import Session
 from db.modules import Dialog, TrainingData
 
-from chatterbot import ChatBot
+# from chatterbot import ChatBot
 
 from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy, \
