@@ -2,7 +2,7 @@ import os, sys
 
 MYSQL = False
 
-IS_REMOTE = False
+IS_REMOTE = True
 
 host_ip = '47.100.242.240'
 port = '4444'
