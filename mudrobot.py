@@ -22,9 +22,9 @@ from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
                     LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
                     host_ip, port, \
-                    IS_REMOTE
+                    IS_REMOTE, IS_HEADLESS
 
-from chatppattern import CHATPATTERN, CHATPATTERN_LOW_PRORITY, \
+from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
     CHATPATTERN_FOLLOWER
 
@@ -164,17 +164,10 @@ class MudRobot(object):
 
     def get_all_dialog(self):
 
-        hic_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hic")
-        him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
-        hiy_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hiy")
-        hio_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hio")
-
         new_dialogs = []
-        new_hic_dialogs = []
-        new_him_dialogs = []
-        new_hiy_dialogs = []
-        new_hio_dialogs = []
 
+        hic_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hic")
+        new_hic_dialogs = []
         if hic_dialogs:
             for d in hic_dialogs[::-1]:
                 if d.text == self.last_hic_dialog:
@@ -184,7 +177,10 @@ class MudRobot(object):
 
             if new_hic_dialogs:
                 self.last_hic_dialog = new_hic_dialogs[0]
+        new_dialogs.extend(new_hic_dialogs)
 
+        him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
+        new_him_dialogs = []
         if him_dialogs:
             for d in him_dialogs[::-1]:
                 if d.text == self.last_him_dialog:
@@ -194,7 +190,10 @@ class MudRobot(object):
 
             if new_him_dialogs:
                 self.last_him_dialog = new_him_dialogs[0]
+        new_dialogs.extend(new_him_dialogs)
 
+        hiy_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hiy")
+        new_hiy_dialogs = []
         if hiy_dialogs:
             for d in hiy_dialogs[::-1]:
                 if d.text == self.last_hiy_dialog:
@@ -204,7 +203,10 @@ class MudRobot(object):
 
             if new_hiy_dialogs:
                 self.last_hiy_dialog = new_hiy_dialogs[0]
+        new_dialogs.extend(new_hiy_dialogs)
 
+        hio_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hio")
+        new_hio_dialogs = []
         if hio_dialogs:
 
             for d in hio_dialogs[::-1]:
@@ -215,11 +217,7 @@ class MudRobot(object):
 
             if new_hio_dialogs:
                 self.last_hio_dialog = new_hio_dialogs[0]
-
-        new_dialogs.extend(new_hic_dialogs)
-        new_dialogs.extend(new_him_dialogs)
         new_dialogs.extend(new_hio_dialogs)
-        new_dialogs.extend(new_hiy_dialogs)
 
         if new_dialogs:
             return new_dialogs[::-1]
@@ -319,18 +317,18 @@ class MudRobot(object):
         sender_btn.click()
 
     def start_mining(self):
+
+        logging.info('in the mining')
         try:
-            self.driver.find_element_by_xpath("//div[@class='combat-panel hide']")
-        except Exception as e:
-            pass
-        else:
-            combat_btn = self.driver.find_element_by_xpath("//span[@command='showcombat'][@class='tool-item']")
+            combat_btn = self.driver.find_element_by_xpath("//span[@command='showcombat']")
             time.sleep(1)
             combat_btn.click()
 
-        time.sleep(1)
-        mining_btn = self.driver.find_element_by_xpath("//span[@class='act-item'][@cmd='wa']")
-        mining_btn.click()
+            time.sleep(1)
+            mining_btn = self.driver.find_element_by_xpath("//span[@class='act-item'][@cmd='wa']")
+            mining_btn.click()
+        except Exception as e:
+            logging.error(e)
 
     def get_message_auth(self, message):
         try:
@@ -492,7 +490,7 @@ class MudRobot(object):
                         self.send_message('{}施主,师傅说不能这样教真一!'.format(auth))
                         return
 
-                    for key in CHATPATTERN:
+                    for key in CHATPATTERN_GENERAL:
                         if re.match(key, q_content):
                             self.send_message('{}施主, 这个问题师傅已经教导过真一啦.'.format(auth))
                             return
@@ -540,12 +538,12 @@ class MudRobot(object):
 
         logging.info(chat_content)
         if not chat_content:
-            return random.choice(CHATPATTERN['greeting'])
+            return random.choice(CHATPATTERN_GENERAL['greeting'])
 
-        for key in CHATPATTERN:
+        for key in CHATPATTERN_GENERAL:
             logging.debug(key)
             if re.match(key, chat_content):
-                return random.choice(CHATPATTERN[key])
+                return random.choice(CHATPATTERN_GENERAL[key])
 
         logging.debug('pass general pattern')
 
@@ -599,14 +597,15 @@ class MudRobot(object):
         message = '近{},总共有{}名施主在闲聊发言共{}条, 其中{}为发言前三甲!'.format(str_period, auth_total, dialog_total, auth_list)
         return message
 
-def xszy_robot(session, login_nm, login_pwd):
+def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
-    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         robot.login(login_nm, login_pwd)
-        # robot.start_mining()
-        # robot.init_chatbot()
         logging.info("小僧真一 is running")
+
+        robot.start_mining()
+        # robot.init_chatbot()
         time.sleep(1)
         robot.send_message('*清醒')
 
@@ -624,31 +623,30 @@ def xszy_robot(session, login_nm, login_pwd):
             except Exception as e:
                 logging.error(e)
 
-def xdxy_robot(session, login_nm, login_pwd):
+def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
-    logging.info("小道玄一 is running")
-
-    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         robot.login(login_nm, login_pwd)
-        # robot.start_mining()
-        while True:
-            time.sleep(5)
-            try:
-                dialogs = robot.get_hiy_dialog()
-                if dialogs:
-                    try:
-                        robot.save_dialogs(dialogs, session=session)
-                    except Exception as e:
-                        logging.error(e)
-                        session.rollback()
-
-                commands = robot.get_commands()
-                if commands:
-                    robot.response_to_ltjl(commands, session=session)
-                    robot.response_to_ltcx(commands, session=session)
-            except Exception as e:
-                logging.error(e)
+        logging.info("小道玄一 is running")
+        robot.start_mining()
+        # while True:
+        #     time.sleep(5)
+        #     try:
+        #         dialogs = robot.get_hiy_dialog()
+        #         if dialogs:
+        #             try:
+        #                 robot.save_dialogs(dialogs, session=session)
+        #             except Exception as e:
+        #                 logging.error(e)
+        #                 session.rollback()
+        #
+        #         commands = robot.get_commands()
+        #         if commands:
+        #             robot.response_to_ltjl(commands, session=session)
+        #             robot.response_to_ltcx(commands, session=session)
+        #     except Exception as e:
+        #         logging.error(e)
 
 def skrp_robot(session, login_nm, login_pwd):
 
@@ -675,13 +673,13 @@ def skrp_robot(session, login_nm, login_pwd):
             except Exception as e:
                 logging.error(e)
 
-def xnmh_robot(session, login_nm, login_pwd):
-    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE) as robot:
+def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         robot.login(login_nm, login_pwd)
         robot.load_from_training_db(session=session)
         logging.info("小尼明慧 is running")
-        # robot.start_mining()
+        robot.start_mining()
         while True:
             time.sleep(10)
             try:
@@ -702,11 +700,11 @@ if __name__ == '__main__':
     # args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
     # xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
     # xnmh_thr.start()
-    # #
+    #
     # args_xdxy=(session, LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy)
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
     # xdxy_thr.start()
-    # 
+    #
     # args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
     # skrp_thr = Thread(target=skrp_robot, args=args_skrp)
     # skrp_thr.start()

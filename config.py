@@ -2,7 +2,12 @@ import os, sys
 
 MYSQL = False
 
-IS_REMOTE = True
+IS_HEADLESS = True
+
+if sys.platform.startswith('linux'):
+    IS_REMOTE = True
+else:
+    IS_REMOTE = False
 
 host_ip = '47.100.242.240'
 port = '4444'
@@ -23,6 +28,9 @@ LOGIN_PASSWORD_skrp = 'huang001'
 LOGIN_NAME_xnmh = 'simonrob04'
 LOGIN_PASSWORD_xnmh = 'huang001'
 
+LOGIN_NAME_m = 'simonrob05'
+LOGIN_PASSWORD_m = 'huang001'
+
 if MYSQL:
     DB_CONNECT_STRING = 'mysql+pymysql://root:huang001@localhost/wsmud?charset=utf8'
 else:
@@ -30,6 +38,9 @@ else:
         DB_CONNECT_STRING = 'sqlite:////' + db_file + '/wsmud'
     else:
         DB_CONNECT_STRING = 'sqlite:///'+db_file+'/wsmud'
+
+
+# Marryrob
 
 if __name__ == '__main__':
     import re
