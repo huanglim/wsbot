@@ -22,7 +22,7 @@ from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
                     LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
                     host_ip, port, \
-                    IS_REMOTE, IS_HEADLESS
+                    IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -32,6 +32,7 @@ RE_COMMAND_DIALOG = re.compile("(小僧真一|真一|zy)(\s|，|,)?(.*)")
 RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
+RE_COMMAND_WKZN = re.compile("wkzn")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
 RE_DIALOG = re.compile('：')
@@ -65,6 +66,10 @@ class MudRobot(object):
         self.last_hiy_dialog = ""
         self.last_him_dialog = ""
         self.last_hio_dialog = ""
+        self.last_hig_dialog = ""
+
+        self.current_wk = 0
+        self.wk_last_time = None
         self.options = None
         self.driver = None
         self.chatbot = None
@@ -238,6 +243,14 @@ class MudRobot(object):
                 self.last_hiy_dialog = new_dialogs[0]
 
                 return new_dialogs[::-1]
+
+    def get_hig_dialog(self):
+        logging.debug('in the hig')
+        hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
+
+        if hig_dialogs:
+            wk_data = hig_dialogs[-1].text[4]
+            self.current_wk = (int(wk_data)-1)*10
 
     def get_commands(self):
         logging.debug('get commands')
@@ -446,6 +459,18 @@ class MudRobot(object):
                     logging.info(message)
                     self.send_message(message)
 
+    def response_to_wkzn(self, dialogs, session=None):
+
+        wkzn_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_WKZN.match(content) and wkzn_flag:
+                    wkzn_flag = False
+                    message = '目前矿山封印为:+{}'.format(self.current_wk)
+                    # logging.info(message)
+                    self.send_message(message)
+
     def response_to_dialog(self, dialogs):
 
         dialog_flag = True
@@ -597,6 +622,152 @@ class MudRobot(object):
         message = '近{},总共有{}名施主在闲聊发言共{}条, 其中{}为发言前三甲!'.format(str_period, auth_total, dialog_total, auth_list)
         return message
 
+    def get_obj_and_objid(self, obj_name):
+        obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
+        obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
+        return obj, obj_id
+
+    def kill(self,person, weapon_name=None):
+        if weapon_name:
+            # chagne the weapon
+            pass
+
+        # locate the object
+        obj, obj_id = self.get_obj_and_objid(person)
+
+        # kill the object
+        obj.click()
+        time.sleep(S_WAIT*2)
+        self.driver.find_element_by_xpath("//span[@cmd='kill "+obj_id+"']").click()
+        # wait for the finish
+        if ' ' in person:
+            person_after = re.split(' ',person)[1]+'的尸体'
+        else:
+            person_after = person + '的尸体'
+
+        WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//wht[text()='"+person_after+"']"))
+
+    def open_jh(self, direction):
+        try:
+            # if tool is hide then click the tool
+            self.driver.find_element_by_xpath("//span[@command='showtool'][@class='glyphicon glyphicon-option-horizontal tool-item br-tool hide-tool']")
+        except Exception as e:
+            logging.info('tool is active')
+        else:
+            self.driver.find_element_by_xpath("//span[@command='showtool']").click()
+            time.sleep(S_WAIT)
+
+        self.driver.find_element_by_xpath("//span[@command='jh']").click()
+        time.sleep(S_WAIT)
+
+        index = re.split(' ',direction)[2]
+        self.driver.find_element_by_xpath("//div[@class='fb-left']/div[@index='"+index+"']").click()
+        time.sleep(S_WAIT)
+        self.do_command_span(direction)
+
+    def move(self, directions):
+
+        for direction in directions:
+            if direction.startswith('jh'):
+                self.open_jh(direction)
+            else:
+                self.driver.find_element_by_css_selector("text[dir='"+direction+"']").click()
+            time.sleep(S_WAIT)
+
+    def go_to_dungeon(self, dungeon_name, hard_mode=False):
+
+        try:
+            # if tool is hide then click the tool
+            self.driver.find_element_by_xpath("//span[@command='showtool'][@class='glyphicon glyphicon-option-horizontal tool-item br-tool hide-tool']")
+        except Exception as e:
+            logging.info('tool is active')
+        else:
+            self.driver.find_element_by_xpath("//span[@command='showtool']").click()
+            time.sleep(S_WAIT)
+
+        self.driver.find_element_by_xpath("//span[@command='jh']").click()
+        time.sleep(S_WAIT)
+
+        # self.driver.find_element_by_xpath("//span[@class='footer-item'][@for='1']").click()
+        self.do_command_by_text('副本')
+        time.sleep(S_WAIT)
+
+        self.driver.find_element_by_xpath("//div[@class='fb-item'][text()='"+dungeon_name+"']").click()
+        time.sleep(S_WAIT)
+
+        if hard_mode:
+            self.do_command_by_text('困难模式')
+
+        self.driver.find_element_by_xpath("//div[@class='content-message']/pre/div/span[text()='进入副本']").click()
+        time.sleep(S_WAIT)
+
+    def do_command_cmd(self, cmd):
+        self.driver.find_element_by_xpath("//cmd[@cmd='"+cmd+"']").click()
+        time.sleep(S_WAIT)
+
+    def do_command_span(self, cmd):
+        self.driver.find_element_by_xpath("//span[@cmd='"+cmd+"']").click()
+        time.sleep(S_WAIT)
+
+    def do_command_by_text(self, text):
+        self.driver.find_element_by_xpath("//span[text()='"+text+"']").click()
+        time.sleep(S_WAIT)
+
+    def click_person_and_run_cmd(self, person, text_command):
+        self.driver.find_element_by_xpath("//span[@class='item-name'][text()='" + person + "']").click()
+        time.sleep(S_WAIT)
+        self.do_command_by_text(text_command)
+
+    def refresh(self):
+        self.driver.get(WSMUD_URL)
+
+        time.sleep(S_WAIT*4)
+        select_btn =  self.driver.find_element_by_xpath("//li[@command='SelectRole']")
+        select_btn.click()
+
+    def clean_up(self):
+        self.move(PLACES.get('扬州城-打铁铺'))
+        self.click_person_and_run_cmd('铁匠铺老板 铁匠','购买')
+        self.do_command_by_text('清理包裹')
+
+def dungeon_czj(robot):
+    robot.go_to_dungeon('财主家')
+    robot.move(['north', ])
+    robot.kill('管家')
+    robot.move(['north',])
+
+    robot.kill('财主 崔员外')
+    robot.do_command_cmd('look men')
+    robot.do_command_span('open men')
+
+    try:
+        robot.move(['east', ])
+    except Exception as e:
+        logging.info('no key')
+    else:
+        obj, obj_id = robot.get_obj_and_objid('丫鬟')
+        robot.do_command_span('ok ' + obj_id)
+
+        robot.move(['west', 'south', 'south', ])
+        robot.move(['north','north' ])
+
+        try:
+            robot.move(['west', ])
+        except Exception as e:
+            robot.move(['north', 'west'])
+
+        robot.click_person_and_run_cmd('财主女儿 崔莺莺', '询问东厢')
+        robot.kill('财主女儿 崔莺莺')
+        robot.move(['east', 'east'])
+        robot.do_command_cmd('look gui')
+        robot.do_command_by_text('搜索')
+    finally:
+        pass
+
+    robot.do_command_by_text('动作')
+    robot.do_command_by_text('完成副本')
+    robot.do_command_by_text('领取奖励并离开副本')
+
 def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
@@ -629,10 +800,12 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
         robot.login(login_nm, login_pwd)
         logging.info("小道玄一 is running")
-        robot.start_mining()
-        # while True:
-        #     time.sleep(5)
-        #     try:
+        # robot.start_mining()
+        while True:
+            time.sleep(3)
+            try:
+                dungeon_czj(robot)
+                robot.refresh()
         #         dialogs = robot.get_hiy_dialog()
         #         if dialogs:
         #             try:
@@ -645,33 +818,53 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         #         if commands:
         #             robot.response_to_ltjl(commands, session=session)
         #             robot.response_to_ltcx(commands, session=session)
-        #     except Exception as e:
-        #         logging.error(e)
-
-def skrp_robot(session, login_nm, login_pwd):
-
-    logging.info("守口如瓶 is running")
-
-    with MudRobot() as robot:
-
-        robot.login(login_nm, login_pwd)
-        # robot.start_mining()
-        while True:
-            time.sleep(5)
-            try:
-                dialogs = robot.get_hiy_dialog()
-                if dialogs:
-                    try:
-                        robot.save_dialogs(dialogs, session=session)
-                    except Exception as e:
-                        logging.error(e)
-                        session.rollback()
-
-                commands = robot.get_commands()
-                if commands:
-                    robot.response_to_mplt(commands, session=session)
             except Exception as e:
                 logging.error(e)
+                raise
+
+# def skrp_robot(session, login_nm, login_pwd):
+#
+#     logging.info("守口如瓶 is running")
+#
+#     with MudRobot() as robot:
+#
+#         robot.login(login_nm, login_pwd)
+#         # robot.start_mining()
+#         while True:
+#             time.sleep(5)
+#             try:
+#                 dialogs = robot.get_hiy_dialog()
+#                 if dialogs:
+#                     try:
+#                         robot.save_dialogs(dialogs, session=session)
+#                     except Exception as e:
+#                         logging.error(e)
+#                         session.rollback()
+#
+#                 commands = robot.get_commands()
+#                 if commands:
+#                     robot.response_to_mplt(commands, session=session)
+#             except Exception as e:
+#                 logging.error(e)
+
+def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
+    with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
+
+        robot.login(login_nm, login_pwd)
+        logging.info("守口如瓶 is running")
+        robot.start_mining()
+        time.sleep(12)
+        robot.send_message('*清醒')
+        while True:
+            try:
+                robot.get_hig_dialog()
+                commands = robot.get_commands()
+                if commands:
+                    robot.response_to_wkzn(commands)
+            except Exception as e:
+                logging.error(e)
+
+            time.sleep(5)
 
 def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
@@ -681,7 +874,7 @@ def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         logging.info("小尼明慧 is running")
         robot.start_mining()
         while True:
-            time.sleep(10)
+            time.sleep(5)
             try:
                 commands = robot.get_commands()
                 if commands:
@@ -692,7 +885,7 @@ def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 if __name__ == '__main__':
 
     session = Session()
-
+    #
     args_xszy=(session, LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy)
     xszy_thr = Thread(target=xszy_robot, args=args_xszy)
     xszy_thr.start()
@@ -705,6 +898,6 @@ if __name__ == '__main__':
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
     # xdxy_thr.start()
     #
-    # args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
-    # skrp_thr = Thread(target=skrp_robot, args=args_skrp)
-    # skrp_thr.start()
+    args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
+    skrp_thr = Thread(target=skrp_robot, args=args_skrp)
+    skrp_thr.start()
