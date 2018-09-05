@@ -1,7 +1,23 @@
-import os, logging
+import os, logging, time
 from db import Session
+from datetime import datetime, timedelta
 
 logging.basicConfig(level='DEBUG')
+
+def test_qnjs(robot):
+    msgs = [
+    ['【闲聊】阿珹：qnjs 0 100 白', ],
+    ['【闲聊】阿珹：qnjs 99999 1000000 6', ],
+    ['【闲聊】阿珹：qnjs 100 100 白色', ],
+    ['【闲聊】阿珹：qnjs 101 100 白色', ],
+            ]
+
+    for msg in msgs:
+        try:
+            robot.response_to_qnjs(msg)
+        except Exception as e:
+            logging.error(e)
+
 def test_dialog(session, robot):
 
     # msg = ['【闲聊】阿珹：zy 你会什么',]
@@ -16,9 +32,9 @@ def test_dialog(session, robot):
         # ['【闲聊】阿珹：zy 你想娶老婆吗', ],
         # ['【闲聊】阿珹：zy 峨眉怎么走', ],
         # ['【闲聊】阿珹：真一武当谁厉害', ],
-        ['【闲聊】阿珹：真一 铁镐', ],
-        # # ['【闲聊】阿珹：真一', ],
-        # ['【闲聊】阿珹：zy 你被谁欺负了', ],
+        # ['【闲聊】阿珹：真一 铁镐', ],
+        ['【闲聊】阿珹：qnjs 0 100 白', ],
+        ['【闲聊】阿珹：qnjs 0 100 6', ],
         # # ['【闲聊】阿珹：zy 来首诗', ],
         # ['【闲聊】阿珹：真一 一苇渡江', ],
         ]
@@ -77,10 +93,22 @@ def test_training(session, robot):
     #     except Exception as e:
     #         logging.error(e)
 
+def minutes_seconds(td):
+    return td.seconds//60, td.seconds % 60
+
+def test_time():
+    now = datetime.now()
+    during = timedelta(seconds=255)
+    span = now + during
+
+    td = span- datetime.now()
+    print(minutes_seconds(td),td)
+
 if __name__ == '__main__':
 
     session = Session()
     from mudrobot import MudRobot
     robot = MudRobot()
-    test_training(session=session, robot=robot)
+    # test_training(session=session, robot=robot)
     # test_dialog(session=session, robot=robot)
+    test_qnjs(robot=robot)

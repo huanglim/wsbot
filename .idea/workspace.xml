@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/auto_dungeons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dryrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/dryrun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,9 +19,10 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="857" column="19" lean-forward="true" selection-start-line="857" selection-start-column="19" selection-end-line="857" selection-end-column="19" />
+            <state relative-caret-position="313">
+              <caret line="896" column="20" lean-forward="true" selection-start-line="896" selection-start-column="20" selection-end-line="896" selection-end-column="20" />
               <folding>
+                <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#1420#1440#0" />
                 <element signature="e#1511#1523#1" />
                 <element signature="e#2112#4336#0" />
@@ -53,6 +53,8 @@
                 <element signature="e#8271#8569#0" />
                 <element signature="e#8315#8444#0" />
                 <element signature="e#8490#8569#0" />
+                <element signature="e#8880#9332#0" />
+                <element signature="e#8863#9315#0" />
                 <element signature="e#8607#9096#0" />
                 <element signature="e#8798#9096#0" />
                 <element signature="e#8842#8971#0" />
@@ -89,6 +91,8 @@
                 <element signature="e#15505#16146#0" />
                 <element signature="e#15631#16146#0" />
                 <element signature="e#15683#15752#0" />
+                <element signature="e#16633#17032#0" />
+                <element signature="e#17184#17902#0" />
                 <element signature="e#16200#16751#0" />
                 <element signature="e#16259#16751#0" />
                 <element signature="e#16301#16751#0" />
@@ -137,8 +141,6 @@
                 <element signature="e#25209#25378#0" />
                 <element signature="e#25411#25581#0" />
                 <element signature="e#25615#25742#0" />
-                <element signature="e#25772#26742#0" />
-                <element signature="e#26093#26601#0" />
                 <element signature="e#26817#27595#0" />
                 <element signature="e#27135#27595#0" />
                 <element signature="e#27182#27527#0" />
@@ -146,12 +148,25 @@
                 <element signature="e#27263#27269#0" />
                 <element signature="e#27670#28635#0" />
                 <element signature="e#27765#28635#0" />
-                <element signature="e#27901#28635#0" />
-                <element signature="e#27948#27998#0" />
-                <element signature="e#28007#28049#0" />
                 <element signature="e#28597#28635#0" />
-                <element signature="e#28637#28684#0" />
+                <element signature="e#30838#31401#0" />
                 <element signature="e#29474#30006#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dryrun.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dryrun.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#105#324#0" />
+                <element signature="e#227#1356#0" />
+                <element signature="e#1657#2669#0" />
+                <element signature="e#2692#2803#0" />
               </folding>
             </state>
           </provider>
@@ -172,8 +187,8 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="401">
+              <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -181,8 +196,8 @@
       <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7546">
-              <caret line="343" selection-start-line="343" selection-end-line="343" />
+            <state relative-caret-position="-7494">
+              <caret line="334" column="7" selection-start-line="334" selection-start-column="7" selection-end-line="334" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -258,13 +273,13 @@
         <option value="$PROJECT_DIR$/testing.py" />
         <option value="$PROJECT_DIR$/../proxy pool/vote_via_selenium.py" />
         <option value="$PROJECT_DIR$/db/testing.py" />
-        <option value="$PROJECT_DIR$/dryrun.py" />
         <option value="$PROJECT_DIR$/db/modules.py" />
         <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/chatppattern.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/auto_dungeons.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/dryrun.py" />
+        <option value="$PROJECT_DIR$/chatppattern.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
       </list>
     </option>
@@ -311,7 +326,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.mudrobot">
+  <component name="RunManager" selected="Python.dryrun">
     <configuration name="auto_dungeons" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wsmud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -411,11 +426,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dryrun" />
         <item itemvalue="Python.mudrobot" />
         <item itemvalue="Python.auto_dungeons" />
         <item itemvalue="Python.generate_templates" />
         <item itemvalue="Python.modules" />
-        <item itemvalue="Python.dryrun" />
       </list>
     </recent_temporary>
   </component>
@@ -492,7 +507,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="23" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -784,13 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dryrun.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="82" column="33" lean-forward="true" selection-start-line="82" selection-start-column="33" selection-end-line="82" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/modules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="989">
@@ -813,13 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7546">
-          <caret line="343" selection-start-line="343" selection-end-line="343" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/auto_dungeons.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -832,16 +833,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="401">
+          <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatppattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7494">
+          <caret line="334" column="7" selection-start-line="334" selection-start-column="7" selection-end-line="334" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dryrun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#105#324#0" />
+            <element signature="e#227#1356#0" />
+            <element signature="e#1657#2669#0" />
+            <element signature="e#2692#2803#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="857" column="19" lean-forward="true" selection-start-line="857" selection-start-column="19" selection-end-line="857" selection-end-column="19" />
+        <state relative-caret-position="313">
+          <caret line="896" column="20" lean-forward="true" selection-start-line="896" selection-start-column="20" selection-end-line="896" selection-end-column="20" />
           <folding>
+            <element signature="e#0#9#0" expanded="true" />
             <element signature="e#1420#1440#0" />
             <element signature="e#1511#1523#1" />
             <element signature="e#2112#4336#0" />
@@ -872,6 +895,8 @@
             <element signature="e#8271#8569#0" />
             <element signature="e#8315#8444#0" />
             <element signature="e#8490#8569#0" />
+            <element signature="e#8880#9332#0" />
+            <element signature="e#8863#9315#0" />
             <element signature="e#8607#9096#0" />
             <element signature="e#8798#9096#0" />
             <element signature="e#8842#8971#0" />
@@ -908,6 +933,8 @@
             <element signature="e#15505#16146#0" />
             <element signature="e#15631#16146#0" />
             <element signature="e#15683#15752#0" />
+            <element signature="e#16633#17032#0" />
+            <element signature="e#17184#17902#0" />
             <element signature="e#16200#16751#0" />
             <element signature="e#16259#16751#0" />
             <element signature="e#16301#16751#0" />
@@ -956,8 +983,6 @@
             <element signature="e#25209#25378#0" />
             <element signature="e#25411#25581#0" />
             <element signature="e#25615#25742#0" />
-            <element signature="e#25772#26742#0" />
-            <element signature="e#26093#26601#0" />
             <element signature="e#26817#27595#0" />
             <element signature="e#27135#27595#0" />
             <element signature="e#27182#27527#0" />
@@ -965,11 +990,8 @@
             <element signature="e#27263#27269#0" />
             <element signature="e#27670#28635#0" />
             <element signature="e#27765#28635#0" />
-            <element signature="e#27901#28635#0" />
-            <element signature="e#27948#27998#0" />
-            <element signature="e#28007#28049#0" />
             <element signature="e#28597#28635#0" />
-            <element signature="e#28637#28684#0" />
+            <element signature="e#30838#31401#0" />
             <element signature="e#29474#30006#0" />
           </folding>
         </state>

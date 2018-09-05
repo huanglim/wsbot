@@ -22,7 +22,8 @@ from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
                     LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
                     host_ip, port, \
-                    IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT
+                    IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
+                    COLOR
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -33,6 +34,7 @@ RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
 RE_COMMAND_WKZN = re.compile("wkzn")
+RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
 RE_DIALOG = re.compile('：')
@@ -69,10 +71,11 @@ class MudRobot(object):
         self.last_hig_dialog = ""
 
         self.current_wk = 0
-        self.wk_last_time = None
+        self.wk_effective_time = None
         self.options = None
         self.driver = None
         self.chatbot = None
+        self.init_flag = False
 
     def __enter__(self):
         if not self.remote:
@@ -244,13 +247,33 @@ class MudRobot(object):
 
                 return new_dialogs[::-1]
 
+    def get_hig_dialog_init(self):
+        logging.debug('in the hig')
+        hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
+
+        if hig_dialogs:
+            wk_sentence = hig_dialogs[-1].text[4]
+            wk_data = (int(wk_sentence)-1)*10
+
+            # update wk
+            if wk_data != self.current_wk:
+                self.current_wk = wk_data
+                self.wk_effective_time = datetime.now()
+
     def get_hig_dialog(self):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
         if hig_dialogs:
-            wk_data = hig_dialogs[-1].text[4]
-            self.current_wk = (int(wk_data)-1)*10
+            wk_sentence = hig_dialogs[-1].text[4]
+            wk_data = (int(wk_sentence)-1)*10
+
+            # update wk
+            if wk_data != self.current_wk:
+                self.current_wk = wk_data
+                self.wk_effective_time = datetime.now()
+                self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
+                self.init_flag = True
 
     def get_commands(self):
         logging.debug('get commands')
@@ -467,7 +490,40 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_WKZN.match(content) and wkzn_flag:
                     wkzn_flag = False
-                    message = '目前矿山封印为:+{}'.format(self.current_wk)
+
+                    if self.init_flag:
+                        td = datetime.now() - self.wk_effective_time
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+                        message = '目前矿山封印为:+{},持续时间为:{}分{}秒'.format(self.current_wk, minutes, seconds)
+                    else:
+                        message = '目前矿山封印为:+{}'.format(self.current_wk)
+                    # logging.info(message)
+                    self.send_message(message)
+
+    def response_to_qnjs(self, dialogs, session=None):
+
+        qnjs_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_QNJS.match(content) and qnjs_flag:
+                    qnjs_flag = False
+                    qnjs_data = RE_COMMAND_QNJS.match(content).groups()
+                    start_level = int(qnjs_data[0])
+                    end_level = int(qnjs_data[1])
+                    color_value = COLOR.get(qnjs_data[2])
+
+                    if start_level > 9999 or \
+                        end_level > 9999 or \
+                        start_level > end_level or \
+                        color_value is None:
+
+                        logging.error('qnjs input is incorrect {},{},{}'.format(start_level,end_level,qnjs_data[2]))
+                        return
+
+                    result = (start_level+end_level)*(end_level-start_level)*5*color_value/2
+
+                    message = '所需潜能为:{}'.format(int(result))
                     # logging.info(message)
                     self.send_message(message)
 
@@ -730,44 +786,6 @@ class MudRobot(object):
         self.click_person_and_run_cmd('铁匠铺老板 铁匠','购买')
         self.do_command_by_text('清理包裹')
 
-def dungeon_czj(robot):
-    robot.go_to_dungeon('财主家')
-    robot.move(['north', ])
-    robot.kill('管家')
-    robot.move(['north',])
-
-    robot.kill('财主 崔员外')
-    robot.do_command_cmd('look men')
-    robot.do_command_span('open men')
-
-    try:
-        robot.move(['east', ])
-    except Exception as e:
-        logging.info('no key')
-    else:
-        obj, obj_id = robot.get_obj_and_objid('丫鬟')
-        robot.do_command_span('ok ' + obj_id)
-
-        robot.move(['west', 'south', 'south', ])
-        robot.move(['north','north' ])
-
-        try:
-            robot.move(['west', ])
-        except Exception as e:
-            robot.move(['north', 'west'])
-
-        robot.click_person_and_run_cmd('财主女儿 崔莺莺', '询问东厢')
-        robot.kill('财主女儿 崔莺莺')
-        robot.move(['east', 'east'])
-        robot.do_command_cmd('look gui')
-        robot.do_command_by_text('搜索')
-    finally:
-        pass
-
-    robot.do_command_by_text('动作')
-    robot.do_command_by_text('完成副本')
-    robot.do_command_by_text('领取奖励并离开副本')
-
 def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
@@ -804,7 +822,7 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         while True:
             time.sleep(3)
             try:
-                dungeon_czj(robot)
+                # dungeon_czj(robot)
                 robot.refresh()
         #         dialogs = robot.get_hiy_dialog()
         #         if dialogs:
@@ -822,31 +840,6 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                 logging.error(e)
                 raise
 
-# def skrp_robot(session, login_nm, login_pwd):
-#
-#     logging.info("守口如瓶 is running")
-#
-#     with MudRobot() as robot:
-#
-#         robot.login(login_nm, login_pwd)
-#         # robot.start_mining()
-#         while True:
-#             time.sleep(5)
-#             try:
-#                 dialogs = robot.get_hiy_dialog()
-#                 if dialogs:
-#                     try:
-#                         robot.save_dialogs(dialogs, session=session)
-#                     except Exception as e:
-#                         logging.error(e)
-#                         session.rollback()
-#
-#                 commands = robot.get_commands()
-#                 if commands:
-#                     robot.response_to_mplt(commands, session=session)
-#             except Exception as e:
-#                 logging.error(e)
-
 def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
@@ -854,8 +847,10 @@ def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         logging.info("守口如瓶 is running")
         robot.start_mining()
         time.sleep(12)
+        robot.get_hig_dialog_init()
         robot.send_message('*清醒')
         while True:
+            time.sleep(5)
             try:
                 robot.get_hig_dialog()
                 commands = robot.get_commands()
@@ -864,21 +859,20 @@ def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
             except Exception as e:
                 logging.error(e)
 
-            time.sleep(5)
-
 def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         robot.login(login_nm, login_pwd)
-        robot.load_from_training_db(session=session)
-        logging.info("小尼明慧 is running")
+        # robot.load_from_training_db(session=session)
+        logging.info("明慧 is running")
         robot.start_mining()
+        robot.send_message('*清醒')
         while True:
             time.sleep(5)
             try:
                 commands = robot.get_commands()
                 if commands:
-                    robot.response_to_training(commands, session=session)
+                    robot.response_to_qnjs(commands, session=session)
             except Exception as e:
                 logging.error(e)
 
@@ -890,9 +884,9 @@ if __name__ == '__main__':
     xszy_thr = Thread(target=xszy_robot, args=args_xszy)
     xszy_thr.start()
 
-    # args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
-    # xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
-    # xnmh_thr.start()
+    args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
+    xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
+    xnmh_thr.start()
     #
     # args_xdxy=(session, LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy)
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
