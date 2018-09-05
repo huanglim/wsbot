@@ -46,8 +46,8 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
             try:
                 dungeon_czj(robot)
                 # robot.move(PLACES.get('武当派-后山小院'))
-                # robot.clean_up()
-                # robot.refresh()
+                robot.clean_up()
+                robot.refresh()
 
             except Exception as e:
                 logging.error(e)

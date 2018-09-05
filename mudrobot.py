@@ -272,7 +272,10 @@ class MudRobot(object):
             if wk_data != self.current_wk:
                 self.current_wk = wk_data
                 self.wk_effective_time = datetime.now()
-                self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
+                if self.current_wk == 0:
+                    self.send_message('矿山封印消失, 大佬们快续杯! '.format(self.current_wk))
+                else:
+                    self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
                 self.init_flag = True
 
     def get_commands(self):
@@ -714,6 +717,12 @@ class MudRobot(object):
             time.sleep(S_WAIT)
 
         self.driver.find_element_by_xpath("//span[@command='jh']").click()
+        time.sleep(S_WAIT*2)
+
+        # self.driver.find_element_by_xpath("//div[@class='dialog-footer ']/span[@for='0']").click()
+        # time.sleep(S_WAIT)
+
+        self.do_command_by_text('门派')
         time.sleep(S_WAIT)
 
         index = re.split(' ',direction)[2]
@@ -742,9 +751,11 @@ class MudRobot(object):
             time.sleep(S_WAIT)
 
         self.driver.find_element_by_xpath("//span[@command='jh']").click()
-        time.sleep(S_WAIT)
+        time.sleep(S_WAIT*2)
 
-        # self.driver.find_element_by_xpath("//span[@class='footer-item'][@for='1']").click()
+        # self.driver.find_element_by_xpath("//div[@class='dialog-footer']/span[@for='1']").click()
+        # time.sleep(S_WAIT)
+
         self.do_command_by_text('副本')
         time.sleep(S_WAIT)
 
@@ -767,6 +778,7 @@ class MudRobot(object):
 
     def do_command_by_text(self, text):
         self.driver.find_element_by_xpath("//span[text()='"+text+"']").click()
+        # self.driver.find_element_by_css_selector("span:contains("+text+")").click()
         time.sleep(S_WAIT)
 
     def click_person_and_run_cmd(self, person, text_command):
@@ -841,6 +853,7 @@ def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                 raise
 
 def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
+
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         robot.login(login_nm, login_pwd)
@@ -883,15 +896,15 @@ if __name__ == '__main__':
     args_xszy=(session, LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy)
     xszy_thr = Thread(target=xszy_robot, args=args_xszy)
     xszy_thr.start()
-
-    args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
-    xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
-    xnmh_thr.start()
+    #
+    # args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
+    # xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
+    # xnmh_thr.start()
     #
     # args_xdxy=(session, LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy)
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
     # xdxy_thr.start()
     #
-    args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
-    skrp_thr = Thread(target=skrp_robot, args=args_skrp)
-    skrp_thr.start()
+    # args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
+    # skrp_thr = Thread(target=skrp_robot, args=args_skrp)
+    # skrp_thr.start()
