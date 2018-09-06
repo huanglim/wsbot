@@ -110,5 +110,5 @@ if __name__ == '__main__':
     from mudrobot import MudRobot
     robot = MudRobot()
     # test_training(session=session, robot=robot)
-    # test_dialog(session=session, robot=robot)
+    test_dialog(session=session, robot=robot)
     test_qnjs(robot=robot)
