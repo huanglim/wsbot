@@ -34,6 +34,7 @@ RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
 RE_COMMAND_WKZN = re.compile("wkzn")
+RE_COMMAND_BOSS = re.compile("boss")
 RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
@@ -72,6 +73,8 @@ class MudRobot(object):
 
         self.current_wk = 0
         self.wk_effective_time = None
+        self.boss_effective_time = None
+        self.mpz_effective_time = None
         self.options = None
         self.driver = None
         self.chatbot = None
@@ -277,6 +280,22 @@ class MudRobot(object):
                 else:
                     self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
                 self.init_flag = True
+
+    def get_him_dialog(self):
+
+        him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
+        new_him_dialogs = []
+        if him_dialogs:
+            for d in him_dialogs[::-1]:
+                if d.text == self.last_him_dialog:
+                    break
+                else:
+                    new_him_dialogs.append(d.text)
+
+            if new_him_dialogs:
+                self.last_him_dialog = new_him_dialogs[0]
+
+                return new_him_dialogs
 
     def get_commands(self):
         logging.debug('get commands')
@@ -511,6 +530,33 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_QNJS.match(content) and qnjs_flag:
                     qnjs_flag = False
+                    qnjs_data = RE_COMMAND_QNJS.match(content).groups()
+                    start_level = int(qnjs_data[0])
+                    end_level = int(qnjs_data[1])
+                    color_value = COLOR.get(qnjs_data[2])
+
+                    if start_level > 9999 or \
+                        end_level > 9999 or \
+                        start_level > end_level or \
+                        color_value is None:
+
+                        logging.error('qnjs input is incorrect {},{},{}'.format(start_level,end_level,qnjs_data[2]))
+                        return
+
+                    result = (start_level+end_level)*(end_level-start_level)*5*color_value/2
+
+                    message = '所需潜能为:{}'.format(int(result))
+                    # logging.info(message)
+                    self.send_message(message)
+
+    def response_to_boss(self, dialogs, ):
+
+        boss_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_BOSS.match(content) and boss_flag:
+                    boss_flag = False
                     qnjs_data = RE_COMMAND_QNJS.match(content).groups()
                     start_level = int(qnjs_data[0])
                     end_level = int(qnjs_data[1])
