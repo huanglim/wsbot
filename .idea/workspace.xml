@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dryrun.py" beforeDir="false" afterPath="$PROJECT_DIR$/dryrun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,7 +16,7 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19250">
+            <state relative-caret-position="-471">
               <caret line="904" column="25" selection-start-line="904" selection-start-column="25" selection-end-line="904" selection-end-column="25" />
             </state>
           </provider>
@@ -47,13 +44,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto_dungeons.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="auto_dungeons.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auto_dungeons.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="506">
               <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chatppattern.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-176">
+              <caret line="439" column="3" lean-forward="true" selection-start-line="439" selection-start-column="3" selection-end-line="439" selection-end-column="3" />
+              <folding>
+                <element signature="e#15#156#0" />
+                <element signature="e#243#332#0" />
+                <element signature="e#610#760#0" />
+                <element signature="e#1032#1428#0" />
+                <element signature="e#1585#1690#0" />
+                <element signature="e#2471#2570#0" />
+                <element signature="e#4625#4742#0" />
               </folding>
             </state>
           </provider>
@@ -70,7 +85,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>蛇岛</find>
       <find>移花宫</find>
       <find>面具</find>
       <find>刷</find>
@@ -100,6 +114,7 @@
       <find>关外</find>
       <find>养精丹</find>
       <find>帮派</find>
+      <find>拜师</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -111,9 +126,9 @@
       <replace>会|會</replace>
       <replace>|会|會</replace>
       <replace>USER_TRAINING_SET</replace>
-      <replace />
-      <replace />
-      <replace />
+      <replace>参考设置-&gt;帮助-&gt;副本攻略 输入 副本名 掉落或者数据 可查询相应信息(后续副本更新中)</replace>
+      <replace>副本攻略. 输入</replace>
+      <replace>. 询问真一 副</replace>
       <replace>&quot;],</replace>
     </replaceStrings>
   </component>
@@ -338,7 +353,7 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17903645" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17903645" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
@@ -694,17 +709,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/auto_dungeons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19250">
+        <state relative-caret-position="-471">
           <caret line="904" column="25" selection-start-line="904" selection-start-column="25" selection-end-line="904" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chatppattern.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-110">
-          <caret line="439" column="8" selection-start-line="439" selection-start-column="8" selection-end-line="439" selection-end-column="8" />
+        <state relative-caret-position="-176">
+          <caret line="439" column="3" lean-forward="true" selection-start-line="439" selection-start-column="3" selection-end-line="439" selection-end-column="3" />
           <folding>
             <element signature="e#15#156#0" />
             <element signature="e#243#332#0" />
@@ -713,32 +738,6 @@
             <element signature="e#1585#1690#0" />
             <element signature="e#2471#2570#0" />
             <element signature="e#4625#4742#0" />
-            <element signature="e#7644#7748#0" />
-            <element signature="e#8295#12676#0" />
-            <element signature="e#12888#14892#0" />
-            <element signature="e#14895#14898#0" />
-            <element signature="e#20574#20580#0" />
-            <element signature="e#25896#25917#0" />
-            <element signature="e#26032#35107#0" />
-            <element signature="e#31403#31409#0" />
-            <element signature="e#32076#32121#0" />
-            <element signature="e#33421#33478#0" />
-            <element signature="e#35132#36634#0" />
-            <element signature="e#36662#37158#0" />
-            <element signature="e#37180#37184#0" />
-            <element signature="e#37217#37679#0" />
-            <element signature="e#37251#37375#0" />
-            <element signature="e#37381#37409#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auto_dungeons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
