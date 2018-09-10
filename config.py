@@ -3,6 +3,7 @@ import os, sys
 IS_ALL_ENABLE = True
 INDIVIDUAL_COMMAND = False
 
+UPDATE_WKZN_STATUS_CHANGE = False
 MYSQL = False
 if sys.platform.startswith('linux'):
     IS_REMOTE = True

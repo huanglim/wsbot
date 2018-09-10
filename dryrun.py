@@ -38,10 +38,10 @@ def test_dialog(session, robot):
         # ['【闲聊】阿珹：zy 你想娶老婆吗', ],
         # ['【闲聊】阿珹：zy 峨眉怎么走', ],
         # ['【闲聊】阿珹：真一武当谁厉害', ],
-        # ['【闲聊】阿珹：真一 铁镐', ],
+        ['【闲聊】阿珹：真一 铁镐', ],
         ['【闲聊】阿珹：zy qnjs 0 100 白', ],
         ['【闲聊】阿珹：qnjs 0 100 6', ],
-        # # ['【闲聊】阿珹：zy 来首诗', ],
+        ['【闲聊】阿珹：zy 来首诗', ],
         # ['【闲聊】阿珹：真一 一苇渡江', ],
         ]
     for msg in msgs:
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     from mudrobot import MudRobot
     robot = MudRobot()
     # test_training(session=session, robot=robot)
-    # test_dialog(session=session, robot=robot)
+    test_dialog(session=session, robot=robot)
     test_qnjs(robot=robot)
 
     # print('the action is {:.1f} wan'.format(4000000/10000))

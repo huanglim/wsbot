@@ -17,13 +17,14 @@ from db.modules import Dialog, TrainingData
 # from chatterbot import ChatBot
 
 from config import WSMUD_URL, WAITSEC, \
-                    LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy, \
-                    LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy, \
-                    LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
-                    LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
-                    host_ip, port, \
-                    IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
-                    COLOR, IS_ALL_ENABLE, INDIVIDUAL_COMMAND
+    LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy, \
+    LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy, \
+    LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp, \
+    LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
+    host_ip, port, \
+    IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
+    COLOR, IS_ALL_ENABLE, INDIVIDUAL_COMMAND, \
+    UPDATE_WKZN_STATUS_CHANGE
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -302,7 +303,7 @@ class MudRobot(object):
                 self.current_wk = wk_data
                 self.wk_effective_time = datetime.now()
 
-                if not IS_ALL_ENABLE:
+                if UPDATE_WKZN_STATUS_CHANGE:
                     if self.current_wk == 0:
                         self.send_message('矿山封印消失, 大佬们快续杯! '.format(self.current_wk))
                     else:
@@ -419,12 +420,13 @@ class MudRobot(object):
         logging.info('in the mining')
         try:
             combat_btn = self.driver.find_element_by_xpath("//span[@command='showcombat']")
-            time.sleep(1)
             combat_btn.click()
-
             time.sleep(1)
+
             mining_btn = self.driver.find_element_by_xpath("//span[@class='act-item'][@cmd='wa']")
             mining_btn.click()
+            time.sleep(1)
+
         except Exception as e:
             logging.error(e)
 
@@ -623,20 +625,26 @@ class MudRobot(object):
 
     def response_to_dialog(self, dialogs):
 
-        dialog_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):
                 content = self.get_message_content(msg)
                 res = RE_COMMAND_DIALOG.match(content)
-
-                if res and dialog_flag:
-                    auth = self.get_message_auth(msg)
-
-                    if auth != '小僧真一':
-                        chat_content = res.groups()[2]
-                        message = self.generate_answer(chat_content)
-                        logging.info(message)
-                        self.send_message(message)
+                if res:
+                    if IS_ALL_ENABLE and \
+                        (
+                                RE_COMMAND_WKZN.match(content) or \
+                                RE_COMMAND_BOSS.match(content) or \
+                                RE_COMMAND_XY.match(content) or \
+                                RE_COMMAND_QNJS.match(content)
+                        ):
+                        pass
+                    else:
+                        auth = self.get_message_auth(msg)
+                        if auth != '小僧真一':
+                            chat_content = res.groups()[2]
+                            message = self.generate_answer(chat_content)
+                            logging.info(message)
+                            self.send_message(message)
 
     def response_to_training(self, dialogs, session, is_enabled=False):
 
@@ -898,8 +906,8 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
         robot.start_mining()
         # robot.init_chatbot()
-        time.sleep(1)
         if IS_ALL_ENABLE:
+            time.sleep(10)
             robot.update_wkzn_info_init()
         robot.send_message('*清醒')
 
