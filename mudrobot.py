@@ -34,11 +34,13 @@ RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
 RE_COMMAND_WKZN = re.compile("wkzn")
-RE_COMMAND_BOSS = re.compile("boss")
+RE_COMMAND_BOSS = re.compile("boss|BOSS")
+
 RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
 RE_DIALOG = re.compile('：')
+RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -79,6 +81,7 @@ class MudRobot(object):
         self.driver = None
         self.chatbot = None
         self.init_flag = False
+        self.boss_init_flag = False
 
     def __enter__(self):
         if not self.remote:
@@ -281,17 +284,21 @@ class MudRobot(object):
                     self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
                 self.init_flag = True
 
-    def get_him_dialog(self):
+    def update_boss_info(self):
 
         him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
         new_him_dialogs = []
         if him_dialogs:
             for d in him_dialogs[::-1]:
-                if d.text == self.last_him_dialog:
+                content = self.get_message_content(d.text)
+                if content == self.last_him_dialog:
                     break
                 else:
-                    new_him_dialogs.append(d.text)
-
+                    new_him_dialogs.append(content)
+                    if RE_BOSS.match(content):
+                        self.boss_effective_time = datetime.now()
+                        self.boss_content = content
+                        self.boss_init_flag = True
             if new_him_dialogs:
                 self.last_him_dialog = new_him_dialogs[0]
 
@@ -545,36 +552,22 @@ class MudRobot(object):
 
                     result = (start_level+end_level)*(end_level-start_level)*5*color_value/2
 
-                    message = '所需潜能为:{}'.format(int(result))
+                    message = '所需潜能为:{:.1f}万'.format(int(result)/10000)
                     # logging.info(message)
                     self.send_message(message)
 
-    def response_to_boss(self, dialogs, ):
+    def response_to_boss(self, dialogs ):
 
         boss_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_BOSS.match(content) and boss_flag:
-                    boss_flag = False
-                    qnjs_data = RE_COMMAND_QNJS.match(content).groups()
-                    start_level = int(qnjs_data[0])
-                    end_level = int(qnjs_data[1])
-                    color_value = COLOR.get(qnjs_data[2])
-
-                    if start_level > 9999 or \
-                        end_level > 9999 or \
-                        start_level > end_level or \
-                        color_value is None:
-
-                        logging.error('qnjs input is incorrect {},{},{}'.format(start_level,end_level,qnjs_data[2]))
-                        return
-
-                    result = (start_level+end_level)*(end_level-start_level)*5*color_value/2
-
-                    message = '所需潜能为:{}'.format(int(result))
-                    # logging.info(message)
-                    self.send_message(message)
+                    if self.boss_init_flag:
+                        td = datetime.now() - self.boss_effective_time
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+                        message = '{}分{}秒前,{}'.format(minutes, seconds, self.boss_content)
+                        self.send_message(message)
 
     def response_to_dialog(self, dialogs):
 
@@ -929,9 +922,11 @@ def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         while True:
             time.sleep(5)
             try:
+                # robot.update_boss_info()
                 commands = robot.get_commands()
                 if commands:
                     robot.response_to_qnjs(commands, session=session)
+                    # robot.response_to_boss(commands)
             except Exception as e:
                 logging.error(e)
 

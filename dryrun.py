@@ -106,9 +106,11 @@ def test_time():
 
 if __name__ == '__main__':
 
-    session = Session()
-    from mudrobot import MudRobot
-    robot = MudRobot()
-    # test_training(session=session, robot=robot)
-    test_dialog(session=session, robot=robot)
-    test_qnjs(robot=robot)
+    # session = Session()
+    # from mudrobot import MudRobot
+    # robot = MudRobot()
+    # # test_training(session=session, robot=robot)
+    # test_dialog(session=session, robot=robot)
+    # test_qnjs(robot=robot)
+
+    print('the action is {:.1f} wan'.format(4000000/10000))
