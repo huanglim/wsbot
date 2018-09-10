@@ -1,7 +1,9 @@
 import os, sys
 
-MYSQL = False
+IS_ALL_ENABLE = True
+INDIVIDUAL_COMMAND = False
 
+MYSQL = False
 if sys.platform.startswith('linux'):
     IS_REMOTE = True
     IS_HEADLESS = True

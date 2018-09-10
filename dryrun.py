@@ -2,13 +2,19 @@ import os, logging, time
 from db import Session
 from datetime import datetime, timedelta
 
-logging.basicConfig(level='DEBUG')
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    #filename='app.log',
+                    # filemode='w'
+    )
 
 def test_qnjs(robot):
     msgs = [
     ['【闲聊】阿珹：qnjs 0 100 白', ],
     ['【闲聊】阿珹：qnjs 99999 1000000 6', ],
-    ['【闲聊】阿珹：qnjs 100 100 白色', ],
+    ['【闲聊】阿珹：zy qnjs 100 100 白色', ],
     ['【闲聊】阿珹：qnjs 101 100 白色', ],
             ]
 
@@ -33,7 +39,7 @@ def test_dialog(session, robot):
         # ['【闲聊】阿珹：zy 峨眉怎么走', ],
         # ['【闲聊】阿珹：真一武当谁厉害', ],
         # ['【闲聊】阿珹：真一 铁镐', ],
-        ['【闲聊】阿珹：qnjs 0 100 白', ],
+        ['【闲聊】阿珹：zy qnjs 0 100 白', ],
         ['【闲聊】阿珹：qnjs 0 100 6', ],
         # # ['【闲聊】阿珹：zy 来首诗', ],
         # ['【闲聊】阿珹：真一 一苇渡江', ],
@@ -106,11 +112,11 @@ def test_time():
 
 if __name__ == '__main__':
 
-    # session = Session()
-    # from mudrobot import MudRobot
-    # robot = MudRobot()
-    # # test_training(session=session, robot=robot)
+    session = Session()
+    from mudrobot import MudRobot
+    robot = MudRobot()
+    # test_training(session=session, robot=robot)
     # test_dialog(session=session, robot=robot)
-    # test_qnjs(robot=robot)
+    test_qnjs(robot=robot)
 
-    print('the action is {:.1f} wan'.format(4000000/10000))
+    # print('the action is {:.1f} wan'.format(4000000/10000))

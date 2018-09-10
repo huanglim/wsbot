@@ -23,24 +23,34 @@ from config import WSMUD_URL, WAITSEC, \
                     LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh, \
                     host_ip, port, \
                     IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
-                    COLOR
+                    COLOR, IS_ALL_ENABLE, INDIVIDUAL_COMMAND
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
     CHATPATTERN_FOLLOWER
 
 RE_COMMAND_DIALOG = re.compile("(小僧真一|真一|zy)(\s|，|,)?(.*)")
+
+if IS_ALL_ENABLE:
+    RE_COMMAND_WKZN = re.compile("(小僧真一|真一|zy)(\s|，|,)?wkzn")
+    RE_COMMAND_BOSS = re.compile("(小僧真一|真一|zy)(\s|，|,)?boss|BOSS")
+    RE_COMMAND_XY = re.compile("(小僧真一|真一|zy)(\s|，|,)?xy")
+    RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs\s(\d+)\s(\d+)\s(.)")
+else:
+    RE_COMMAND_WKZN = re.compile("wkzn")
+    RE_COMMAND_BOSS = re.compile("boss|BOSS")
+    RE_COMMAND_XY = re.compile("xy")
+    RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
+
 RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
-RE_COMMAND_WKZN = re.compile("wkzn")
-RE_COMMAND_BOSS = re.compile("boss|BOSS")
-
-RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
 RE_DIALOG = re.compile('：')
+
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
+RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -74,14 +84,23 @@ class MudRobot(object):
         self.last_hig_dialog = ""
 
         self.current_wk = 0
-        self.wk_effective_time = None
-        self.boss_effective_time = None
+
+
         self.mpz_effective_time = None
         self.options = None
         self.driver = None
         self.chatbot = None
+
+        self.wk_effective_time = None
         self.init_flag = False
+
+        self.boss_effective_time = None
+        self.boss_content = None
         self.boss_init_flag = False
+
+        self.xy_effective_time = None
+        self.xy_content = None
+        self.xy_init_flag = False
 
     def __enter__(self):
         if not self.remote:
@@ -253,7 +272,7 @@ class MudRobot(object):
 
                 return new_dialogs[::-1]
 
-    def get_hig_dialog_init(self):
+    def update_wkzn_info_init(self):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
@@ -266,7 +285,7 @@ class MudRobot(object):
                 self.current_wk = wk_data
                 self.wk_effective_time = datetime.now()
 
-    def get_hig_dialog(self):
+    def update_wkzn_info(self):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
@@ -284,7 +303,9 @@ class MudRobot(object):
                     self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
                 self.init_flag = True
 
-    def update_boss_info(self):
+    def update_him_info(self):
+
+        # boss, xy
 
         him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
         new_him_dialogs = []
@@ -299,6 +320,12 @@ class MudRobot(object):
                         self.boss_effective_time = datetime.now()
                         self.boss_content = content
                         self.boss_init_flag = True
+
+                    if RE_XY.match(content):
+                        self.xy_effective_time = datetime.now()
+                        self.xy_content = content
+                        self.xy_init_flag = True
+
             if new_him_dialogs:
                 self.last_him_dialog = new_him_dialogs[0]
 
@@ -538,9 +565,15 @@ class MudRobot(object):
                 if RE_COMMAND_QNJS.match(content) and qnjs_flag:
                     qnjs_flag = False
                     qnjs_data = RE_COMMAND_QNJS.match(content).groups()
-                    start_level = int(qnjs_data[0])
-                    end_level = int(qnjs_data[1])
-                    color_value = COLOR.get(qnjs_data[2])
+
+                    if IS_ALL_ENABLE:
+                        start_level = int(qnjs_data[2])
+                        end_level = int(qnjs_data[3])
+                        color_value = COLOR.get(qnjs_data[4])
+                    else:
+                        start_level = int(qnjs_data[0])
+                        end_level = int(qnjs_data[1])
+                        color_value = COLOR.get(qnjs_data[2])
 
                     if start_level > 9999 or \
                         end_level > 9999 or \
@@ -567,6 +600,19 @@ class MudRobot(object):
                         td = datetime.now() - self.boss_effective_time
                         minutes, seconds = td.seconds // 60, td.seconds % 60
                         message = '{}分{}秒前,{}'.format(minutes, seconds, self.boss_content)
+                        self.send_message(message)
+
+    def response_to_xy(self, dialogs ):
+
+        xy_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_XY.match(content) and xy_flag:
+                    if self.xy_init_flag:
+                        td = datetime.now() - self.boss_effective_time
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+                        message = '{}分{}秒前,{}'.format(minutes, seconds, self.xy_content)
                         self.send_message(message)
 
     def response_to_dialog(self, dialogs):
@@ -847,19 +893,25 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         robot.start_mining()
         # robot.init_chatbot()
         time.sleep(1)
+        if IS_ALL_ENABLE:
+            robot.update_wkzn_info_init()
         robot.send_message('*清醒')
 
         while True:
-            time.sleep(5)
+            time.sleep(3)
             try:
                 dialogs = robot.get_all_dialog()
+                if IS_ALL_ENABLE:
+                    robot.update_wkzn_info()
+                    robot.update_him_info()
+
                 if dialogs:
-                    # try:
-                    #     robot.save_dialogs(dialogs, session=session)
-                    # except Exception as e:
-                    #     logging.error(e)
-                    #     session.rollback()
                     robot.response_to_dialog(dialogs)
+                    if IS_ALL_ENABLE:
+                        robot.response_to_boss(dialogs)
+                        robot.response_to_qnjs(dialogs)
+                        robot.response_to_xy(dialogs)
+
             except Exception as e:
                 logging.error(e)
 
@@ -899,12 +951,12 @@ def skrp_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         logging.info("守口如瓶 is running")
         robot.start_mining()
         time.sleep(12)
-        robot.get_hig_dialog_init()
+        robot.update_wkzn_info_init()
         robot.send_message('*清醒')
         while True:
             time.sleep(5)
             try:
-                robot.get_hig_dialog()
+                robot.update_wkzn_info()
                 commands = robot.get_commands()
                 if commands:
                     robot.response_to_wkzn(commands)
@@ -920,13 +972,14 @@ def xnmh_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         robot.start_mining()
         robot.send_message('*清醒')
         while True:
-            time.sleep(5)
+            time.sleep(3)
             try:
-                # robot.update_boss_info()
+                robot.update_him_info()
                 commands = robot.get_commands()
                 if commands:
                     robot.response_to_qnjs(commands, session=session)
-                    # robot.response_to_boss(commands)
+                    robot.response_to_boss(commands)
+                    robot.response_to_xy(commands)
             except Exception as e:
                 logging.error(e)
 
@@ -937,15 +990,16 @@ if __name__ == '__main__':
     args_xszy=(session, LOGIN_NAME_xszy, LOGIN_PASSWORD_xszy)
     xszy_thr = Thread(target=xszy_robot, args=args_xszy)
     xszy_thr.start()
-    #
-    # args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
-    # xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
-    # xnmh_thr.start()
+
+    if INDIVIDUAL_COMMAND:
+        args_xnmh=(session, LOGIN_NAME_xnmh, LOGIN_PASSWORD_xnmh)
+        xnmh_thr = Thread(target=xnmh_robot, args=args_xnmh)
+        xnmh_thr.start()
     #
     # args_xdxy=(session, LOGIN_NAME_xdxy, LOGIN_PASSWORD_xdxy)
     # xdxy_thr = Thread(target=xdxy_robot, args=args_xdxy)
     # xdxy_thr.start()
     #
-    # args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
-    # skrp_thr = Thread(target=skrp_robot, args=args_skrp)
-    # skrp_thr.start()
+        args_skrp = (session, LOGIN_NAME_skrp, LOGIN_PASSWORD_skrp)
+        skrp_thr = Thread(target=skrp_robot, args=args_skrp)
+        skrp_thr.start()
