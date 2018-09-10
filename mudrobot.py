@@ -291,16 +291,22 @@ class MudRobot(object):
 
         if hig_dialogs:
             wk_sentence = hig_dialogs[-1].text[4]
-            wk_data = (int(wk_sentence)-1)*10
+
+            if IS_ALL_ENABLE:
+                wk_data = (int(wk_sentence) - 2) * 10
+            else:
+                wk_data = (int(wk_sentence) - 1) * 10
 
             # update wk
             if wk_data != self.current_wk:
                 self.current_wk = wk_data
                 self.wk_effective_time = datetime.now()
-                if self.current_wk == 0:
-                    self.send_message('矿山封印消失, 大佬们快续杯! '.format(self.current_wk))
-                else:
-                    self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
+
+                if not IS_ALL_ENABLE:
+                    if self.current_wk == 0:
+                        self.send_message('矿山封印消失, 大佬们快续杯! '.format(self.current_wk))
+                    else:
+                        self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
                 self.init_flag = True
 
     def update_him_info(self):
