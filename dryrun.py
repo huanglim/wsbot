@@ -42,7 +42,8 @@ def test_dialog(session, robot):
         ['【闲聊】阿珹：zy qnjs 0 100 白', ],
         ['【闲聊】阿珹：qnjs 0 100 6', ],
         ['【闲聊】阿珹：zy 来首诗', ],
-        # ['【闲聊】阿珹：真一 一苇渡江', ],
+        ['【谣言】某人：听说郭大侠收到线报蒙古大军近日将会进攻襄阳！', ],
+        ['【谣言】某人：听说夏雪宜出现在峨眉山暗道一带。']
         ]
     for msg in msgs:
         try:
@@ -61,6 +62,36 @@ def test_dialog(session, robot):
     #     print(robot.get_mp_dialog(session=session, mp='逍遥派', seq=s))
     # for s in range(10):
     #     print(robot.get_auth_dialog(session=session, auth='某人', seq=s))
+
+def test_functions(robot):
+
+    msgs = [
+        # ['【闲聊】阿珹：zy 华山天气',],
+        # ['【闲聊】阿珹：小僧真一 我漂亮吗', ],
+        # ['【闲聊】阿珹：zy 五虎断门刀哪里出', ],
+        # ['【闲聊】阿珹：zy 你很傻', ],
+        # ['【闲聊】阿珹：zy 五毒教 掉落',],
+        # ['【闲聊】阿珹：zy 明慧是谁', ],
+        # ['【闲聊】阿珹：zy 五毒教 数据',],
+        # ['【闲聊】阿珹：zy 你想娶老婆吗', ],
+        # ['【闲聊】阿珹：zy 峨眉怎么走', ],
+        # ['【闲聊】阿珹：真一武当谁厉害', ],
+        ['【闲聊】阿珹：真一 铁镐', ],
+        ['【闲聊】阿珹：zy qnjs 0 100 白', ],
+        ['【闲聊】阿珹：qnjs 0 100 6', ],
+        ['【闲聊】阿珹：zy 来首诗', ],
+        ['【谣言】某人：听说郭大侠收到线报蒙古大军近日将会进攻襄阳！', ],
+        ['【谣言】某人：听说夏雪宜出现在峨眉山暗道一带。']
+        ]
+
+    for msg in msgs:
+        try:
+            robot.response_to_wkzn(msg)
+            robot.response_to_qnjs(msg)
+            robot.response_to_boss(msg)
+            robot.response_to_xy(msg)
+        except Exception as e:
+            logging.error(e)
 
 def test_training(session, robot):
     # msgs = [
@@ -116,7 +147,7 @@ if __name__ == '__main__':
     from mudrobot import MudRobot
     robot = MudRobot()
     # test_training(session=session, robot=robot)
-    test_dialog(session=session, robot=robot)
-    test_qnjs(robot=robot)
+    test_functions(robot=robot)
+    # test_qnjs(robot=robot)
 
     # print('the action is {:.1f} wan'.format(4000000/10000))

@@ -34,7 +34,7 @@ RE_COMMAND_DIALOG = re.compile("(小僧真一|真一|zy)(\s|，|,)?(.*)")
 
 if IS_ALL_ENABLE:
     RE_COMMAND_WKZN = re.compile("(小僧真一|真一|zy)(\s|，|,)?wkzn")
-    RE_COMMAND_BOSS = re.compile("(小僧真一|真一|zy)(\s|，|,)?boss|BOSS")
+    RE_COMMAND_BOSS = re.compile("(小僧真一|真一|zy)(\s|，|,)?(boss|BOSS)")
     RE_COMMAND_XY = re.compile("(小僧真一|真一|zy)(\s|，|,)?xy")
     RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs\s(\d+)\s(\d+)\s(.)")
 else:
@@ -279,7 +279,11 @@ class MudRobot(object):
 
         if hig_dialogs:
             wk_sentence = hig_dialogs[-1].text[4]
-            wk_data = (int(wk_sentence)-1)*10
+
+            if IS_ALL_ENABLE:
+                wk_data = (int(wk_sentence) - 2) * 10
+            else:
+                wk_data = (int(wk_sentence) - 1) * 10
 
             # update wk
             if wk_data != self.current_wk:
@@ -302,13 +306,13 @@ class MudRobot(object):
             if wk_data != self.current_wk:
                 self.current_wk = wk_data
                 self.wk_effective_time = datetime.now()
+                self.init_flag = True
 
                 if UPDATE_WKZN_STATUS_CHANGE:
                     if self.current_wk == 0:
                         self.send_message('矿山封印消失, 大佬们快续杯! '.format(self.current_wk))
                     else:
                         self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
-                self.init_flag = True
 
     def update_him_info(self):
 
@@ -324,11 +328,13 @@ class MudRobot(object):
                 else:
                     new_him_dialogs.append(content)
                     if RE_BOSS.match(content):
+                        logging.info(content)
                         self.boss_effective_time = datetime.now()
                         self.boss_content = content
                         self.boss_init_flag = True
 
                     if RE_XY.match(content):
+                        logging.info(content)
                         self.xy_effective_time = datetime.now()
                         self.xy_content = content
                         self.xy_init_flag = True
@@ -914,7 +920,7 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         while True:
             time.sleep(3)
             try:
-                dialogs = robot.get_all_dialog()
+                dialogs = robot.get_commands()
                 if IS_ALL_ENABLE:
                     robot.update_wkzn_info()
                     robot.update_him_info()
@@ -922,6 +928,7 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                 if dialogs:
                     robot.response_to_dialog(dialogs)
                     if IS_ALL_ENABLE:
+                        robot.response_to_wkzn(dialogs)
                         robot.response_to_boss(dialogs)
                         robot.response_to_qnjs(dialogs)
                         robot.response_to_xy(dialogs)
