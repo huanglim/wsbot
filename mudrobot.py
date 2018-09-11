@@ -320,28 +320,32 @@ class MudRobot(object):
 
         him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
         new_him_dialogs = []
+        boss_flag = True
+        xy_flag = True
         if him_dialogs:
             for d in him_dialogs[::-1]:
                 content = self.get_message_content(d.text)
                 if content == self.last_him_dialog:
                     break
                 else:
+                    logging.info('The appended him conteint is {}'.format(content))
                     new_him_dialogs.append(content)
-                    if RE_BOSS.match(content):
-                        logging.info(content)
+                    if RE_BOSS.match(content) and boss_flag:
+                        boss_flag = False
+                        logging.info('The msg has updated to boss content {}'.format(content))
                         self.boss_effective_time = datetime.now()
                         self.boss_content = content
                         self.boss_init_flag = True
 
-                    if RE_XY.match(content):
-                        logging.info(content)
+                    if RE_XY.match(content) and xy_flag:
+                        xy_flag = False
+                        logging.info('The msg has updated to xy content {}'.format(content))
                         self.xy_effective_time = datetime.now()
                         self.xy_content = content
                         self.xy_init_flag = True
 
             if new_him_dialogs:
                 self.last_him_dialog = new_him_dialogs[0]
-
                 return new_him_dialogs
 
     def get_commands(self):
