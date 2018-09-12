@@ -368,16 +368,19 @@ class MudRobot(object):
                 else:
                     new_dialogs.append(d.text)
                     auth = self.get_message_auth(d.text)
-                    if RE_ZM.match(auth):
+                    content = self.get_message_content(d.text)
+                    res = RE_MPZ.match(content)
+
+                    if RE_ZM.match(auth) and res:
                         if d.text != self.last_mpz_dialog:
+                            logging.info('in the update mpz info, the record is {}'.format(d.text))
                             # record mpz information
-                            content = self.get_message_content(d.text)
+                            mpz_dialogs.append(d.text)
+
                             mp1 = MP_NAME.get(auth)
-                            mp2 = RE_MPZ.match(content).groups()[0]
+                            mp2 = res.groups()[0]
                             mpz = mp1 + '-' + mp2
                             self.mpz_info[mpz] = datetime.now()
-                            #
-                            mpz_dialogs.append(d.text)
 
             if mpz_dialogs:
                 self.last_mpz_dialog = mpz_dialogs[0]
@@ -663,15 +666,16 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_MPZ.match(content) and mpz_flag:
                     msgs = []
-                    for item in self.mpz_info:
+                    for item, t in self.mpz_info.items():
+                        logging.info('{}:{}'.format(item, t))
                         td = datetime.now() - self.mpz_info[item]
                         minutes, seconds = td.seconds // 60, td.seconds % 60
 
                         if minutes < 30:
-                            msg = '{} 已开始{}分{}秒; '.format(item, minutes, seconds)
+                            msg = '{},剩余{}分{}秒; '.format(item, 29 - minutes, 60-seconds)
                             msgs.append(msg)
                         elif minutes >= 30 and minutes < 60:
-                            msg = '{} 已结束{}分{}秒; '.format(item, minutes - 30, seconds)
+                            msg = '{},已结束{}分{}秒; '.format(item, minutes - 30, seconds)
                             msgs.append(msg)
 
                     if msgs:
