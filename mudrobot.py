@@ -665,7 +665,7 @@ class MudRobot(object):
                         self.send_message(message)
 
     def response_to_mpz(self,dialogs):
-        
+
         mpz_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):
