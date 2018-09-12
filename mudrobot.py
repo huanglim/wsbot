@@ -665,12 +665,13 @@ class MudRobot(object):
                         self.send_message(message)
 
     def response_to_mpz(self,dialogs):
-        logging.info('in the response to mpz')
+        
         mpz_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_MPZ.match(content) and mpz_flag:
+                    logging.info('in the response to mpz')
                     msgs = []
                     for item, t in self.mpz_info.items():
                         logging.info('{}:{}'.format(item, t))

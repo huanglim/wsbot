@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/generate_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/generate_templates.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +16,8 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
-              <caret line="39" column="4" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
+            <state relative-caret-position="176">
+              <caret line="667" column="8" lean-forward="true" selection-start-line="667" selection-start-column="8" selection-end-line="667" selection-end-column="8" />
               <folding>
                 <element signature="e#1287#1526#0" />
                 <element signature="e#1970#1990#0" />
@@ -121,7 +119,8 @@
                 <element signature="e#23008#23438#0" />
                 <element signature="e#23129#23438#0" />
                 <element signature="e#23175#23438#0" />
-                <element signature="e#24718#25755#0" />
+                <element signature="e#23492#24438#0" />
+                <element signature="e#23524#24438#0" />
                 <element signature="e#24125#24438#0" />
                 <element signature="e#24230#24438#0" />
                 <element signature="e#24521#25849#0" />
@@ -308,7 +307,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="1395" />
     <option name="height" value="1045" />
   </component>
@@ -885,8 +884,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="39" column="4" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
+        <state relative-caret-position="176">
+          <caret line="667" column="8" lean-forward="true" selection-start-line="667" selection-start-column="8" selection-end-line="667" selection-end-column="8" />
           <folding>
             <element signature="e#1287#1526#0" />
             <element signature="e#1970#1990#0" />
@@ -988,7 +987,8 @@
             <element signature="e#23008#23438#0" />
             <element signature="e#23129#23438#0" />
             <element signature="e#23175#23438#0" />
-            <element signature="e#24718#25755#0" />
+            <element signature="e#23492#24438#0" />
+            <element signature="e#23524#24438#0" />
             <element signature="e#24125#24438#0" />
             <element signature="e#24230#24438#0" />
             <element signature="e#24521#25849#0" />
