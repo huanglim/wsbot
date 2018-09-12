@@ -54,7 +54,7 @@ RE_DIALOG = re.compile('：')
 
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
-RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*击杀")
+RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子(.+)击杀")
 RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 
 logging.basicConfig(level=logging.INFO,
@@ -385,7 +385,8 @@ class MudRobot(object):
 
                                 mp1 = MP_NAME.get(auth)
                                 mp2 = res.groups()[0]
-                                mpz = mp1 + '-' + mp2
+                                who = res.groups()[1]
+                                mpz = "{}-{}({}开启)".format(mp1, mp2, who)
                                 self.mpz_info[mpz] = datetime.now()
 
             if mpz_dialogs:
