@@ -372,8 +372,11 @@ class MudRobot(object):
                         auth = self.get_message_auth(d.text)
                         content = self.get_message_content(d.text)
                         res = RE_MPZ.match(content)
+                        if res:
+                            logging.info('pass MPZ, msg is {}'.format(d.text))
 
                         if RE_ZM.match(auth) and res:
+                            logging.info(d.text)
                             if d.text != self.last_mpz_dialog:
                                 logging.info('in the update mpz info, the record is {}'.format(d.text))
                                 # record mpz information
@@ -662,6 +665,7 @@ class MudRobot(object):
                         self.send_message(message)
 
     def response_to_mpz(self,dialogs):
+        logging.info('in the response to mpz')
         mpz_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):

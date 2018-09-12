@@ -1,3 +1,5 @@
+import re
+
 def dungeon_template(dungeon_name):
     d_template = []
     d_template.append("'(副本)?{}(\s|，|,|的)?掉落$':[''],".format(dungeon_name))
@@ -13,12 +15,15 @@ if __name__ == '__main__':
                 "星宿海", "冰火岛", "移花宫", "燕子坞", "黑木崖", "缥缈峰", "光明顶", "天龙寺", "血刀门",
                 "古墓派", "华山论剑", "侠客岛", "战神殿"
                 ]
+    RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*击杀")
+    test = '逍遥派欺人太甚，门下弟子沐梵清击杀(我派)弟子斜斜，华山派众弟子听令，对逍遥派格杀勿论！'
+    assert RE_MPZ.match(test)
+    res = RE_MPZ.match(test)
 
-
-
+    print(res)
     # for d in dungeons:
     #     print('#'+d)
     #     for i in dungeon_template(d):
     #         print(i)
 
-    print(len(testing))
+    # print(len(testing))

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/generate_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/generate_templates.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,10 +18,9 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="382" column="53" lean-forward="true" selection-start-line="382" selection-start-column="53" selection-end-line="382" selection-end-column="53" />
+            <state relative-caret-position="-59">
+              <caret line="39" column="4" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
               <folding>
-                <element signature="e#951#1275#0" />
                 <element signature="e#1287#1526#0" />
                 <element signature="e#1970#1990#0" />
                 <element signature="e#2061#2073#1" />
@@ -66,6 +67,7 @@
                 <element signature="e#11647#11928#0" />
                 <element signature="e#12011#12282#0" />
                 <element signature="e#12332#12412#0" />
+                <element signature="e#12450#12939#0" />
                 <element signature="e#13019#13733#0" />
                 <element signature="e#13517#13674#0" />
                 <element signature="e#13820#14164#0" />
@@ -76,6 +78,7 @@
                 <element signature="e#15331#15740#0" />
                 <element signature="e#15791#15956#0" />
                 <element signature="e#16007#16172#0" />
+                <element signature="e#16226#16395#0" />
                 <element signature="e#16440#16660#0" />
                 <element signature="e#16705#16833#0" />
                 <element signature="e#16895#17331#0" />
@@ -118,10 +121,7 @@
                 <element signature="e#23008#23438#0" />
                 <element signature="e#23129#23438#0" />
                 <element signature="e#23175#23438#0" />
-                <element signature="e#23492#24438#0" />
-                <element signature="e#23524#24438#0" />
-                <element signature="e#23566#24438#0" />
-                <element signature="e#23705#24438#0" />
+                <element signature="e#24718#25755#0" />
                 <element signature="e#24125#24438#0" />
                 <element signature="e#24230#24438#0" />
                 <element signature="e#24521#25849#0" />
@@ -169,12 +169,6 @@
                 <element signature="e#33219#33388#0" />
                 <element signature="e#33421#33591#0" />
                 <element signature="e#33625#33752#0" />
-                <element signature="e#34094#34150#0" />
-                <element signature="e#34218#34830#0" />
-                <element signature="e#36273#36824#0" />
-                <element signature="e#34350#34418#0" />
-                <element signature="e#36476#36824#0" />
-                <element signature="e#36572#36824#0" />
                 <element signature="e#34905#35872#0" />
                 <element signature="e#35000#35872#0" />
                 <element signature="e#35136#35872#0" />
@@ -210,8 +204,8 @@
       <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+            <state relative-caret-position="418">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="e#15#156#0" />
                 <element signature="e#610#760#0" />
@@ -219,6 +213,15 @@
                 <element signature="e#1587#1692#0" />
                 <element signature="e#2473#2572#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_templates.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -297,10 +300,10 @@
         <option value="$PROJECT_DIR$/db/modules.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/auto_dungeons.py" />
-        <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/dryrun.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/chatppattern.py" />
+        <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
       </list>
     </option>
@@ -350,7 +353,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.dryrun">
+  <component name="RunManager" selected="Python.generate_templates">
     <configuration name="auto_dungeons" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wsmud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -450,9 +453,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.generate_templates" />
         <item itemvalue="Python.dryrun" />
         <item itemvalue="Python.mudrobot" />
-        <item itemvalue="Python.generate_templates" />
         <item itemvalue="Python.auto_dungeons" />
         <item itemvalue="Python.modules" />
       </list>
@@ -507,12 +510,12 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17903645" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17903645" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3292517" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3292517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -852,17 +855,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="114" selection-start-line="9" selection-start-column="114" selection-end-line="9" selection-end-column="114" />
+        <state relative-caret-position="484">
+          <caret line="66" column="15" selection-start-line="66" selection-start-column="15" selection-end-line="66" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chatppattern.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+        <state relative-caret-position="418">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#15#156#0" />
             <element signature="e#610#760#0" />
@@ -873,19 +876,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
+    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="66" column="15" selection-start-line="66" selection-start-column="15" selection-end-line="66" selection-end-column="15" />
+        <state relative-caret-position="286">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="382" column="53" lean-forward="true" selection-start-line="382" selection-start-column="53" selection-end-line="382" selection-end-column="53" />
+        <state relative-caret-position="-59">
+          <caret line="39" column="4" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
           <folding>
-            <element signature="e#951#1275#0" />
             <element signature="e#1287#1526#0" />
             <element signature="e#1970#1990#0" />
             <element signature="e#2061#2073#1" />
@@ -932,6 +934,7 @@
             <element signature="e#11647#11928#0" />
             <element signature="e#12011#12282#0" />
             <element signature="e#12332#12412#0" />
+            <element signature="e#12450#12939#0" />
             <element signature="e#13019#13733#0" />
             <element signature="e#13517#13674#0" />
             <element signature="e#13820#14164#0" />
@@ -942,6 +945,7 @@
             <element signature="e#15331#15740#0" />
             <element signature="e#15791#15956#0" />
             <element signature="e#16007#16172#0" />
+            <element signature="e#16226#16395#0" />
             <element signature="e#16440#16660#0" />
             <element signature="e#16705#16833#0" />
             <element signature="e#16895#17331#0" />
@@ -984,10 +988,7 @@
             <element signature="e#23008#23438#0" />
             <element signature="e#23129#23438#0" />
             <element signature="e#23175#23438#0" />
-            <element signature="e#23492#24438#0" />
-            <element signature="e#23524#24438#0" />
-            <element signature="e#23566#24438#0" />
-            <element signature="e#23705#24438#0" />
+            <element signature="e#24718#25755#0" />
             <element signature="e#24125#24438#0" />
             <element signature="e#24230#24438#0" />
             <element signature="e#24521#25849#0" />
@@ -1035,12 +1036,6 @@
             <element signature="e#33219#33388#0" />
             <element signature="e#33421#33591#0" />
             <element signature="e#33625#33752#0" />
-            <element signature="e#34094#34150#0" />
-            <element signature="e#34218#34830#0" />
-            <element signature="e#36273#36824#0" />
-            <element signature="e#34350#34418#0" />
-            <element signature="e#36476#36824#0" />
-            <element signature="e#36572#36824#0" />
             <element signature="e#34905#35872#0" />
             <element signature="e#35000#35872#0" />
             <element signature="e#35136#35872#0" />
