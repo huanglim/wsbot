@@ -367,20 +367,22 @@ class MudRobot(object):
                     break
                 else:
                     new_dialogs.append(d.text)
-                    auth = self.get_message_auth(d.text)
-                    content = self.get_message_content(d.text)
-                    res = RE_MPZ.match(content)
 
-                    if RE_ZM.match(auth) and res:
-                        if d.text != self.last_mpz_dialog:
-                            logging.info('in the update mpz info, the record is {}'.format(d.text))
-                            # record mpz information
-                            mpz_dialogs.append(d.text)
+                    if RE_DIALOG.match(d.text):
+                        auth = self.get_message_auth(d.text)
+                        content = self.get_message_content(d.text)
+                        res = RE_MPZ.match(content)
 
-                            mp1 = MP_NAME.get(auth)
-                            mp2 = res.groups()[0]
-                            mpz = mp1 + '-' + mp2
-                            self.mpz_info[mpz] = datetime.now()
+                        if RE_ZM.match(auth) and res:
+                            if d.text != self.last_mpz_dialog:
+                                logging.info('in the update mpz info, the record is {}'.format(d.text))
+                                # record mpz information
+                                mpz_dialogs.append(d.text)
+
+                                mp1 = MP_NAME.get(auth)
+                                mp2 = res.groups()[0]
+                                mpz = mp1 + '-' + mp2
+                                self.mpz_info[mpz] = datetime.now()
 
             if mpz_dialogs:
                 self.last_mpz_dialog = mpz_dialogs[0]
