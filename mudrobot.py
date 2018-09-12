@@ -24,7 +24,7 @@ from config import WSMUD_URL, WAITSEC, \
     host_ip, port, \
     IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
     COLOR, IS_ALL_ENABLE, INDIVIDUAL_COMMAND, \
-    UPDATE_WKZN_STATUS_CHANGE
+    UPDATE_WKZN_STATUS_CHANGE, MP_NAME
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -37,11 +37,13 @@ if IS_ALL_ENABLE:
     RE_COMMAND_BOSS = re.compile("(小僧真一|真一|zy)(\s|，|,)?(boss|BOSS)")
     RE_COMMAND_XY = re.compile("(小僧真一|真一|zy)(\s|，|,)?xy")
     RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs\s(\d+)\s(\d+)\s(.)")
+    RE_COMMAND_MPZ = re.compile("(小僧真一|真一|zy)(\s|，|,)?mpz")
 else:
     RE_COMMAND_WKZN = re.compile("wkzn")
     RE_COMMAND_BOSS = re.compile("boss|BOSS")
     RE_COMMAND_XY = re.compile("xy")
     RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
+    RE_COMMAND_MPZ = re.compile("mpz")
 
 RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
@@ -52,6 +54,8 @@ RE_DIALOG = re.compile('：')
 
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
+RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*击杀")
+RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -102,6 +106,9 @@ class MudRobot(object):
         self.xy_effective_time = None
         self.xy_content = None
         self.xy_init_flag = False
+
+        self.last_mpz_dialog = ""
+        self.mpz_info = {}
 
     def __enter__(self):
         if not self.remote:
@@ -353,12 +360,27 @@ class MudRobot(object):
         hic_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hic")
 
         new_dialogs = []
+        mpz_dialogs = []
         if hic_dialogs:
             for d in hic_dialogs[::-1]:
                 if d.text == self.last_hic_dialog:
                     break
                 else:
                     new_dialogs.append(d.text)
+                    auth = self.get_message_auth(d.text)
+                    if RE_ZM.match(auth):
+                        if d.text != self.last_mpz_dialog:
+                            # record mpz information
+                            content = self.get_message_content(d.text)
+                            mp1 = MP_NAME.get(auth)
+                            mp2 = RE_MPZ.match(content).groups()[0]
+                            mpz = mp1 + '-' + mp2
+                            self.mpz_info[mpz] = datetime.now()
+                            #
+                            mpz_dialogs.append(d.text)
+
+            if mpz_dialogs:
+                self.last_mpz_dialog = mpz_dialogs[0]
 
             if new_dialogs:
                 self.last_hic_dialog = new_dialogs[0]
@@ -617,7 +639,8 @@ class MudRobot(object):
                     if self.boss_init_flag:
                         td = datetime.now() - self.boss_effective_time
                         minutes, seconds = td.seconds // 60, td.seconds % 60
-                        message = '{}分{}秒前,{}'.format(minutes, seconds, self.boss_content)
+                        # message = '{}分{}秒前,{}'.format(minutes, seconds, self.boss_content)
+                        message = '施主, 最近一次世界boss出现于{}分{}秒前.'.format(minutes, seconds, self.boss_content)
                         self.send_message(message)
 
     def response_to_xy(self, dialogs ):
@@ -633,6 +656,29 @@ class MudRobot(object):
                         message = '{}分{}秒前,{}'.format(minutes, seconds, self.xy_content)
                         self.send_message(message)
 
+    def response_to_mpz(self,dialogs):
+        mpz_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_MPZ.match(content) and mpz_flag:
+                    msgs = []
+                    for item in self.mpz_info:
+                        td = datetime.now() - self.mpz_info[item]
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+
+                        if minutes < 30:
+                            msg = '{} 已开始{}分{}秒; '.format(item, minutes, seconds)
+                            msgs.append(msg)
+                        elif minutes >= 30 and minutes < 60:
+                            msg = '{} 已结束{}分{}秒; '.format(item, minutes - 30, seconds)
+                            msgs.append(msg)
+
+                    if msgs:
+                        message = ''.join(msgs)
+                        logging.info(message)
+                        self.send_message(message)
+
     def response_to_dialog(self, dialogs):
 
         for msg in dialogs:
@@ -645,7 +691,8 @@ class MudRobot(object):
                                 RE_COMMAND_WKZN.match(content) or \
                                 RE_COMMAND_BOSS.match(content) or \
                                 RE_COMMAND_XY.match(content) or \
-                                RE_COMMAND_QNJS.match(content)
+                                RE_COMMAND_QNJS.match(content) or \
+                                RE_COMMAND_MPZ.match(content)
                         ):
                         pass
                     else:
@@ -936,6 +983,7 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                         robot.response_to_boss(dialogs)
                         robot.response_to_qnjs(dialogs)
                         robot.response_to_xy(dialogs)
+                        robot.response_to_mpz(dialogs)
 
             except Exception as e:
                 logging.error(e)
