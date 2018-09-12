@@ -367,10 +367,11 @@ class MudRobot(object):
                     break
                 else:
                     new_dialogs.append(d.text)
-
-                    if RE_DIALOG.match(d.text):
+                    # logging.info(d.text)
+                    if RE_DIALOG.search(d.text):
                         auth = self.get_message_auth(d.text)
                         content = self.get_message_content(d.text)
+
                         res = RE_MPZ.match(content)
                         if res:
                             logging.info('pass MPZ, msg is {}'.format(d.text))
