@@ -56,6 +56,7 @@ RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
 RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子(.+)击杀")
 RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
+# RE_JH = re.compile("(.+)和")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -335,7 +336,7 @@ class MudRobot(object):
                 if content == self.last_him_dialog:
                     break
                 else:
-                    logging.info('The appended him conteint is {}'.format(content))
+                    # logging.info('The appended him conteint is {}'.format(content))
                     new_him_dialogs.append(content)
                     if RE_BOSS.match(content) and boss_flag:
                         boss_flag = False
@@ -661,7 +662,7 @@ class MudRobot(object):
                 content = self.get_message_content(msg)
                 if RE_COMMAND_XY.match(content) and xy_flag:
                     if self.xy_init_flag:
-                        td = datetime.now() - self.boss_effective_time
+                        td = datetime.now() - self.xy_effective_time
                         minutes, seconds = td.seconds // 60, td.seconds % 60
                         message = '{}分{}秒前,{}'.format(minutes, seconds, self.xy_content)
                         self.send_message(message)
