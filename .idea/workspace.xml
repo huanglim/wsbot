@@ -13,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1761">
-              <caret line="337" column="21" lean-forward="true" selection-start-line="337" selection-start-column="21" selection-end-line="337" selection-end-column="21" />
+            <state relative-caret-position="287">
+              <caret line="270" column="24" lean-forward="true" selection-start-line="270" selection-start-column="24" selection-end-line="270" selection-end-column="24" />
               <folding>
                 <element signature="e#6189#7251#0" />
                 <element signature="e#7292#9283#0" />
@@ -30,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6680">
-              <caret line="423" lean-forward="true" selection-start-line="423" selection-end-line="423" />
+            <state relative-caret-position="1012">
+              <caret line="466" lean-forward="true" selection-start-line="466" selection-end-line="466" />
               <folding>
                 <element signature="e#15#156#0" />
               </folding>
@@ -53,7 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>命中</find>
       <find>基本</find>
       <find>0.5</find>
       <find>挖矿指南</find>
@@ -81,8 +80,9 @@
       <find>武士(包括)以上帮众每天最多可得40帮贡. 每一种级别的成员每日帮贡总上限为400. 帮贡每周清零. 帮贡可用来召唤boss等, 武士级别boss 需100帮贡, 武师150, 宗师200. 掉落与世界boss一致</find>
       <find>散人</find>
       <find>豪宅</find>
-      <find>RE_XY</find>
       <find>召唤令</find>
+      <find>RE_XY</find>
+      <find>臂力</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -685,20 +685,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6680">
-          <caret line="423" lean-forward="true" selection-start-line="423" selection-end-line="423" />
-          <folding>
-            <element signature="e#15#156#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1761">
-          <caret line="337" column="21" lean-forward="true" selection-start-line="337" selection-start-column="21" selection-end-line="337" selection-end-column="21" />
+        <state relative-caret-position="287">
+          <caret line="270" column="24" lean-forward="true" selection-start-line="270" selection-start-column="24" selection-end-line="270" selection-end-column="24" />
           <folding>
             <element signature="e#6189#7251#0" />
             <element signature="e#7292#9283#0" />
@@ -706,6 +696,16 @@
             <element signature="e#14508#15222#0" />
             <element signature="e#15309#15653#0" />
             <element signature="e#15736#16101#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatppattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="466" lean-forward="true" selection-start-line="466" selection-end-line="466" />
+          <folding>
+            <element signature="e#15#156#0" />
           </folding>
         </state>
       </provider>
