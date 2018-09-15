@@ -38,12 +38,14 @@ if IS_ALL_ENABLE:
     RE_COMMAND_XY = re.compile("(小僧真一|真一|zy)(\s|，|,)?xy")
     RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs\s(\d+)\s(\d+)\s(.)")
     RE_COMMAND_MPZ = re.compile("(小僧真一|真一|zy)(\s|，|,)?mpz")
+    RE_COMMAND_JH = re.compile("(小僧真一|真一|zy)(\s|，|,)?jh")
 else:
     RE_COMMAND_WKZN = re.compile("wkzn")
     RE_COMMAND_BOSS = re.compile("boss|BOSS")
     RE_COMMAND_XY = re.compile("xy")
     RE_COMMAND_QNJS = re.compile("qnjs\s(\d+)\s(\d+)\s(.)")
     RE_COMMAND_MPZ = re.compile("mpz")
+    RE_COMMAND_JH = re.compile("jh")
 
 RE_COMMAND_LTCX = re.compile("ltcx")
 RE_COMMAND_LTJL = re.compile("ltjl")
@@ -55,8 +57,9 @@ RE_DIALOG = re.compile('：')
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
 RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子(.+)击杀")
-RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
-# RE_JH = re.compile("(.+)和")
+RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)$")
+RE_HQZC = re.compile("婚庆主持$")
+RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -110,6 +113,12 @@ class MudRobot(object):
 
         self.last_mpz_dialog = ""
         self.mpz_info = {}
+
+        self.last_jh_dialog = ""
+        self.jh_person_one = ""
+        self.jh_person_two = ""
+        self.jh_effective_time = None
+        self.jh_init_flag = None
 
     def __enter__(self):
         if not self.remote:
@@ -362,6 +371,7 @@ class MudRobot(object):
 
         new_dialogs = []
         mpz_dialogs = []
+        jh_dialogs = []
         if hic_dialogs:
             for d in hic_dialogs[::-1]:
                 if d.text == self.last_hic_dialog:
@@ -373,9 +383,8 @@ class MudRobot(object):
                         auth = self.get_message_auth(d.text)
                         content = self.get_message_content(d.text)
 
+                        # process for mpz
                         res = RE_MPZ.match(content)
-                        if res:
-                            logging.info('pass MPZ, msg is {}'.format(d.text))
 
                         if RE_ZM.match(auth) and res:
                             logging.info(d.text)
@@ -390,8 +399,21 @@ class MudRobot(object):
                                 mpz = "{}-{}({}开启)".format(mp1, mp2, who)
                                 self.mpz_info[mpz] = datetime.now()
 
+                        if RE_HQZC.match(auth) and RE_JH.match(content):
+                            if d.text != self.last_jh_dialog:
+                                jh_dialogs.append(d.text)
+                                res = RE_JH.match(content)
+                                self.jh_person_one = res.groups()[0]
+                                self.jh_person_two = res.groups()[1]
+                                self.jh_effective_time = datetime.now()
+                                self.jh_init_flag = True
+                                self.send_message('*恭喜')
+
             if mpz_dialogs:
                 self.last_mpz_dialog = mpz_dialogs[0]
+
+            if jh_dialogs:
+                self.last_jh_dialog = jh_dialogs[0]
 
             if new_dialogs:
                 self.last_hic_dialog = new_dialogs[0]
@@ -667,6 +689,19 @@ class MudRobot(object):
                         message = '{}分{}秒前,{}'.format(minutes, seconds, self.xy_content)
                         self.send_message(message)
 
+    def response_to_jh(self, dialogs ):
+
+        jh_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_JH.match(content) and jh_flag:
+                    if self.jh_init_flag:
+                        td = datetime.now() - self.jh_effective_time
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+                        message = '{}分{}秒前,{}和{}正式结为夫妻!'.format(minutes, seconds, self.jh_person_one, self.jh_person_two)
+                        self.send_message(message)
+
     def response_to_mpz(self,dialogs):
 
         mpz_flag = True
@@ -706,7 +741,8 @@ class MudRobot(object):
                                 RE_COMMAND_BOSS.match(content) or \
                                 RE_COMMAND_XY.match(content) or \
                                 RE_COMMAND_QNJS.match(content) or \
-                                RE_COMMAND_MPZ.match(content)
+                                RE_COMMAND_MPZ.match(content) or \
+                                RE_COMMAND_JH.match(content)
                         ):
                         pass
                     else:
@@ -998,6 +1034,7 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                         robot.response_to_qnjs(dialogs)
                         robot.response_to_xy(dialogs)
                         robot.response_to_mpz(dialogs)
+                        robot.response_to_jh(dialogs)
 
             except Exception as e:
                 logging.error(e)
