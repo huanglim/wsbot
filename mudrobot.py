@@ -57,8 +57,8 @@ RE_DIALOG = re.compile('：')
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
 RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子(.+)击杀")
-RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)$")
-RE_HQZC = re.compile("婚庆主持$")
+RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
+RE_HQZC = re.compile("婚庆主持")
 RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
 
 logging.basicConfig(level=logging.INFO,
@@ -1021,20 +1021,58 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         while True:
             time.sleep(3)
             try:
-                dialogs = robot.get_commands()
+                try:
+                    dialogs = robot.get_commands()
+                except Exception as e:
+                    raise
+
                 if IS_ALL_ENABLE:
-                    robot.update_wkzn_info()
-                    robot.update_him_info()
+                    try:
+                        robot.update_wkzn_info()
+                    except Exception as e:
+                        raise
+
+                    try:
+                        robot.update_him_info()
+                    except Exception as e:
+                        raise
 
                 if dialogs:
-                    robot.response_to_dialog(dialogs)
+                    try:
+                        robot.response_to_dialog(dialogs)
+                    except Exception as e:
+                        raise
+
                     if IS_ALL_ENABLE:
-                        robot.response_to_wkzn(dialogs)
-                        robot.response_to_boss(dialogs)
-                        robot.response_to_qnjs(dialogs)
-                        robot.response_to_xy(dialogs)
-                        robot.response_to_mpz(dialogs)
-                        robot.response_to_jh(dialogs)
+                        try:
+                            robot.response_to_wkzn(dialogs)
+                        except Exception as e:
+                            raise
+
+                        try:
+                            robot.response_to_boss(dialogs)
+                        except Exception as e:
+                            raise
+
+                        try:
+                            robot.response_to_qnjs(dialogs)
+                        except Exception as e:
+                            raise
+
+                        try:
+                            robot.response_to_xy(dialogs)
+                        except Exception as e:
+                            raise
+
+                        try:
+                            robot.response_to_mpz(dialogs)
+                        except Exception as e:
+                            raise
+
+                        try:
+                            robot.response_to_jh(dialogs)
+                        except Exception as e:
+                            raise
 
             except Exception as e:
                 logging.error(e)

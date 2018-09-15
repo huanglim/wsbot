@@ -16,11 +16,14 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="701" column="48" selection-start-line="701" selection-start-column="48" selection-end-line="701" selection-end-column="48" />
+            <state relative-caret-position="379">
+              <caret line="1020" column="19" selection-start-line="1020" selection-start-column="19" selection-end-line="1020" selection-end-column="19" />
               <folding>
+                <element signature="e#951#1309#0" />
+                <element signature="e#1345#1621#0" />
                 <element signature="e#2211#2231#0" />
                 <element signature="e#2302#2314#1" />
+                <element signature="e#2647#3628#0" />
                 <element signature="e#3353#5577#0" />
                 <element signature="e#3385#4801#0" />
                 <element signature="e#3434#4065#0" />
@@ -64,6 +67,15 @@
                 <element signature="e#12314#12585#0" />
                 <element signature="e#12635#12715#0" />
                 <element signature="e#12753#14428#0" />
+                <element signature="e#12969#14428#0" />
+                <element signature="e#13316#15021#0" />
+                <element signature="e#13419#15021#0" />
+                <element signature="e#13562#15021#0" />
+                <element signature="e#13610#14220#0" />
+                <element signature="e#13726#14220#0" />
+                <element signature="e#14557#15021#0" />
+                <element signature="e#14623#15021#0" />
+                <element signature="e#15066#15145#0" />
                 <element signature="e#14508#15222#0" />
                 <element signature="e#15006#15163#0" />
                 <element signature="e#15309#15653#0" />
@@ -118,6 +130,11 @@
                 <element signature="e#24497#24927#0" />
                 <element signature="e#24618#24927#0" />
                 <element signature="e#24664#24927#0" />
+                <element signature="e#25924#26449#0" />
+                <element signature="e#25979#26449#0" />
+                <element signature="e#26021#26449#0" />
+                <element signature="e#26142#26449#0" />
+                <element signature="e#26188#26449#0" />
                 <element signature="e#24977#26073#0" />
                 <element signature="e#25033#26073#0" />
                 <element signature="e#25075#26073#0" />
@@ -177,14 +194,8 @@
                 <element signature="e#35921#36090#0" />
                 <element signature="e#36123#36293#0" />
                 <element signature="e#36327#36454#0" />
-                <element signature="e#36529#37587#0" />
-                <element signature="e#36624#37587#0" />
                 <element signature="e#36796#36852#0" />
                 <element signature="e#36920#37587#0" />
-                <element signature="e#36967#37518#0" />
-                <element signature="e#37052#37120#0" />
-                <element signature="e#37170#37518#0" />
-                <element signature="e#37266#37518#0" />
                 <element signature="e#37662#38629#0" />
                 <element signature="e#37757#38629#0" />
                 <element signature="e#37893#38629#0" />
@@ -203,18 +214,6 @@
                 <element signature="e#40110#40767#0" />
                 <element signature="e#40312#40767#0" />
                 <element signature="e#40460#40461#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chatppattern.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="467" lean-forward="true" selection-start-line="467" selection-end-line="467" />
-              <folding>
-                <element signature="e#15#156#0" />
               </folding>
             </state>
           </provider>
@@ -258,9 +257,9 @@
       <find>散人</find>
       <find>豪宅</find>
       <find>召唤令</find>
-      <find>RE_XY</find>
-      <find>臂力</find>
       <find>华山</find>
+      <find>臂力</find>
+      <find>RE_XY</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -865,8 +864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chatppattern.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="467" lean-forward="true" selection-start-line="467" selection-end-line="467" />
+        <state relative-caret-position="264">
+          <caret line="570" column="3" lean-forward="true" selection-start-line="570" selection-start-column="3" selection-end-line="570" selection-end-column="3" />
           <folding>
             <element signature="e#15#156#0" />
           </folding>
@@ -875,11 +874,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="701" column="48" selection-start-line="701" selection-start-column="48" selection-end-line="701" selection-end-column="48" />
+        <state relative-caret-position="379">
+          <caret line="1020" column="19" selection-start-line="1020" selection-start-column="19" selection-end-line="1020" selection-end-column="19" />
           <folding>
+            <element signature="e#951#1309#0" />
+            <element signature="e#1345#1621#0" />
             <element signature="e#2211#2231#0" />
             <element signature="e#2302#2314#1" />
+            <element signature="e#2647#3628#0" />
             <element signature="e#3353#5577#0" />
             <element signature="e#3385#4801#0" />
             <element signature="e#3434#4065#0" />
@@ -923,6 +925,15 @@
             <element signature="e#12314#12585#0" />
             <element signature="e#12635#12715#0" />
             <element signature="e#12753#14428#0" />
+            <element signature="e#12969#14428#0" />
+            <element signature="e#13316#15021#0" />
+            <element signature="e#13419#15021#0" />
+            <element signature="e#13562#15021#0" />
+            <element signature="e#13610#14220#0" />
+            <element signature="e#13726#14220#0" />
+            <element signature="e#14557#15021#0" />
+            <element signature="e#14623#15021#0" />
+            <element signature="e#15066#15145#0" />
             <element signature="e#14508#15222#0" />
             <element signature="e#15006#15163#0" />
             <element signature="e#15309#15653#0" />
@@ -977,6 +988,11 @@
             <element signature="e#24497#24927#0" />
             <element signature="e#24618#24927#0" />
             <element signature="e#24664#24927#0" />
+            <element signature="e#25924#26449#0" />
+            <element signature="e#25979#26449#0" />
+            <element signature="e#26021#26449#0" />
+            <element signature="e#26142#26449#0" />
+            <element signature="e#26188#26449#0" />
             <element signature="e#24977#26073#0" />
             <element signature="e#25033#26073#0" />
             <element signature="e#25075#26073#0" />
@@ -1036,14 +1052,8 @@
             <element signature="e#35921#36090#0" />
             <element signature="e#36123#36293#0" />
             <element signature="e#36327#36454#0" />
-            <element signature="e#36529#37587#0" />
-            <element signature="e#36624#37587#0" />
             <element signature="e#36796#36852#0" />
             <element signature="e#36920#37587#0" />
-            <element signature="e#36967#37518#0" />
-            <element signature="e#37052#37120#0" />
-            <element signature="e#37170#37518#0" />
-            <element signature="e#37266#37518#0" />
             <element signature="e#37662#38629#0" />
             <element signature="e#37757#38629#0" />
             <element signature="e#37893#38629#0" />
