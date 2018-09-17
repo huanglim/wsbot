@@ -56,6 +56,7 @@ RE_DIALOG = re.compile('：')
 
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
 RE_XY = re.compile("听说郭大侠收到线报蒙古大军近日将会进攻襄阳")
+RE_XY_SYS = re.compile("(武神历.+年蒙古大军挥军南下，襄阳城告急|武神历.+年蒙古可汗蒙哥被击杀于襄阳城下|武神历.+年郭大侠战死襄阳)")
 RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子(.+)击杀")
 RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 RE_HQZC = re.compile("婚庆主持")
@@ -91,6 +92,7 @@ class MudRobot(object):
         self.last_him_dialog = ""
         self.last_hio_dialog = ""
         self.last_hig_dialog = ""
+        self.last_hir_dialog = ""
 
         self.current_wk = 0
 
@@ -290,6 +292,32 @@ class MudRobot(object):
 
                 return new_dialogs[::-1]
 
+    def update_sys_info(self):
+
+        #xy
+
+        hir_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hir")
+        new_hir_dialogs = []
+
+        if hir_dialogs:
+            for d in hir_dialogs[::-1]:
+                content = self.get_sys_message_content(d.text)
+                if content == self.last_hir_dialog:
+                    break
+                else:
+                    # logging.info('The appended him conteint is {}'.format(content))
+                    new_hir_dialogs.append(content)
+
+                    if RE_XY_SYS.match(content):
+                        logging.info('The msg has updated to xy content {}'.format(content))
+                        self.xy_effective_time = datetime.now()
+                        self.xy_content = content
+                        self.xy_init_flag = True
+
+            if new_hir_dialogs:
+                self.last_hir_dialog = new_hir_dialogs[0]
+                return new_hir_dialogs
+
     def update_wkzn_info_init(self):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
@@ -333,7 +361,8 @@ class MudRobot(object):
 
     def update_him_info(self):
 
-        # boss, xy
+        # boss
+        # Remove xy from him update
 
         him_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/him")
         new_him_dialogs = []
@@ -354,12 +383,12 @@ class MudRobot(object):
                         self.boss_content = content
                         self.boss_init_flag = True
 
-                    if RE_XY.match(content) and xy_flag:
-                        xy_flag = False
-                        logging.info('The msg has updated to xy content {}'.format(content))
-                        self.xy_effective_time = datetime.now()
-                        self.xy_content = content
-                        self.xy_init_flag = True
+                    # if RE_XY.match(content) and xy_flag:
+                    #     xy_flag = False
+                    #     logging.info('The msg has updated to xy content {}'.format(content))
+                    #     self.xy_effective_time = datetime.now()
+                    #     self.xy_content = content
+                    #     self.xy_init_flag = True
 
             if new_him_dialogs:
                 self.last_him_dialog = new_him_dialogs[0]
@@ -514,6 +543,14 @@ class MudRobot(object):
     def get_message_content(self, message):
         try:
             message_content = re.split('：', message)[1]
+        except Exception as e:
+            logging.error(e)
+        else:
+            return message_content
+
+    def get_sys_message_content(self, message):
+        try:
+            message_content = re.split('】', message)[1]
         except Exception as e:
             logging.error(e)
         else:
@@ -1034,6 +1071,11 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
                     try:
                         robot.update_him_info()
+                    except Exception as e:
+                        raise
+
+                    try:
+                        robot.update_sys_info()
                     except Exception as e:
                         raise
 
