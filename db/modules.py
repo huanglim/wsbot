@@ -25,13 +25,21 @@ class TrainingData(Base):
     a_content = Column(String(255))
     insert_time = Column(DateTime())
 
+class FunctionData(Base):
+
+    __tablename__ = 'function_data'
+    id = Column(Integer, primary_key=True)
+    type = Column(String(16))
+    content = Column(String(255))
+    effective_time = Column(DateTime())
+
 if __name__ == '__main__':
-    # Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     #
     session=Session()
     #
-    c = session.query(TrainingData).all()
+    c = session.query(FunctionData).all()
     # for item in c:
     #     print(item.auth, item.q_content, item.a_content)
 
@@ -39,7 +47,7 @@ if __name__ == '__main__':
     # c = session.query(TrainingData).filter(TrainingData.a_content.like('%叼丝%')).all()
     # 青青姐姐
     for item in c:
-        print(item.auth, item.q_content, item.a_content)
+        print(item.type, item.content)
         # session.delete(item)
     #
     # session.query(TrainingData).delete()

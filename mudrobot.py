@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from sqlalchemy import func
 
 from db import Session
-from db.modules import Dialog, TrainingData
+from db.modules import Dialog, TrainingData, FunctionData
 
 # from chatterbot import ChatBot
 
@@ -117,8 +117,7 @@ class MudRobot(object):
         self.mpz_info = {}
 
         self.last_jh_dialog = ""
-        self.jh_person_one = ""
-        self.jh_person_two = ""
+        self.jh_content = ""
         self.jh_effective_time = None
         self.jh_init_flag = None
 
@@ -292,7 +291,7 @@ class MudRobot(object):
 
                 return new_dialogs[::-1]
 
-    def update_sys_info(self):
+    def update_sys_info(self, session=None):
 
         #xy
 
@@ -313,6 +312,7 @@ class MudRobot(object):
                         self.xy_effective_time = datetime.now()
                         self.xy_content = content
                         self.xy_init_flag = True
+                        self.save_to_function_db(session=session, type='xy', content=self.xy_content,effective_time=self.xy_effective_time)
 
             if new_hir_dialogs:
                 self.last_hir_dialog = new_hir_dialogs[0]
@@ -359,7 +359,7 @@ class MudRobot(object):
                     else:
                         self.send_message('矿山封印改变, 现在为:+{}'.format(self.current_wk))
 
-    def update_him_info(self):
+    def update_him_info(self, session=None):
 
         # boss
         # Remove xy from him update
@@ -382,6 +382,7 @@ class MudRobot(object):
                         self.boss_effective_time = datetime.now()
                         self.boss_content = content
                         self.boss_init_flag = True
+                        self.save_to_function_db(session=session, type='boss',content=self.boss_content,effective_time=self.boss_effective_time)
 
                     # if RE_XY.match(content) and xy_flag:
                     #     xy_flag = False
@@ -394,7 +395,7 @@ class MudRobot(object):
                 self.last_him_dialog = new_him_dialogs[0]
                 return new_him_dialogs
 
-    def get_commands(self):
+    def get_commands(self, session=None):
         logging.debug('get commands')
         hic_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hic")
 
@@ -415,6 +416,7 @@ class MudRobot(object):
                         # process for mpz
                         res = RE_MPZ.match(content)
 
+                        #process for mpz
                         if RE_ZM.match(auth) and res:
                             logging.info(d.text)
                             if d.text != self.last_mpz_dialog:
@@ -428,14 +430,15 @@ class MudRobot(object):
                                 mpz = "{}-{}({}开启)".format(mp1, mp2, who)
                                 self.mpz_info[mpz] = datetime.now()
 
+                        # process for jh
                         if RE_HQZC.match(auth) and RE_JH.match(content):
                             if d.text != self.last_jh_dialog:
                                 jh_dialogs.append(d.text)
                                 res = RE_JH.match(content)
-                                self.jh_person_one = res.groups()[0]
-                                self.jh_person_two = res.groups()[1]
+                                self.jh_content = '{}和{}正式结为夫妻!'.format(res.groups()[0],res.groups()[1])
                                 self.jh_effective_time = datetime.now()
                                 self.jh_init_flag = True
+                                self.save_to_function_db(session=session, type='jh', content=self.jh_content, effective_time=self.jh_effective_time)
                                 self.send_message('*恭喜')
 
             if mpz_dialogs:
@@ -736,7 +739,7 @@ class MudRobot(object):
                     if self.jh_init_flag:
                         td = datetime.now() - self.jh_effective_time
                         minutes, seconds = td.seconds // 60, td.seconds % 60
-                        message = '{}分{}秒前,{}和{}正式结为夫妻!'.format(minutes, seconds, self.jh_person_one, self.jh_person_two)
+                        message = '{}分{}秒前,{}'.format(minutes, seconds, self.jh_content)
                         self.send_message(message)
 
     def response_to_mpz(self,dialogs):
@@ -850,6 +853,20 @@ class MudRobot(object):
         session.commit()
         logging.info('save complete')
 
+    def save_to_function_db(self,session, type, content, effective_time):
+        # now = datetime.now()
+        record = session.query(FunctionData).filter(FunctionData.type==type).one()
+        if record:
+            record.content=content
+            record.effective_time=effective_time
+            session.commit()
+            logging.info('update complete')
+        else:
+            function_data = FunctionData(type=type, content=content, effective_time=effective_time)
+            session.add(function_data)
+            session.commit()
+            logging.info('insert complete')
+
     def load_from_training_db(self,session):
 
         c = session.query(TrainingData).all()
@@ -860,6 +877,28 @@ class MudRobot(object):
                 USER_TRAINING_SET[item.q_content] = [item.a_content,]
 
         logging.info('load user training is completed')
+
+    def load_from_function_db(self,session):
+
+        c = session.query(FunctionData).all()
+        for item in c:
+            logging.info('{}:{}:{}'.format(item.type, item.content, item.effective_time))
+            if item.type == 'boss':
+                self.boss_effective_time = item.effective_time
+                self.boss_content = item.content
+                self.boss_init_flag = True
+
+            elif item.type == 'xy':
+                self.xy_effective_time = item.effective_time
+                self.xy_content = item.content
+                self.xy_init_flag = True
+
+            elif item.type == 'jh':
+                self.jh_person_content = item.content
+                self.jh_effective_time = item.effective_time
+                self.jh_init_flag = True
+
+        logging.info('load function data is completed')
 
     def generate_answer(self, chat_content):
 
@@ -1051,15 +1090,17 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
         robot.start_mining()
         # robot.init_chatbot()
         if IS_ALL_ENABLE:
+            robot.load_from_function_db(session=session)
             time.sleep(10)
             robot.update_wkzn_info_init()
+
         robot.send_message('*清醒')
 
         while True:
             time.sleep(3)
             try:
                 try:
-                    dialogs = robot.get_commands()
+                    dialogs = robot.get_commands(session=session)
                 except Exception as e:
                     raise
 
@@ -1070,12 +1111,12 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                         raise
 
                     try:
-                        robot.update_him_info()
+                        robot.update_him_info(session=session)
                     except Exception as e:
                         raise
 
                     try:
-                        robot.update_sys_info()
+                        robot.update_sys_info(session=session)
                     except Exception as e:
                         raise
 
