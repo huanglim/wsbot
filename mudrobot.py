@@ -855,7 +855,8 @@ class MudRobot(object):
 
     def save_to_function_db(self,session, type, content, effective_time):
         # now = datetime.now()
-        record = session.query(FunctionData).filter(FunctionData.type==type).one()
+
+        record = session.query(FunctionData).filter(FunctionData.type == type).all()[0]
         if record:
             record.content=content
             record.effective_time=effective_time

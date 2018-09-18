@@ -34,11 +34,12 @@ class FunctionData(Base):
     effective_time = Column(DateTime())
 
 if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+    # Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     #
     session=Session()
     #
+    record = session.query(FunctionData).filter(FunctionData.type == 'boss').one()
     c = session.query(FunctionData).all()
     # for item in c:
     #     print(item.auth, item.q_content, item.a_content)
