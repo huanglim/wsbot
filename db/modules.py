@@ -39,7 +39,7 @@ if __name__ == '__main__':
     #
     session=Session()
     #
-    record = session.query(FunctionData).filter(FunctionData.type == 'boss').one()
+    record = session.query(FunctionData).filter(FunctionData.type == 'boss').all()[0]
     c = session.query(FunctionData).all()
     # for item in c:
     #     print(item.auth, item.q_content, item.a_content)

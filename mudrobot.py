@@ -856,10 +856,10 @@ class MudRobot(object):
     def save_to_function_db(self,session, type, content, effective_time):
         # now = datetime.now()
 
-        record = session.query(FunctionData).filter(FunctionData.type == type).all()[0]
+        record = session.query(FunctionData).filter(FunctionData.type == type).all()
         if record:
-            record.content=content
-            record.effective_time=effective_time
+            record[0].content=content
+            record[0].effective_time=effective_time
             session.commit()
             logging.info('update complete')
         else:
