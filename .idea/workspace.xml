@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/modules.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/modules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wsmud" beforeDir="false" afterPath="$PROJECT_DIR$/wsmud" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="901" lean-forward="true" selection-start-line="901" selection-end-line="901" />
+            <state relative-caret-position="205">
+              <caret line="328" column="30" selection-start-line="328" selection-start-column="27" selection-end-line="328" selection-end-column="30" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#951#1334#0" />
@@ -58,8 +55,6 @@
                 <element signature="e#9820#10118#0" />
                 <element signature="e#9864#9993#0" />
                 <element signature="e#10039#10118#0" />
-                <element signature="e#10165#10690#0" />
-                <element signature="e#10330#10690#0" />
                 <element signature="e#10609#10690#0" />
                 <element signature="e#10732#11584#0" />
                 <element signature="e#10897#11584#0" />
@@ -200,11 +195,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1181">
-              <caret line="450" lean-forward="true" selection-start-line="450" selection-end-line="450" />
+            <state relative-caret-position="1899">
+              <caret line="562" column="51" selection-start-line="562" selection-start-column="51" selection-end-line="562" selection-end-column="51" />
               <folding>
                 <element signature="e#15#156#0" />
               </folding>
@@ -223,10 +218,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>挖矿</find>
       <find>炼药</find>
       <find>武当</find>
-      <find>四十二章经</find>
       <find>WebDriverWait</find>
       <find>打坐</find>
       <find>潜能</find>
@@ -237,7 +230,6 @@
       <find>qnjs</find>
       <find>关外</find>
       <find>养精丹</find>
-      <find>帮派</find>
       <find>拜师</find>
       <find>合成</find>
       <find>师门</find>
@@ -253,6 +245,9 @@
       <find>qq</find>
       <find>门派</find>
       <find>门派黄</find>
+      <find>帮派</find>
+      <find>int</find>
+      <find>四十二章经</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -850,20 +845,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1181">
-          <caret line="450" lean-forward="true" selection-start-line="450" selection-end-line="450" />
-          <folding>
-            <element signature="e#15#156#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="901" lean-forward="true" selection-start-line="901" selection-end-line="901" />
+        <state relative-caret-position="205">
+          <caret line="328" column="30" selection-start-line="328" selection-start-column="27" selection-end-line="328" selection-end-column="30" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <element signature="e#951#1334#0" />
@@ -898,8 +883,6 @@
             <element signature="e#9820#10118#0" />
             <element signature="e#9864#9993#0" />
             <element signature="e#10039#10118#0" />
-            <element signature="e#10165#10690#0" />
-            <element signature="e#10330#10690#0" />
             <element signature="e#10609#10690#0" />
             <element signature="e#10732#11584#0" />
             <element signature="e#10897#11584#0" />
@@ -1035,6 +1018,16 @@
             <element signature="e#42592#42745#0" />
             <element signature="e#42847#43504#0" />
             <element signature="e#43197#43198#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatppattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1899">
+          <caret line="562" column="51" selection-start-line="562" selection-start-column="51" selection-end-line="562" selection-end-column="51" />
+          <folding>
+            <element signature="e#15#156#0" />
           </folding>
         </state>
       </provider>
