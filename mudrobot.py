@@ -323,8 +323,8 @@ class MudRobot(object):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
-        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1]):
-            wk_sentence = RE_WKZN.match(hig_dialogs[-1]).groups()[0]
+        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1].text):
+            wk_sentence = RE_WKZN.match(hig_dialogs[-1].text).groups()[0]
 
             if IS_ALL_ENABLE:
                 wk_data = (int(wk_sentence)//10 - 2) * 10
@@ -340,8 +340,8 @@ class MudRobot(object):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
-        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1]):
-            wk_sentence = RE_WKZN.match(hig_dialogs[-1]).groups()[0]
+        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1].text):
+            wk_sentence = RE_WKZN.match(hig_dialogs[-1].text).groups()[0]
 
             if IS_ALL_ENABLE:
                 wk_data = (int(wk_sentence)//10 - 2) * 10
