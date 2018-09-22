@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
@@ -249,11 +249,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
+            <state relative-caret-position="189">
+              <caret line="435" column="4" selection-start-line="435" selection-start-column="4" selection-end-line="435" selection-end-column="4" />
               <folding>
                 <element signature="e#15#156#0" />
                 <element signature="e#343#432#0" />
@@ -293,7 +293,7 @@
       <find>师门</find>
       <find>棍</find>
       <find>boss</find>
-      <find>武士(包括)以上帮众每天最多可得40帮贡. 每一种级别的成员每日帮贡总上限为400. 帮贡每周清零. 帮贡可用来召唤boss等, 武士级别boss 需100帮贡, 武师150, 宗师200. 掉落与世界boss一致</find>
+      <find />
       <find>散人</find>
       <find>豪宅</find>
       <find>召唤令</find>
@@ -320,9 +320,9 @@
       <replace>会|會</replace>
       <replace>|会|會</replace>
       <replace>USER_TRAINING_SET</replace>
-      <replace>参考设置-&gt;帮助-&gt;副本攻略 输入 副本名 掉落或者数据 可查询相应信息(后续副本更新中)</replace>
-      <replace>副本攻略. 输入</replace>
-      <replace>. 询问真一 副</replace>
+      <replace />
+      <replace />
+      <replace />
       <replace>&quot;],</replace>
     </replaceStrings>
   </component>
@@ -345,8 +345,8 @@
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/db/modules.py" />
-        <option value="$PROJECT_DIR$/chatppattern.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
+        <option value="$PROJECT_DIR$/chatppattern.py" />
       </list>
     </option>
   </component>
@@ -911,23 +911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="495" column="4" lean-forward="true" selection-start-line="495" selection-start-column="4" selection-end-line="495" selection-end-column="4" />
-          <folding>
-            <element signature="e#15#156#0" />
-            <element signature="e#343#432#0" />
-            <element signature="e#640#790#0" />
-            <element signature="e#1062#1458#0" />
-            <element signature="e#1617#1722#0" />
-            <element signature="e#2503#2602#0" />
-            <element signature="e#4715#4832#0" />
-            <element signature="e#7771#7875#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -1146,6 +1129,23 @@
             <element signature="e#46366#47023#0" />
             <element signature="e#46568#47023#0" />
             <element signature="e#46716#46717#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatppattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="435" column="4" selection-start-line="435" selection-start-column="4" selection-end-line="435" selection-end-column="4" />
+          <folding>
+            <element signature="e#15#156#0" />
+            <element signature="e#343#432#0" />
+            <element signature="e#640#790#0" />
+            <element signature="e#1062#1458#0" />
+            <element signature="e#1617#1722#0" />
+            <element signature="e#2503#2602#0" />
+            <element signature="e#4715#4832#0" />
+            <element signature="e#7771#7875#0" />
           </folding>
         </state>
       </provider>
