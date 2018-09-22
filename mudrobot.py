@@ -61,6 +61,7 @@ RE_MPZ = re.compile(".*(逍遥|峨眉|丐帮|华山|武当|少林).*门下弟子
 RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 RE_HQZC = re.compile("婚庆主持")
 RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
+RE_WKZN = re.compile("你获得了(.+)点经验")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -322,13 +323,13 @@ class MudRobot(object):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
-        if hig_dialogs:
-            wk_sentence = hig_dialogs[-1].text[4]
+        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1]):
+            wk_sentence = RE_WKZN.match(hig_dialogs[-1]).groups()[0]
 
             if IS_ALL_ENABLE:
-                wk_data = (int(wk_sentence) - 2) * 10
+                wk_data = (int(wk_sentence)//10 - 2) * 10
             else:
-                wk_data = (int(wk_sentence) - 1) * 10
+                wk_data = (int(wk_sentence)//10 - 1) * 10
 
             # update wk
             if wk_data != self.current_wk:
@@ -339,13 +340,13 @@ class MudRobot(object):
         logging.debug('in the hig')
         hig_dialogs = self.driver.find_elements_by_xpath("//div[@class='content-message']/pre/hig")
 
-        if hig_dialogs:
-            wk_sentence = hig_dialogs[-1].text[4]
+        if hig_dialogs and RE_WKZN.match(hig_dialogs[-1]):
+            wk_sentence = RE_WKZN.match(hig_dialogs[-1]).groups()[0]
 
             if IS_ALL_ENABLE:
-                wk_data = (int(wk_sentence) - 2) * 10
+                wk_data = (int(wk_sentence)//10 - 2) * 10
             else:
-                wk_data = (int(wk_sentence) - 1) * 10
+                wk_data = (int(wk_sentence)//10 - 1) * 10
 
             # update wk
             if wk_data != self.current_wk:
@@ -1097,6 +1098,8 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
         robot.send_message('*清醒')
 
+        error_count = 0
+
         while True:
             time.sleep(3)
             try:
@@ -1160,6 +1163,11 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
             except Exception as e:
                 logging.error(e)
+                if error_count > 5:
+                    robot.refresh()
+                    error_count = 0
+                else:
+                    error_count += 1
 
 def xdxy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
