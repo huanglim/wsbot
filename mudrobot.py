@@ -36,7 +36,7 @@ if IS_ALL_ENABLE:
     RE_COMMAND_WKZN = re.compile("(小僧真一|真一|zy)(\s|，|,)?wkzn")
     RE_COMMAND_BOSS = re.compile("(小僧真一|真一|zy)(\s|，|,)?(boss|BOSS)")
     RE_COMMAND_XY = re.compile("(小僧真一|真一|zy)(\s|，|,)?xy")
-    RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs\s(\d+)\s(\d+)\s(.)")
+    RE_COMMAND_QNJS = re.compile("(小僧真一|真一|zy)(\s|，|,)?qnjs.(\d+).(\d+).(.)")
     RE_COMMAND_MPZ = re.compile("(小僧真一|真一|zy)(\s|，|,)?mpz")
     RE_COMMAND_JH = re.compile("(小僧真一|真一|zy)(\s|，|,)?jh")
 else:
