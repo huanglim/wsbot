@@ -35,6 +35,15 @@ LOGIN_PASSWORD_xnmh = 'huang001'
 LOGIN_NAME_m = 'simonrob05'
 LOGIN_PASSWORD_m = 'huang001'
 
+LOGIN_NAME_h1 = 'huangrob01'
+LOGIN_PASSWORD_h1 = 'huang001'
+
+
+IDS = {
+    'huangrob01':['姜列嗣','潘琮','赫连劼铸','鲜于宗鹰','金舜儋'],
+    'huangrob02':[''],
+}
+
 if MYSQL:
     DB_CONNECT_STRING = 'mysql+pymysql://root:huang001@localhost/wsmud?charset=utf8'
 else:
