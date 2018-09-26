@@ -168,8 +168,8 @@ class MudRobot(object):
         return self
 
     def __exit__(self, exc_ty, exc_val, tb):
-        time.sleep(5)
-        self.send_message('*再见')
+        # time.sleep(5)
+        # self.send_message('*再见')
         self.driver.quit()
 
     # def init_chatbot(self):
@@ -183,7 +183,7 @@ class MudRobot(object):
     #                   "chatterbot.corpus.chinese.wsmud_general",
     #                   "chatterbot.corpus.chinese.emotion")
 
-    def login(self, login_nm=None, login_pwd=None):
+    def login(self, login_nm=None, login_pwd=None, user_name=None):
 
         try:
             self.driver.get(WSMUD_URL)
@@ -206,12 +206,16 @@ class MudRobot(object):
         # select the server
         server_name = WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[@index='3']"))
         select_server = self.driver.find_element_by_xpath("//li[@command='SelectServer']")
-
-        time.sleep(2)
         server_name.click()
         select_server.click()
 
-        time.sleep(2)
+        # select the user
+        WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[text()='选择你的角色']"))
+        time.sleep(S_WAIT)
+        if user_name:
+            self.driver.find_element_by_xpath("//li[contains(text(),'"+user_name+"')]").click()
+            time.sleep(S_WAIT)
+
         select_btn =  self.driver.find_element_by_xpath("//li[@command='SelectRole']")
         select_btn.click()
 
@@ -966,9 +970,20 @@ class MudRobot(object):
         return message
 
     def get_obj_and_objid(self, obj_name):
-        obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
+
+        obj = WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']"))
+
+        # obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
         obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
         return obj, obj_id
+
+    def get_obj(self, obj_name):
+        obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
+        return obj
+
+    def get_objid(self, obj_name):
+        obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
+        return obj_id
 
     def kill(self,person, weapon_name=None):
         if weapon_name:
