@@ -24,7 +24,8 @@ from config import WSMUD_URL, WAITSEC, \
     host_ip, port, \
     IS_REMOTE, IS_HEADLESS, PLACES, S_WAIT, \
     COLOR, IS_ALL_ENABLE, INDIVIDUAL_COMMAND, \
-    UPDATE_WKZN_STATUS_CHANGE, MP_NAME
+    UPDATE_WKZN_STATUS_CHANGE, MP_NAME, \
+    M_WAIT
 
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
@@ -62,6 +63,8 @@ RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 RE_HQZC = re.compile("婚庆主持")
 RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
 RE_WKZN = re.compile("你获得了(.+)点经验")
+
+RE_DISCONNECT = re.compile(".+你的连接中断了")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -971,19 +974,19 @@ class MudRobot(object):
 
     def get_obj_and_objid(self, obj_name):
 
-        obj = WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']"))
+        obj = WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']"))
 
         # obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
         obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
         return obj, obj_id
 
     def get_obj(self, obj_name):
-        obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
-        return obj
+        # obj = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']")
+        return self.get_obj_and_objid(obj_name)[0]
 
     def get_objid(self, obj_name):
-        obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
-        return obj_id
+        # obj_id = self.driver.find_element_by_xpath("//span[@class='item-name'][text()='"+obj_name+"']/..").get_attribute('itemid')
+        return self.get_obj_and_objid(obj_name)[1]
 
     def kill(self,person, weapon_name=None):
         if weapon_name:
@@ -1084,6 +1087,11 @@ class MudRobot(object):
         self.driver.find_element_by_xpath("//span[@class='item-name'][text()='" + person + "']").click()
         time.sleep(S_WAIT)
         self.do_command_by_text(text_command)
+
+    def is_disconnected(self):
+        reply_text = self.driver.find_element_by_css_selector('div.content-message>pre').text
+        if RE_DISCONNECT.search(reply_text):
+            pass
 
     def refresh(self):
         self.driver.get(WSMUD_URL)

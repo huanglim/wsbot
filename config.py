@@ -17,9 +17,10 @@ port = '4444'
 db_file = os.path.dirname(__file__)
 
 WSMUD_URL = 'http://game.wsmud.com'
+L_WAIT = 60
 WAITSEC = 20
+M_WAIT = 5
 S_WAIT = 0.5
-
 
 LOGIN_PASSWORD = 'huang001'
 
@@ -42,49 +43,171 @@ LOGIN_NAME_h1 = 'huangrob01'
 LOGIN_PASSWORD_h1 = 'huang001'
 
 IDS = {
-
-    'huangrob01':[
-        '姜列嗣',
-        '潘琮',
-        '赫连劼铸',
-        '鲜于宗鹰',
-        '金舜儋'
+    # 人工智障 小道玄一
+    'huangrob01': [
+        {
+            'user_name': '姜列嗣',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '潘琮',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '赫连劼铸',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '鲜于宗鹰',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '金舜儋',
+            'user_school': '华山'
+        },
     ],
 
+    # 人工智障
     'simonrob06': [
-        '西门寒语',
-        '钱霆俟',
-        '葛伋拯',
-        '魏产承明',
-        '严魏吉',
+        {
+            'user_name': '西门寒语',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '钱霆俟',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '葛伋拯',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '魏产承明',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '严魏吉',
+            'user_school': '华山'
+        },
     ],
-    #
+
+    # 智障人工 明慧
+
     'huangrob02': [
-        '尤峙黎',
-        '韩榜',
-        '范俣世',
-        '李侪拯',
-        '西门剑世',
+        {
+            'user_name': '尤峙黎',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '韩榜',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '范俣世',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '李侪拯',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '西门剑世',
+            'user_school': '华山'
+        },
     ],
+
+    # 智障人工
 
     'simonrob05': [
-        '郎璥',
-        '夏侯乐炜',
-        '赵浦铸',
-        '冯力谊',
-        '许镇骞,'
+        {
+            'user_name': '郎璥',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '夏侯乐炜',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '赵浦铸',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '冯力谊',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '许镇骞',
+            'user_school': '华山'
+        },
+    ],
+
+    'simonrob07': [
+        {
+            'user_name': '明了',
+            'user_school': ''
+        },
+        {
+            'user_name': '明净',
+            'user_school': ''
+        },
+        {
+            'user_name': '明心',
+            'user_school': ''
+        },
+        {
+            'user_name': '明真',
+            'user_school': ''
+        },
+        {
+            'user_name': '明明',
+            'user_school': ''
+        },
+    ],
+
+    #
+
+    'huangrob03': [
+        {
+            'user_name': '施助峙',
+            'user_school': ''
+        },
+        {
+            'user_name': '陈倡帝',
+            'user_school': ''
+        },
+        {
+            'user_name': '宇文君主',
+            'user_school': ''
+        },
+        {
+            'user_name': '孔淏欧',
+            'user_school': ''
+        },
+        {
+            'user_name': '云煊利',
+            'user_school': ''
+        },
     ],
 
     'simonrob02': [
-        '小道玄一',
+        {
+            'user_name': '小道玄一',
+            'user_school': '武当'
+        },
     ],
 
     'simonrob03': [
-        '守口如瓶',
+        {
+            'user_name': '守口如瓶',
+            'user_school': '逍遥'
+        },
     ],
 
     'simonrob04': [
-        '明慧',
+        {
+            'user_name': '明慧',
+            'user_school': '峨眉'
+        },
     ],
 }
 
@@ -123,8 +246,49 @@ MP_NAME = {
 SM_INFO = {
     '华山':{'sm_place':'华山派-镇岳宫','teacher':'市井豪杰 高根明'},
     '武当':{'sm_place':'武当派-三清殿','teacher':'武当派第二代弟子 武当首侠 宋远桥'},
-    '峨眉':{'sm_place':'峨眉派-大殿','teacher':'峨嵋派第四代弟子 静心'},
+    '峨眉':{'sm_place':'峨眉派-庙门','teacher':'峨嵋派第五代弟子 苏梦清'},
     '逍遥': {'sm_place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
+}
+
+TEACHER_INFO = {
+    '教习': {'place': '扬州城-扬州武馆', 'teacher': '武馆教习'},
+    '高根明': {'place': '华山派-镇岳宫', 'teacher': '市井豪杰 高根明'},
+    '岳不群': {'place': '华山派-客厅', 'teacher': '华山掌门 '},
+    '逍遥': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
+}
+
+COMMANDS_MAPPING = {
+    'c': 'cancel',
+
+    'm': 'move',
+    'move': 'move',
+
+    'k': 'kill',
+    'kill': 'kill',
+
+    's': 'stop',
+    'stop': 'stop',
+
+    'wa': 'go_to_wa',
+
+    'e':'execute_cmd',
+
+    'l':'learn',
+    'learn':'learn',
+
+}
+
+ARG_MAPPING = {
+
+    "小径":"华山派-玉女峰小径",
+    "e":'go east;',
+    'n':'go north;',
+    's':'go south;',
+    'w':'go west;',
+    'ne':'go northeast;',
+    'nw': 'go northwest;',
+    'sw': 'go southwest;',
+    'se': 'go southeast;',
 }
 
 FOOD_LIST = ['米饭','包子','鸡腿','面条','扬州炒饭','米酒','花雕酒','女儿红','醉仙酿','神仙醉']
@@ -228,10 +392,6 @@ PLACES={
         "襄阳城-广场": "jh fam 7 start",
         "武道塔": "jh fam 8 start",
 }
-
-
-
-# Marryrob
 
 if __name__ == '__main__':
     # import re

@@ -36,6 +36,9 @@ class TaskRobot(MudRobot):
         js ="$(\".bottom-bar\").append(\"<span class='item-commands' style='display:none'><span WG_command='WG_command' class='tool-item' command=''></span></span>\");"
         self.driver.execute_script(js)
 
+    def get_reply_message(self):
+        return self.driver.find_element_by_css_selector('div.content-message > pre').text
+
     def kill(self,person, weapon_name=None):
         if weapon_name:
             # chagne the weapon
@@ -44,19 +47,17 @@ class TaskRobot(MudRobot):
         # locate the object
         obj, obj_id = self.get_obj_and_objid(person)
 
-        # kill the object
-        obj.click()
-        sleep(S_WAIT*2)
+        # # kill the object
         cmd = "kill "+obj_id
-        # self.driver.find_element_by_xpath("//span[@cmd='kill "+obj_id+"']").click()
         self.execute_cmd(cmd)
+
         # wait for the finish
         if ' ' in person:
-            person_after = re.split(' ',person)[1]+'的尸体'
+            person_after = re.split(' ',person)[-1]+'的尸体'
         else:
             person_after = person + '的尸体'
 
-        WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//wht[text()='"+person_after+"']"))
+        WebDriverWait(self.driver, L_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='"+person_after+"']"))
 
     def execute_cmd(self, cmds):
         splited_cmds = cmds.split(';')
@@ -86,11 +87,24 @@ class TaskRobot(MudRobot):
                 logging.info('no yjd')
                 break
             else:
-                yjd_use = self.driver.find_element_by_xpath("//hic[text()='养精丹']/../span[@class='item-commands']/span[3]")
+                yjd_use = self.driver.find_element_by_xpath("//*[text()='养精丹']/../span[@class='item-commands']/span[3]")
                 yjd_use.click()
                 sleep(S_WAIT)
 
-            # if RE_FULL_YJD,search(reply_text)
+    def use_item(self, item_name, times=6):
+        self.execute_command('pack')
+
+        for time in range(times):
+            try:
+                self.driver.find_element_by_xpath("//*[text()='"+item_name+"']").click()
+                sleep(S_WAIT)
+            except Exception as e:
+                logging.info('There is no {} existed!'.format(item_name))
+                break
+            else:
+                item_use = self.driver.find_element_by_xpath("//*[text()='"+item_name+"']/../span[@class='item-commands']/span[3]")
+                item_use.click()
+                sleep(S_WAIT)
 
     def get_number_of_item(self, item_name):
         self.execute_command('pack')
@@ -311,7 +325,10 @@ class TaskRobot(MudRobot):
 
     def move(self, directions):
 
-        self.execute_cmd(directions)
+        if ';' in directions:
+            self.execute_cmd(directions)
+        else:
+            self.execute_cmd(PLACES[directions])
 
     def stop(self):
         self.execute_cmd('stopstate')
@@ -382,10 +399,10 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
-                    main(id, LOGIN_PASSWORD, user)
-                    logging.info('successful for {}, {}'.format(id, user))
+                    main(id, LOGIN_PASSWORD, user['user_name'])
+                    logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break
                 except Exception as e:
                     try_times -= 1
                     if not try_times:
-                        logging.info('error for {}, {}'.format(id, user))
+                        logging.info('error for {}, {}'.format(id, user['user_name']))
