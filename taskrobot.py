@@ -330,8 +330,38 @@ class TaskRobot(MudRobot):
         else:
             self.execute_cmd(PLACES[directions])
 
+    def take_jg(self):
+
+        teacher_name = " 郭靖"
+
+        self.move("襄阳城-广场")
+
+        teacher_id = self.get_objid(teacher_name)
+
+        cmd = 'reward1 ' + teacher_id
+        self.execute_cmd(cmd)
+
+        sleep(S_WAIT*2)
+
+        cmd = 'reward2 ' + teacher_id
+        self.execute_cmd(cmd)
+
+    def check_room_name(self, room_name):
+
+        try:
+            self.driver.find_element_by_xpath("//span[@class='room-name'][text()='"+room_name+"']")
+        except Exception as e:
+            return None
+        else:
+            return True
+
     def stop(self):
+
         self.execute_cmd('stopstate')
+
+    def dazuo(self):
+
+        self.execute_cmd('dazuo')
 
     def go_to_wa(self):
 

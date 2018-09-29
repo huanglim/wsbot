@@ -43,6 +43,13 @@ LOGIN_NAME_h1 = 'huangrob01'
 LOGIN_PASSWORD_h1 = 'huang001'
 
 IDS = {
+    'simonrob01': [
+        {
+            'user_name': '小僧真一',
+            'user_school': '华山'
+        },
+    ],
+
     # 人工智障 小道玄一
     'huangrob01': [
         {
@@ -247,14 +254,14 @@ SM_INFO = {
     '华山':{'sm_place':'华山派-镇岳宫','teacher':'市井豪杰 高根明'},
     '武当':{'sm_place':'武当派-三清殿','teacher':'武当派第二代弟子 武当首侠 宋远桥'},
     '峨眉':{'sm_place':'峨眉派-庙门','teacher':'峨嵋派第五代弟子 苏梦清'},
-    '逍遥': {'sm_place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
+    '逍遥':{'sm_place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
 }
 
 TEACHER_INFO = {
     '教习': {'place': '扬州城-扬州武馆', 'teacher': '武馆教习'},
     '高根明': {'place': '华山派-镇岳宫', 'teacher': '市井豪杰 高根明'},
     '岳不群': {'place': '华山派-客厅', 'teacher': '华山掌门 '},
-    '逍遥': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
+    '苏星河': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
 }
 
 COMMANDS_MAPPING = {

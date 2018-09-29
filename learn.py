@@ -10,6 +10,8 @@ from config import *
 
 RE_PAY_MONEY_BEFORE_LEARN = re.compile("武馆教习瞄了你一眼：100两白银，先交钱再学功夫，包教包会")
 RE_START_LEARN = re.compile("你开始向.+请教")
+RE_BAISHI_SUCCESSFUL = re.compile("")
+RE_WA = re.compile("扬州城-矿山")
 
 class LearnRobot(TaskRobot):
 
@@ -52,10 +54,18 @@ class LearnRobot(TaskRobot):
                 self.execute_cmd(cmd)
 
         try:
-            self.driver.find_element_by_xpath("//*[text()='" + skill_name + "']").click()
+            self.driver.find_element_by_xpath("//div/*[text()='" + skill_name + "']").click()
             sleep(S_WAIT*2)
         except Exception as e:
-            logging.info('There is no {} existed!'.format(skill_name))
+            try:
+                self.driver.find_element_by_xpath("//div/*[text()='✔" + skill_name + "']").click()
+                sleep(S_WAIT * 2)
+            except Exception as e:
+                logging.info('There is no {} existed!'.format(skill_name))
+                raise
+            else:
+                learn_skill = self.driver.find_element_by_xpath("//*[text()='✔" + skill_name + "']/../div[@class='item-commands']/span[2]")
+                learn_skill.click()
         else:
             learn_skill = self.driver.find_element_by_xpath("//*[text()='" + skill_name + "']/../div[@class='item-commands']/span[2]")
             learn_skill.click()
@@ -64,9 +74,36 @@ class LearnRobot(TaskRobot):
         reply_message = self.get_reply_message()
 
         if not RE_START_LEARN.search(reply_message):
-            raise Exception
+            logging.info("Didn't start the learning")
+            if self.check_room_name("扬州城-矿山"):
+                logging.info('Has learned')
+            else:
+                raise Exception
         else:
             logging.info('Start to learn')
+
+    def baishi(self, teacher=None,):
+        place = TEACHER_INFO[teacher]['place']
+        teacher_name = TEACHER_INFO[teacher]['teacher']
+
+
+        self.move(PLACES[place])
+
+        teacher_id = self.get_objid(teacher_name)
+
+        cmd = 'bai '+ teacher_id
+        self.execute_cmd(cmd)
+
+        try:
+            reply_message = self.get_reply_message()
+        except Exception as e:
+            logging.debug('No reply message')
+        else:
+            if RE_BAISHI_SUCCESSFUL.search(reply_message):
+                pass
+            else:
+                raise Exception
+
 
 def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=IS_HEADLESS, ):
 
@@ -106,10 +143,11 @@ if __name__ == '__main__':
             基本拳脚100级 / 25% 粗通皮毛 *
             基本内功100级 / 25% 粗通皮毛 *
             基本轻功100级 / 23% 粗通皮毛 *
-            基本招架100级 / 23% 粗通皮毛
-            基本剑法100级
+            基本招架100级 / 23% 粗通皮毛 *
+            基本剑法100级 *
             
             华山心法100级
+            华山剑法100级
         
         'huangrob02': 你目前的技能上限为297
             基本拳脚100级 
@@ -154,6 +192,16 @@ if __name__ == '__main__':
 
     IS_HEADLESS = True
 
+    # process_ids = {
+    #     'huangrob01': [
+    #
+    #         {
+    #             'user_name': '潘琮',
+    #             'user_school': '华山'
+    #         },
+    #     ]
+    # }
+
     process_ids = {
     # 人工智障 小道玄一
     'huangrob01': [
@@ -178,7 +226,7 @@ if __name__ == '__main__':
             'user_school': '华山'
         },
     ],
-
+    #
     # 人工智障
     'simonrob06': [
         {
@@ -252,79 +300,81 @@ if __name__ == '__main__':
             'user_school': '华山'
         },
     ],
-
-    'simonrob07': [
-        {
-            'user_name': '明了',
-            'user_school': ''
-        },
-        {
-            'user_name': '明净',
-            'user_school': ''
-        },
-        {
-            'user_name': '明心',
-            'user_school': ''
-        },
-        {
-            'user_name': '明真',
-            'user_school': ''
-        },
-        {
-            'user_name': '明明',
-            'user_school': ''
-        },
-    ],
-
-    #
-
-    'huangrob03': [
-        {
-            'user_name': '施助峙',
-            'user_school': ''
-        },
-        {
-            'user_name': '陈倡帝',
-            'user_school': ''
-        },
-        {
-            'user_name': '宇文君主',
-            'user_school': ''
-        },
-        {
-            'user_name': '孔淏欧',
-            'user_school': ''
-        },
-        {
-            'user_name': '云煊利',
-            'user_school': ''
-        },
-    ],
-
-    'simonrob02': [
-        {
-            'user_name': '小道玄一',
-            'user_school': '武当'
-        },
-    ],
-
-    'simonrob03': [
-        {
-            'user_name': '守口如瓶',
-            'user_school': '逍遥'
-        },
-    ],
-
-    'simonrob04': [
-        {
-            'user_name': '明慧',
-            'user_school': '峨眉'
-        },
-    ],
+#
+#     #
+#     #
+#     # 'simonrob07': [
+#     #     {
+#     #         'user_name': '明了',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '明净',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '明心',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '明真',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '明明',
+#     #         'user_school': ''
+#     #     },
+#     # ],
+#     #
+#     # #
+#     #
+#     # 'huangrob03': [
+#     #     {
+#     #         'user_name': '施助峙',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '陈倡帝',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '宇文君主',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '孔淏欧',
+#     #         'user_school': ''
+#     #     },
+#     #     {
+#     #         'user_name': '云煊利',
+#     #         'user_school': ''
+#     #     },
+#     # ],
+#     #
+#     # 'simonrob02': [
+#     #     {
+#     #         'user_name': '小道玄一',
+#     #         'user_school': '武当'
+#     #     },
+#     # ],
+#     #
+#     # 'simonrob03': [
+#     #     {
+#     #         'user_name': '守口如瓶',
+#     #         'user_school': '逍遥'
+#     #     },
+#     # ],
+#     #
+#     # 'simonrob04': [
+#     #     {
+#     #         'user_name': '明慧',
+#     #         'user_school': '峨眉'
+#     #     },
+#     # ],
 }
 
-    teacher = '教习'
-    skill_name = '基本轻功'
+    teacher = '高根明'
+    skill_name = '华山剑法'
 
     for id in process_ids:
         for user in process_ids[id]:

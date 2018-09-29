@@ -15,6 +15,7 @@ from config import *
 RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
 CHAN_WAIT_SEC = 5
 IS_IN_FIGHT = False
+IS_STOPPED = False
 
 class InterrupteRobot(LearnRobot):
 
@@ -34,6 +35,7 @@ class InterrupteRobot(LearnRobot):
 
     def kill(self,person, weapon_name=None):
         global IS_IN_FIGHT
+        global IS_STOPPED
 
         if weapon_name:
             # chagne the weapon
@@ -55,10 +57,16 @@ class InterrupteRobot(LearnRobot):
 
         while True:
             try:
-                WebDriverWait(self.driver, M_WAIT*3).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
+                WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
+                if IS_STOPPED:
+                    logging.info('receive cmd that stop looping killing')
+                    break
             except Exception as e:
                 try:
                     self.get_objid(person)
+                    if IS_STOPPED:
+                        logging.info('receive cmd that stop looping killing')
+                        break
                     logging.info('target {} still there, continue fighting!'.format(person))
                 except Exception as e:
                     logging.info('target {} disappeared, quit fighting'.format(person))
@@ -80,6 +88,22 @@ def perform_chan(wd_queue, chan_queue):
             q.put(cmd)
             sleep(CHAN_WAIT_SEC)
 
+def perform_monitor(monitor_queue):
+    global  IS_STOPPED
+
+    while True:
+        cmd = monitor_queue.get()
+        short_cmd = cmd.split(' ')[0]
+
+        stop_list = ['c', 'm', 'mm', 's', 'stop', 'wa']
+        go_on_list = ['k','kill']
+
+        if short_cmd in stop_list:
+            IS_STOPPED = True
+
+        if short_cmd in go_on_list:
+            IS_STOPPED = False
+
 def is_in_fight(chan_queue):
 
     logging.info('Start the is_in_fight function')
@@ -93,6 +117,7 @@ def is_in_fight(chan_queue):
                 if not chan_queue.empty():
                     chan_queue.get()
                 else:
+                    logging.info('empty the chan queue')
                     break
             sleep(S_WAIT)
 
@@ -334,6 +359,9 @@ def main():
     wd_queues = []
     threads = []
 
+    monitor_queue = Queue()
+    queues.append(monitor_queue)
+
     # Start the sessions with the specified ids
     for id in process_ids:
         for user in process_ids[id]:
@@ -357,6 +385,12 @@ def main():
                 logging.info('error for {}, {}'.format(id, user))
 
     sleep(S_WAIT*10)
+
+    # Start the thread for monitor
+    args = (monitor_queue,)
+    t = Thread(target=perform_monitor, args=args, daemon=True)
+    t.start()
+
 
     # Start the thread for chan
     chan_queue = Queue()
