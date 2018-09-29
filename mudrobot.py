@@ -1091,14 +1091,40 @@ class MudRobot(object):
     def is_disconnected(self):
         reply_text = self.driver.find_element_by_css_selector('div.content-message>pre').text
         if RE_DISCONNECT.search(reply_text):
-            pass
+            return True
 
-    def refresh(self):
-        self.driver.get(WSMUD_URL)
+    def clean_content_msg(self):
 
-        time.sleep(S_WAIT*4)
-        select_btn =  self.driver.find_element_by_xpath("//li[@command='SelectRole']")
-        select_btn.click()
+        js = '$("div.content-message>pre").html("");'
+        # logging.info(js)
+        self.driver.execute_script(js)
+        time.sleep(S_WAIT)
+
+    def refresh(self, user_name=None):
+
+        try_times = 3
+        while True:
+            try:
+                self.driver.get(WSMUD_URL)
+
+                # select the user
+                WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[text()='选择你的角色']"))
+                time.sleep(S_WAIT)
+                if user_name:
+                    self.driver.find_element_by_xpath("//li[contains(text(),'" + user_name + "')]").click()
+                    time.sleep(S_WAIT)
+
+                select_btn = self.driver.find_element_by_xpath("//li[@command='SelectRole']")
+                select_btn.click()
+            except Exception as e:
+                logging.error('login failure')
+                try_times -= 1
+                if not try_times:
+                    raise Exception
+            else:
+                break
+
+
 
     def clean_up(self):
         self.move(PLACES.get('扬州城-打铁铺'))
@@ -1183,6 +1209,11 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                             robot.response_to_jh(dialogs)
                         except Exception as e:
                             raise
+
+                # if disconnect then reconnect
+                if robot.is_disconnected():
+                    time.sleep(200)
+                    robot.refresh()
 
             except Exception as e:
                 logging.error(e)

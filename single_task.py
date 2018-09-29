@@ -26,9 +26,9 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
         # process for learning
         try:
             robot.stop()
-            robot.take_jg()
+            # robot.take_jg()
             # robot.dazuo()
-            # robot.baishi(teacher="岳不群")
+            robot.baishi(teacher="高根明")
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -156,75 +156,75 @@ if __name__ == '__main__':
                 'user_school': '华山'
             },
         ],
-
-        'simonrob07': [
-            {
-                'user_name': '明了',
-                'user_school': ''
-            },
-            {
-                'user_name': '明净',
-                'user_school': ''
-            },
-            {
-                'user_name': '明心',
-                'user_school': ''
-            },
-            {
-                'user_name': '明真',
-                'user_school': ''
-            },
-            {
-                'user_name': '明明',
-                'user_school': ''
-            },
-        ],
-
         #
-
-        'huangrob03': [
-            {
-                'user_name': '施助峙',
-                'user_school': ''
-            },
-            {
-                'user_name': '陈倡帝',
-                'user_school': ''
-            },
-            {
-                'user_name': '宇文君主',
-                'user_school': ''
-            },
-            {
-                'user_name': '孔淏欧',
-                'user_school': ''
-            },
-            {
-                'user_name': '云煊利',
-                'user_school': ''
-            },
-        ],
-
-        'simonrob02': [
-            {
-                'user_name': '小道玄一',
-                'user_school': '武当'
-            },
-        ],
-
-        'simonrob03': [
-            {
-                'user_name': '守口如瓶',
-                'user_school': '逍遥'
-            },
-        ],
-
-        'simonrob04': [
-            {
-                'user_name': '明慧',
-                'user_school': '峨眉'
-            },
-        ],
+        # 'simonrob07': [
+        #     {
+        #         'user_name': '明了',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明净',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明心',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明真',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明明',
+        #         'user_school': ''
+        #     },
+        # ],
+        #
+        # #
+        #
+        # 'huangrob03': [
+        #     {
+        #         'user_name': '施助峙',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '陈倡帝',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '宇文君主',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '孔淏欧',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '云煊利',
+        #         'user_school': ''
+        #     },
+        # ],
+        #
+        # 'simonrob02': [
+        #     {
+        #         'user_name': '小道玄一',
+        #         'user_school': '武当'
+        #     },
+        # ],
+        #
+        # 'simonrob03': [
+        #     {
+        #         'user_name': '守口如瓶',
+        #         'user_school': '逍遥'
+        #     },
+        # ],
+        #
+        # 'simonrob04': [
+        #     {
+        #         'user_name': '明慧',
+        #         'user_school': '峨眉'
+        #     },
+        # ],
     }
 
     teacher = '高根明'

@@ -10,7 +10,8 @@ from config import *
 
 RE_PAY_MONEY_BEFORE_LEARN = re.compile("武馆教习瞄了你一眼：100两白银，先交钱再学功夫，包教包会")
 RE_START_LEARN = re.compile("你开始向.+请教")
-RE_BAISHI_SUCCESSFUL = re.compile("")
+RE_BAISHI_SUCCESSFUL = re.compile("决定收你为弟子")
+RE_ALREADY_BAISHI = re.compile("你恭恭敬敬的")
 RE_WA = re.compile("扬州城-矿山")
 
 class LearnRobot(TaskRobot):
@@ -94,16 +95,20 @@ class LearnRobot(TaskRobot):
         cmd = 'bai '+ teacher_id
         self.execute_cmd(cmd)
 
+        sleep(S_WAIT*4)
+
         try:
             reply_message = self.get_reply_message()
         except Exception as e:
             logging.debug('No reply message')
         else:
             if RE_BAISHI_SUCCESSFUL.search(reply_message):
-                pass
+                logging.info('Bai shi sucessfully')
+            elif RE_ALREADY_BAISHI.search(reply_message):
+                logging.info('Already baishi')
             else:
+                logging.info('failed')
                 raise Exception
-
 
 def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=IS_HEADLESS, ):
 
