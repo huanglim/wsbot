@@ -144,6 +144,13 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=IS_HEADL
 if __name__ == '__main__':
     """
     learning logs:
+    
+        基本拳脚100级 / 60% 粗通皮毛
+基本内功已装备：华山心法100级 / 42% 粗通皮毛
+基本轻功100级 / 69% 粗通皮毛
+基本招架100级 / 69% 粗通皮毛
+基本剑法37级 / 78% 初学乍练
+    
         'huangrob01': 你目前的技能上限为329级  1777895
             基本拳脚100级 / 25% 粗通皮毛 *
             基本内功100级 / 25% 粗通皮毛 *

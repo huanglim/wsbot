@@ -64,7 +64,7 @@ RE_HQZC = re.compile("婚庆主持")
 RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
 RE_WKZN = re.compile("你获得了(.+)点经验")
 
-RE_DISCONNECT = re.compile(".+你的连接中断了")
+RE_DISCONNECT = re.compile("你的连接中断了")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -1091,17 +1091,20 @@ class MudRobot(object):
     def is_disconnected(self):
         reply_text = self.driver.find_element_by_css_selector('div.content-message>pre').text
         if RE_DISCONNECT.search(reply_text):
+            logging.info('Disconnected!')
             return True
+        self.clean_content_msg()
 
     def clean_content_msg(self):
 
         js = '$("div.content-message>pre").html("");'
         # logging.info(js)
         self.driver.execute_script(js)
-        time.sleep(S_WAIT)
+        # time.sleep(S_WAIT)
 
     def refresh(self, user_name=None):
 
+        logging.info('refreshing!')
         try_times = 3
         while True:
             try:
@@ -1123,8 +1126,6 @@ class MudRobot(object):
                     raise Exception
             else:
                 break
-
-
 
     def clean_up(self):
         self.move(PLACES.get('扬州城-打铁铺'))
