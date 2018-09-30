@@ -28,7 +28,8 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
             robot.stop()
             # robot.take_jg()
             # robot.dazuo()
-            robot.baishi(teacher="高根明")
+            robot.sell()
+            # robot.baishi(teacher="高根明")
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -60,150 +61,150 @@ if __name__ == '__main__':
 
     process_ids = {
         # 人工智障 小道玄一
-        'huangrob01': [
-            {
-                'user_name': '姜列嗣',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '潘琮',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '赫连劼铸',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '鲜于宗鹰',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '金舜儋',
-                'user_school': '华山'
-            },
-        ],
-        #
-        # 人工智障
-        'simonrob06': [
-            {
-                'user_name': '西门寒语',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '钱霆俟',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '葛伋拯',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '魏产承明',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '严魏吉',
-                'user_school': '华山'
-            },
-        ],
-
-        # 智障人工 明慧
-
-        'huangrob02': [
-            {
-                'user_name': '尤峙黎',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '韩榜',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '范俣世',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '李侪拯',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '西门剑世',
-                'user_school': '华山'
-            },
-        ],
-
-        # 智障人工
-
-        'simonrob05': [
-            {
-                'user_name': '郎璥',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '夏侯乐炜',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '赵浦铸',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '冯力谊',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '许镇骞',
-                'user_school': '华山'
-            },
-        ],
-        #
-        # 'simonrob07': [
+        # 'huangrob01': [
         #     {
-        #         'user_name': '明了',
-        #         'user_school': ''
+        #         'user_name': '姜列嗣',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '明净',
-        #         'user_school': ''
+        #         'user_name': '潘琮',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '明心',
-        #         'user_school': ''
+        #         'user_name': '赫连劼铸',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '明真',
-        #         'user_school': ''
+        #         'user_name': '鲜于宗鹰',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '明明',
-        #         'user_school': ''
+        #         'user_name': '金舜儋',
+        #         'user_school': '华山'
         #     },
         # ],
-        #
         # #
-        #
-        # 'huangrob03': [
+        # # 人工智障
+        # 'simonrob06': [
         #     {
-        #         'user_name': '施助峙',
-        #         'user_school': ''
+        #         'user_name': '西门寒语',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '陈倡帝',
-        #         'user_school': ''
+        #         'user_name': '钱霆俟',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '宇文君主',
-        #         'user_school': ''
+        #         'user_name': '葛伋拯',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '孔淏欧',
-        #         'user_school': ''
+        #         'user_name': '魏产承明',
+        #         'user_school': '华山'
         #     },
         #     {
-        #         'user_name': '云煊利',
-        #         'user_school': ''
+        #         'user_name': '严魏吉',
+        #         'user_school': '华山'
         #     },
         # ],
+        #
+        # # 智障人工 明慧
+        #
+        # 'huangrob02': [
+        #     {
+        #         'user_name': '尤峙黎',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '韩榜',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '范俣世',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '李侪拯',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '西门剑世',
+        #         'user_school': '华山'
+        #     },
+        # ],
+        #
+        # # 智障人工
+        #
+        # 'simonrob05': [
+        #     {
+        #         'user_name': '郎璥',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '夏侯乐炜',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '赵浦铸',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '冯力谊',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '许镇骞',
+        #         'user_school': '华山'
+        #     },
+        # ],
+
+        'simonrob07': [
+            {
+                'user_name': '明了',
+                'user_school': ''
+            },
+            {
+                'user_name': '明净',
+                'user_school': ''
+            },
+            {
+                'user_name': '明心',
+                'user_school': ''
+            },
+            {
+                'user_name': '明真',
+                'user_school': ''
+            },
+            {
+                'user_name': '明明',
+                'user_school': ''
+            },
+        ],
+
+        #
+
+        'huangrob03': [
+            {
+                'user_name': '施助峙',
+                'user_school': ''
+            },
+            {
+                'user_name': '陈倡帝',
+                'user_school': ''
+            },
+            {
+                'user_name': '宇文君主',
+                'user_school': ''
+            },
+            {
+                'user_name': '孔淏欧',
+                'user_school': ''
+            },
+            {
+                'user_name': '云煊利',
+                'user_school': ''
+            },
+        ],
         #
         # 'simonrob02': [
         #     {
@@ -235,7 +236,7 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
-                    main(id, LOGIN_PASSWORD, user['user_name'], teacher=teacher, skill_name=skill_name)
+                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], teacher=teacher, skill_name=skill_name)
                     logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break
                 except Exception as e:

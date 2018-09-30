@@ -126,7 +126,7 @@ class TaskRobot(MudRobot):
         sm_place = SM_INFO[school]['sm_place']
         teacher_name = SM_INFO[school]['teacher']
 
-        logging.info('{}{}'.format(sm_place, teacher_name ))
+        logging.info('{}:{}'.format(sm_place, teacher_name ))
 
         while True:
 
@@ -180,6 +180,13 @@ class TaskRobot(MudRobot):
         sleep(S_WAIT)
         confirm_btn = self.driver.find_element_by_xpath("//span[@class='dialog-btn btn-ok']")
         confirm_btn.click()
+
+    def sell_all(self):
+
+        self.move("扬州城-杂货铺")
+
+        cmd = 'sell all'
+        self.execute_cmd(cmd)
 
     def get_fb_times(self):
         self.execute_command('tasks')
@@ -278,8 +285,13 @@ class TaskRobot(MudRobot):
         # obj = self.driver.find_element_by_xpath("//wht[text()='" + good_name + "']/..")
         # print(obj.text)
 
-        obj_id = self.driver.find_element_by_xpath("//wht[text()='"+good_name+"']/..").get_attribute('obj')
+        obj_id = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']/..").get_attribute('obj')
         return obj_id
+
+    def get_good_obj(self, good_name):
+
+        obj = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']")
+        return obj
 
     def is_in_good_list(self, good_name):
 
@@ -323,12 +335,43 @@ class TaskRobot(MudRobot):
 
         return good_id
 
+    def sell(self, good_name='碎裂的蓝宝石'):
+
+        seller = '铁匠铺老板 铁匠'
+        self.move("扬州城-打铁铺")
+
+        saler, saler_id = self.get_obj_and_objid(seller)
+
+        #show list
+        cmd = 'list '+saler_id
+        self.execute_cmd(cmd)
+
+        good = None
+        try_times = 3
+        #buy good
+        while not good and try_times:
+            good = self.get_good_obj(good_name)
+            try_times -= 1
+
+        good.click()
+        sleep(S_WAIT)
+
+        sell_good = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']/../div[@class='item-commands']/span[2]")
+        sell_good.click()
+        sleep(S_WAIT)
+
+        # cmd = '_confirm sell 999 '+good_id+' from '+saler_id
+        # self.execute_cmd(cmd)
+
+        confirm_buy = self.driver.find_element_by_css_selector('span.btn-text')
+        confirm_buy.click()
+
     def move(self, directions):
 
         if ';' in directions:
             self.execute_cmd(directions)
         else:
-            self.execute_cmd(PLACES[directions])
+            self.execute_cmd(PLACES.get(directions))
 
     def take_jg(self):
 
@@ -429,7 +472,7 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
-                    main(id, LOGIN_PASSWORD, user['user_name'])
+                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'])
                     logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break
                 except Exception as e:

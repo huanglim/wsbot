@@ -188,39 +188,45 @@ class MudRobot(object):
 
     def login(self, login_nm=None, login_pwd=None, user_name=None):
 
-        try:
-            self.driver.get(WSMUD_URL)
-        except Exception as e:
-            raise
-        else:
-            login_name = WebDriverWait(self.driver, WAITSEC).until(lambda x:x.find_element_by_xpath("//input[@id='login_name']"))
-            login_password = self.driver.find_element_by_xpath("//input[@id='login_pwd']")
-            login_btn = self.driver.find_element_by_xpath("//li[@command='LoginIn']")
+        try_times = 3
+        while True:
+            try:
+                self.driver.get(WSMUD_URL)
+                login_name = WebDriverWait(self.driver, WAITSEC).until(lambda x:x.find_element_by_xpath("//input[@id='login_name']"))
+                login_password = self.driver.find_element_by_xpath("//input[@id='login_pwd']")
+                login_btn = self.driver.find_element_by_xpath("//li[@command='LoginIn']")
 
-        login_name.clear()
-        login_name.send_keys(login_nm)
+                login_name.clear()
+                login_name.send_keys(login_nm)
 
-        login_password.clear()
-        login_password.send_keys(login_pwd)
+                login_password.clear()
+                login_password.send_keys(login_pwd)
 
-        time.sleep(1)
-        login_btn.click()
+                time.sleep(1)
+                login_btn.click()
 
-        # select the server
-        server_name = WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[@index='3']"))
-        select_server = self.driver.find_element_by_xpath("//li[@command='SelectServer']")
-        server_name.click()
-        select_server.click()
+                # select the server
+                server_name = WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[@index='3']"))
+                select_server = self.driver.find_element_by_xpath("//li[@command='SelectServer']")
+                server_name.click()
+                select_server.click()
 
-        # select the user
-        WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[text()='选择你的角色']"))
-        time.sleep(S_WAIT)
-        if user_name:
-            self.driver.find_element_by_xpath("//li[contains(text(),'"+user_name+"')]").click()
-            time.sleep(S_WAIT)
+                # select the user
+                WebDriverWait(self.driver, WAITSEC).until(lambda x: x.find_element_by_xpath("//li[text()='选择你的角色']"))
+                time.sleep(S_WAIT)
+                if user_name:
+                    self.driver.find_element_by_xpath("//li[contains(text(),'" + user_name + "')]").click()
+                    time.sleep(S_WAIT)
 
-        select_btn =  self.driver.find_element_by_xpath("//li[@command='SelectRole']")
-        select_btn.click()
+                select_btn = self.driver.find_element_by_xpath("//li[@command='SelectRole']")
+                select_btn.click()
+            except Exception as e:
+                try_times -= 1
+                if not try_times:
+                    logging.error('login failed')
+                    raise
+            else:
+                break
 
     def get_all_dialog(self):
 

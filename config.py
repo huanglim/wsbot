@@ -151,23 +151,23 @@ IDS = {
     'simonrob07': [
         {
             'user_name': '明了',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '明净',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '明心',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '明真',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '明明',
-            'user_school': ''
+            'user_school': '华山'
         },
     ],
 
@@ -176,23 +176,51 @@ IDS = {
     'huangrob03': [
         {
             'user_name': '施助峙',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '陈倡帝',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '宇文君主',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '孔淏欧',
-            'user_school': ''
+            'user_school': '华山'
         },
         {
             'user_name': '云煊利',
-            'user_school': ''
+            'user_school': '华山'
+        },
+    ],
+
+    '1510002':[
+        {
+            'user_name': '以后放不开',
+            'user_school': '华山',
+            'user_pwd':'qwerty'
+        },
+        {
+            'user_name': '鲜于旭刚',
+            'user_school': '华山',
+            'user_pwd':'qwerty'
+        },
+        {
+            'user_name': '不会翻车',
+            'user_school': '华山',
+            'user_pwd':'qwerty'
+        },
+        {
+            'user_name': '思念的雪',
+            'user_school': '华山',
+            'user_pwd':'qwerty'
+        },
+        {
+            'user_name': '申屠勘部',
+            'user_school': '华山',
+            'user_pwd':'qwerty'
         },
     ],
 
@@ -262,8 +290,8 @@ TEACHER_INFO = {
     '高根明': {'place': '华山派-镇岳宫', 'teacher': '市井豪杰 高根明'},
     '岳不群': {'place': '华山派-客厅', 'teacher': '华山派掌门 君子剑 岳不群'},
     '苏星河': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
-    '宋远桥': {'place': '逍遥派-青草坪', 'teacher': '武当派第二代弟子 武当首侠 宋远桥'},
-    '谷虚': {'place': '逍遥派-青草坪', 'teacher': '武当派第三代弟子 谷虚道长'},
+    '宋远桥': {'place': '武当派-三清殿', 'teacher': '武当派第二代弟子 武当首侠 宋远桥'},
+    '谷虚': {'place': '武当派-三清殿', 'teacher': '武当派第三代弟子 谷虚道长'},
 }
 
 COMMANDS_MAPPING = {
@@ -284,6 +312,8 @@ COMMANDS_MAPPING = {
 
     'l':'learn',
     'learn':'learn',
+
+    'sell':'sell',
 
 }
 
@@ -372,7 +402,7 @@ PLACES={
         "华山派-山洞": "jh fam 3 start;go westup;go south;go southup;go southup;break bi;go enter",
         "华山派-长空栈道": "jh fam 3 start;go westup;go south;go southup;go southup;break bi;go enter;go westup",
         "华山派-落雁峰": "jh fam 3 start;go westup;go south;go southup;go southup;break bi;go enter;go westup;go westup",
-        "峨眉派-金顶": "jh fam 4 start",
+        "峨眉派-金顶": "jh fam 4 start;",
         "峨眉派-庙门": "jh fam 4 start;go west",
         "峨眉派-广场": "jh fam 4 start;go west;go south",
         "峨眉派-走廊": "jh fam 4 start;go west;go south;go west",
@@ -384,7 +414,7 @@ PLACES={
         "峨眉派-大殿": "jh fam 4 start;go west;go south;go south",
         "峨眉派-睹光台": "jh fam 4 start;go northup",
         "峨眉派-华藏庵": "jh fam 4 start;go northup;go east",
-        "逍遥派-青草坪": "jh fam 5 start",
+        "逍遥派-青草坪": "jh fam 5 start;",
         "逍遥派-林间小道": "jh fam 5 start;go east",
         "逍遥派-练功房": "jh fam 5 start;go east;go north",
         "逍遥派-木板路": "jh fam 5 start;go east;go south",
@@ -392,14 +422,14 @@ PLACES={
         "逍遥派-休息室": "jh fam 5 start;go west;go south",
         "逍遥派-木屋": "jh fam 5 start;go north;go north",
         "逍遥派-地下石室": "jh fam 5 start;go down;go down",
-        "丐帮-树洞内部": "jh fam 6 start",
+        "丐帮-树洞内部": "jh fam 6 start;",
         "丐帮-树洞下": "jh fam 6 start;go down",
         "丐帮-暗道": "jh fam 6 start;go down;go east",
         "丐帮-破庙密室": "jh fam 6 start;go down;go east;go east;go east",
         "丐帮-土地庙": "jh fam 6 start;go down;go east;go east;go east;go up",
         "丐帮-林间小屋": "jh fam 6 start;go down;go east;go east;go east;go east;go east;go up",
-        "襄阳城-广场": "jh fam 7 start",
-        "武道塔": "jh fam 8 start",
+        "襄阳城-广场": "jh fam 7 start;",
+        "武道塔": "jh fam 8 start;",
 }
 
 if __name__ == '__main__':

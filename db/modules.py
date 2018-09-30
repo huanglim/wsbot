@@ -39,7 +39,7 @@ if __name__ == '__main__':
     #
     session=Session()
     #
-    record = session.query(FunctionData).filter(FunctionData.type == 'boss').all()[0]
+    # record = session.query(FunctionData).filter(FunctionData.type == 'boss').all()[0]
     c = session.query(FunctionData).all()
     # for item in c:
     #     print(item.auth, item.q_content, item.a_content)
@@ -48,8 +48,8 @@ if __name__ == '__main__':
     # c = session.query(TrainingData).filter(TrainingData.a_content.like('%叼丝%')).all()
     # 青青姐姐
     for item in c:
-        print(item.type, item.content)
-        # session.delete(item)
+        print(item.type, item.content, item.effective_time)
+        session.delete(item)
     #
     # session.query(TrainingData).delete()
     session.commit()

@@ -116,8 +116,8 @@ def is_in_fight(chan_queue):
             while True:
                 if not chan_queue.empty():
                     chan_queue.get()
-                else:
                     logging.info('empty the chan queue')
+                else:
                     break
             sleep(S_WAIT)
 
@@ -333,12 +333,12 @@ def main():
     #     },
     # ],
 
-    'simonrob02': [
-        {
-            'user_name': '小道玄一',
-            'user_school': '武当'
-        },
-    ],
+    # 'simonrob02': [
+    #     {
+    #         'user_name': '小道玄一',
+    #         'user_school': '武当'
+    #     },
+    # ],
 
     # 'simonrob03': [
     #     {
@@ -367,7 +367,7 @@ def main():
         for user in process_ids[id]:
             try:
                 q = Queue()
-                args = (q, id, LOGIN_PASSWORD, user['user_name'], user['user_school'])
+                args = (q, id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'])
                 t = Thread(target=single_robot, args=args, daemon=True)
 
                 # save all of the queue in the queue list
