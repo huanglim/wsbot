@@ -406,6 +406,11 @@ class TaskRobot(MudRobot):
 
         self.execute_cmd('dazuo')
 
+    def get_gift(self, person=' 金古易', greeting=''):
+
+        self.move('扬州城-广场')
+        self.click_person_and_run_cmd(person, greeting)
+
     def go_to_wa(self):
 
         self.stop()

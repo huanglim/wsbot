@@ -196,15 +196,6 @@ if __name__ == '__main__':
             基本内功1级
     """
 
-    """
-    TEACHER_INFO = {
-    
-    '教习': {'place': '扬州城-扬州武馆', 'teacher': '武馆教习'},
-    '高根明': {'place': '华山派-镇岳宫', 'teacher': '市井豪杰 高根明'},
-    '岳不群': {'place': '华山派-客厅', 'teacher': '华山掌门 '},
-    '逍遥': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
-    
-}   """
 
     # process_ids = {
     #     'huangrob01': [
@@ -389,13 +380,6 @@ if __name__ == '__main__':
 
     process_ids = {
 
-        'simonrob01': [
-            {
-                'user_name': '小僧真一',
-                'user_school': '华山'
-            },
-        ],
-
         'simonrob07': [
             {
                 'user_name': '明了',
@@ -443,8 +427,8 @@ if __name__ == '__main__':
         ],
     }
 
-    teacher = '教习'
-    skill_name = '基本拳脚'
+    teacher = '高根明'
+    skill_name = '华山心法'
 
     for id in process_ids:
         for user in process_ids[id]:

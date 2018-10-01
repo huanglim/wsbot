@@ -10,6 +10,7 @@ if sys.platform.startswith('linux'):
     IS_HEADLESS = True
 else:
     IS_REMOTE = False
+    # IS_HEADLESS = True
     IS_HEADLESS = False
 
 host_ip = '47.100.242.240'
@@ -73,8 +74,6 @@ IDS = {
             'user_school': '华山'
         },
     ],
-
-    # 人工智障
     'simonrob06': [
         {
             'user_name': '西门寒语',
@@ -122,9 +121,6 @@ IDS = {
             'user_school': '华山'
         },
     ],
-
-    # 智障人工
-
     'simonrob05': [
         {
             'user_name': '郎璥',
@@ -148,6 +144,7 @@ IDS = {
         },
     ],
 
+    # 助人为乐
     'simonrob07': [
         {
             'user_name': '明了',
@@ -170,9 +167,6 @@ IDS = {
             'user_school': '华山'
         },
     ],
-
-    #
-
     'huangrob03': [
         {
             'user_name': '施助峙',
@@ -214,7 +208,7 @@ IDS = {
         },
         {
             'user_name': '思念的雪',
-            'user_school': '华山',
+            'user_school': '逍遥',
             'user_pwd':'qwerty'
         },
         {
@@ -244,6 +238,34 @@ IDS = {
             'user_school': '峨眉'
         },
     ],
+
+    'giveme5': [
+        {
+            'user_name': '助人为乐',
+            'user_school': '华山',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '扶人过马路',
+            'user_school': '华山',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '叔叔不骗人',
+            'user_school': '华山',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '与人为善',
+            'user_school': '逍遥',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '活雷锋',
+            'user_school': '华山',
+            'user_pwd': 'dryrun'
+        },
+    ]
 }
 
 if MYSQL:
@@ -292,6 +314,8 @@ TEACHER_INFO = {
     '苏星河': {'place': '逍遥派-青草坪', 'teacher': '聪辩老人 苏星河'},
     '宋远桥': {'place': '武当派-三清殿', 'teacher': '武当派第二代弟子 武当首侠 宋远桥'},
     '谷虚': {'place': '武当派-三清殿', 'teacher': '武当派第三代弟子 谷虚道长'},
+    '张三丰': {'place': '武当派-后山小院', 'teacher': '邋遢真人 张三丰'},
+    '周芷若':{'place': '峨眉派-小屋', 'teacher': '峨嵋派第四代弟子 周芷若'},
 }
 
 COMMANDS_MAPPING = {
@@ -336,6 +360,7 @@ GENERAL_LIST = ['布衣','钢刀','木棍','英雄巾','布鞋','铁戒指','簪
 PLACES={
         "住房": "jh fam 0 start;go west;go west;go north;go enter",
         "仓库": "jh fam 0 start;go north;go west;store",
+        "扬州城-广场": "jh fam 0 start;",
         "扬州城-醉仙楼": "jh fam 0 start;go north;go north;go east",
         "扬州城-杂货铺": "jh fam 0 start;go east;go south",
         "扬州城-打铁铺": "jh fam 0 start;go east;go east;go south",

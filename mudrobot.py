@@ -1093,6 +1093,8 @@ class MudRobot(object):
         self.driver.find_element_by_xpath("//span[@class='item-name'][text()='" + person + "']").click()
         time.sleep(S_WAIT)
         self.do_command_by_text(text_command)
+        time.sleep(S_WAIT)
+
 
     def is_disconnected(self):
         reply_text = self.driver.find_element_by_css_selector('div.content-message>pre').text
