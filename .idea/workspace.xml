@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/interrupt_robot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learn.py" beforeDir="false" afterPath="$PROJECT_DIR$/learn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpute_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/interpute_robot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/single_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/single_task.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/taskrobot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/generate_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/generate_templates.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,50 +23,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-514">
-              <caret line="239" column="6" lean-forward="true" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
+            <state relative-caret-position="568">
+              <caret line="320" column="20" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="20" />
               <folding>
                 <element signature="e#154#193#0" />
-                <element signature="e#976#1409#0" />
-                <element signature="e#986#1061#0" />
-                <element signature="e#1071#1145#0" />
-                <element signature="e#1155#1231#0" />
-                <element signature="e#1241#1317#0" />
-                <element signature="e#1327#1402#0" />
-                <element signature="e#1441#1875#0" />
-                <element signature="e#1451#1527#0" />
-                <element signature="e#1537#1612#0" />
-                <element signature="e#1622#1697#0" />
-                <element signature="e#1707#1783#0" />
-                <element signature="e#1793#1868#0" />
-                <element signature="e#1911#2343#0" />
-                <element signature="e#1921#1996#0" />
-                <element signature="e#2006#2080#0" />
-                <element signature="e#2090#2165#0" />
-                <element signature="e#2175#2250#0" />
-                <element signature="e#2260#2336#0" />
-                <element signature="e#2376#2808#0" />
-                <element signature="e#2386#2460#0" />
-                <element signature="e#2470#2546#0" />
-                <element signature="e#2556#2631#0" />
-                <element signature="e#2641#2716#0" />
-                <element signature="e#2726#2801#0" />
-                <element signature="e#2829#3256#0" />
-                <element signature="e#2839#2913#0" />
-                <element signature="e#2923#2997#0" />
-                <element signature="e#3007#3081#0" />
-                <element signature="e#3091#3165#0" />
-                <element signature="e#3175#3249#0" />
-                <element signature="e#3284#3717#0" />
-                <element signature="e#3294#3369#0" />
-                <element signature="e#3379#3454#0" />
-                <element signature="e#3464#3540#0" />
-                <element signature="e#3550#3625#0" />
-                <element signature="e#3635#3710#0" />
-                <element signature="e#3711#4314#0" />
+                <element signature="e#204#269#0" />
+                <element signature="e#857#874#0" />
+                <element signature="e#1002#1095#0" />
+                <element signature="e#1012#1088#0" />
+                <element signature="e#1116#1209#0" />
+                <element signature="e#1126#1202#0" />
+                <element signature="e#1230#1321#0" />
+                <element signature="e#1240#1314#0" />
+                <element signature="e#1328#1342#0" />
                 <element signature="e#4033#4200#0" />
                 <element signature="e#4210#4356#0" />
                 <element signature="e#4368#4465#0" />
@@ -71,6 +46,7 @@
                 <element signature="e#4729#4947#0" />
                 <element signature="e#4968#5191#0" />
                 <element signature="e#5207#5422#0" />
+                <element signature="e#7512#7635#0" />
                 <element signature="e#7207#13981#0" />
                 <element signature="e#12359#12723#0" />
                 <element signature="e#12359#12370#0" />
@@ -97,40 +73,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chatppattern.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9328">
-              <caret line="450" selection-start-line="450" selection-end-line="450" />
-              <folding>
-                <element signature="e#15#156#0" />
-                <element signature="e#343#432#0" />
-                <element signature="e#640#790#0" />
-                <element signature="e#1062#1458#0" />
-                <element signature="e#1617#1722#0" />
-                <element signature="e#2503#2602#0" />
-                <element signature="e#4715#4832#0" />
-                <element signature="e#7771#7875#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="interpute_robot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/interpute_robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="185" lean-forward="true" selection-start-line="185" selection-end-line="185" />
+            <state relative-caret-position="64">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               <folding>
-                <element signature="e#391#1886#0" />
                 <element signature="e#576#785#0" />
                 <element signature="e#840#1886#0" />
                 <element signature="e#896#932#0" />
-                <element signature="e#1334#1857#0" />
-                <element signature="e#1400#1572#0" />
-                <element signature="e#1567#1686#0" />
-                <element signature="e#1524#1817#0" />
-                <element signature="e#1549#1664#0" />
                 <element signature="e#1805#1932#0" />
                 <element signature="e#1724#1817#0" />
                 <element signature="e#1933#2190#0" />
@@ -148,8 +99,6 @@
                 <element signature="e#2678#3182#0" />
                 <element signature="e#3012#3182#0" />
                 <element signature="e#3043#3123#0" />
-                <element signature="e#3425#4497#0" />
-                <element signature="e#4087#4463#0" />
                 <element signature="e#4421#4463#0" />
                 <element signature="e#4516#9401#0" />
                 <element signature="e#4530#7956#0" />
@@ -167,11 +116,55 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="interrupt_robot.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/interrupt_robot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="952">
+              <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#595#804#0" />
+                <element signature="e#959#1251#0" />
+                <element signature="e#1122#1251#0" />
+                <element signature="e#1166#1251#0" />
+                <element signature="e#941#977#0" />
+                <element signature="e#1628#3324#0" />
+                <element signature="e#1778#1825#0" />
+                <element signature="e#2144#3324#0" />
+                <element signature="e#1400#1646#0" />
+                <element signature="e#1567#1646#0" />
+                <element signature="e#1698#2134#0" />
+                <element signature="e#2580#2864#0" />
+                <element signature="e#1805#1888#0" />
+                <element signature="e#2041#2134#0" />
+                <element signature="e#3041#3324#0" />
+                <element signature="e#3215#3286#0" />
+                <element signature="e#2422#2868#0" />
+                <element signature="e#2607#2939#0" />
+                <element signature="e#2975#3370#0" />
+                <element signature="e#3397#4021#0" />
+                <element signature="e#10175#10445#0" />
+                <element signature="e#10264#10314#0" />
+                <element signature="e#10402#10445#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_templates.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="learn.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/learn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="430" column="23" lean-forward="true" selection-start-line="430" selection-start-column="23" selection-end-line="430" selection-end-column="23" />
+            <state relative-caret-position="380">
+              <caret line="429" column="19" lean-forward="true" selection-start-line="429" selection-start-column="19" selection-end-line="429" selection-end-column="19" />
               <folding>
                 <element signature="e#547#756#0" />
                 <element signature="e#819#2095#0" />
@@ -215,41 +208,54 @@
       <file leaf-file-name="single_task.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/single_task.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="52" column="2" selection-start-line="52" selection-start-column="2" selection-end-line="78" selection-end-column="11" />
+            <state relative-caret-position="396">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
-                <element signature="e#336#1125#0" />
-                <element signature="e#433#1125#0" />
                 <element signature="e#3586#3732#0" />
-                <element signature="e#772#942#0" />
-                <element signature="e#842#859#0" />
                 <element signature="e#986#1033#0" />
                 <element signature="e#1074#1197#0" />
-                <element signature="e#6049#6592#0" />
-                <element signature="e#6090#6592#0" />
-                <element signature="e#9275#9696#0" />
-                <element signature="e#9300#9497#0" />
+                <element signature="e#1317#1802#0" />
+                <element signature="e#1363#1796#0" />
+                <element signature="e#1336#1435#0" />
+                <element signature="e#1453#1551#0" />
+                <element signature="e#1569#1669#0" />
+                <element signature="e#1687#1787#0" />
+                <element signature="e#1805#1904#0" />
+                <element signature="e#1905#2505#0" />
+                <element signature="e#1923#2021#0" />
+                <element signature="e#2039#2139#0" />
+                <element signature="e#2157#2256#0" />
+                <element signature="e#2274#2373#0" />
+                <element signature="e#2391#2490#0" />
+                <element signature="e#2445#3047#0" />
+                <element signature="e#2463#2563#0" />
+                <element signature="e#2581#2680#0" />
+                <element signature="e#2698#2797#0" />
+                <element signature="e#2815#2915#0" />
+                <element signature="e#2933#3032#0" />
+                <element signature="e#3099#3699#0" />
+                <element signature="e#3117#3216#0" />
+                <element signature="e#3234#3332#0" />
+                <element signature="e#3350#3449#0" />
+                <element signature="e#3467#3566#0" />
+                <element signature="e#3584#3684#0" />
+                <element signature="e#2058#2079#0" />
                 <element signature="e#9557#9696#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="taskrobot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="taskrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/taskrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
+            <state relative-caret-position="140">
+              <caret line="87" column="26" lean-forward="true" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="26" />
               <folding>
                 <element signature="e#601#810#0" />
-                <element signature="e#846#1007#0" />
-                <element signature="e#1047#1246#0" />
                 <element signature="e#1289#1370#0" />
                 <element signature="e#1425#1951#0" />
                 <element signature="e#1453#1489#0" />
-                <element signature="e#1994#2230#0" />
-                <element signature="e#2070#2207#0" />
-                <element signature="e#2277#2449#0" />
                 <element signature="e#2482#2966#0" />
                 <element signature="e#2556#2966#0" />
                 <element signature="e#2577#2669#0" />
@@ -269,7 +275,7 @@
                 <element signature="e#4870#4967#0" />
                 <element signature="e#4870#4903#0" />
                 <element signature="e#5035#5211#0" />
-                <element signature="e#5282#5779#0" />
+                <element signature="e#5298#5795#0" />
                 <element signature="e#5418#5619#0" />
                 <element signature="e#5699#5779#0" />
                 <element signature="e#5916#6304#0" />
@@ -306,13 +312,15 @@
                 <element signature="e#11475#11504#0" />
                 <element signature="e#12642#12718#0" />
                 <element signature="e#10914#10992#0" />
-                <element signature="e#11064#12368#0" />
-                <element signature="e#11160#12368#0" />
+                <element signature="e#12904#14221#0" />
+                <element signature="e#12999#14220#0" />
                 <element signature="e#11177#11323#0" />
                 <element signature="e#11483#11799#0" />
                 <element signature="e#11843#11890#0" />
                 <element signature="e#12006#12053#0" />
                 <element signature="e#12172#12219#0" />
+                <element signature="e#12402#12898#0" />
+                <element signature="e#12425#12898#0" />
                 <element signature="e#12458#12898#0" />
                 <element signature="e#12517#12898#0" />
                 <element signature="e#12542#12699#0" />
@@ -325,8 +333,8 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="1321" column="24" lean-forward="true" selection-start-line="1321" selection-start-column="24" selection-end-line="1321" selection-end-column="24" />
+            <state relative-caret-position="2082">
+              <caret line="1097" lean-forward="true" selection-start-line="1097" selection-end-line="1097" />
               <folding>
                 <element signature="e#979#1359#0" />
                 <element signature="e#1370#1625#0" />
@@ -643,16 +651,17 @@
         <option value="$PROJECT_DIR$/auto_dungeons.py" />
         <option value="$PROJECT_DIR$/dryrun.py" />
         <option value="$PROJECT_DIR$/taskrobot..py" />
-        <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/utils/change.py" />
         <option value="$PROJECT_DIR$/chatppattern.py" />
         <option value="$PROJECT_DIR$/db/modules.py" />
-        <option value="$PROJECT_DIR$/interpute_robot.py" />
         <option value="$PROJECT_DIR$/learn.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
+        <option value="$PROJECT_DIR$/interpute_robot.py" />
         <option value="$PROJECT_DIR$/single_task.py" />
-        <option value="$PROJECT_DIR$/taskrobot.py" />
         <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/utils/generate_templates.py" />
+        <option value="$PROJECT_DIR$/interrupt_robot.py" />
+        <option value="$PROJECT_DIR$/taskrobot.py" />
       </list>
     </option>
   </component>
@@ -672,6 +681,11 @@
             <path>
               <item name="wsmud" type="b2602c69:ProjectViewProjectNode" />
               <item name="wsmud" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wsmud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wsmud" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -696,7 +710,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.single_task">
+  <component name="RunManager" selected="Python.generate_templates">
+    <configuration name="generate_templates" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsmud" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/generate_templates.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="learn" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wsmud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -728,24 +760,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/modules.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="mudrobot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="wsmud" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mudrobot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -790,17 +804,17 @@
     <list>
       <item itemvalue="Python.learn" />
       <item itemvalue="Python.single_task" />
-      <item itemvalue="Python.mudrobot" />
       <item itemvalue="Python.taskrobot" />
       <item itemvalue="Python.modules" />
+      <item itemvalue="Python.generate_templates" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.generate_templates" />
+        <item itemvalue="Python.taskrobot" />
         <item itemvalue="Python.single_task" />
         <item itemvalue="Python.learn" />
-        <item itemvalue="Python.taskrobot" />
         <item itemvalue="Python.modules" />
-        <item itemvalue="Python.mudrobot" />
       </list>
     </recent_temporary>
   </component>
@@ -877,17 +891,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="47" />
+      <option name="time" value="52" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6578">
-          <caret line="299" lean-forward="true" selection-start-line="299" selection-end-line="299" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/modules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="704">
@@ -1156,13 +1163,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chatppattern.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9328">
@@ -1194,20 +1194,96 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/learn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="429" column="19" lean-forward="true" selection-start-line="429" selection-start-column="19" selection-end-line="429" selection-end-column="19" />
+          <folding>
+            <element signature="e#547#756#0" />
+            <element signature="e#819#2095#0" />
+            <element signature="e#1237#1467#0" />
+            <element signature="e#1305#1467#0" />
+            <element signature="e#1494#1599#0" />
+            <element signature="e#1676#2139#0" />
+            <element signature="e#1769#1883#0" />
+            <element signature="e#1935#2015#0" />
+            <element signature="e#2050#2209#0" />
+            <element signature="e#1728#1882#0" />
+            <element signature="e#2029#2071#0" />
+            <element signature="e#2785#3317#0" />
+            <element signature="e#3200#3317#0" />
+            <element signature="e#3511#3550#0" />
+            <element signature="e#2190#2947#0" />
+            <element signature="e#2287#2947#0" />
+            <element signature="e#2363#2509#0" />
+            <element signature="e#2616#2692#0" />
+            <element signature="e#2736#2783#0" />
+            <element signature="e#2824#2947#0" />
+            <element signature="e#2980#4014#1" />
+            <element signature="e#9764#10191#0" />
+            <element signature="e#9774#9848#0" />
+            <element signature="e#9858#9932#0" />
+            <element signature="e#9942#10016#0" />
+            <element signature="e#10026#10100#0" />
+            <element signature="e#10110#10184#0" />
+            <element signature="e#10219#10652#0" />
+            <element signature="e#10229#10304#0" />
+            <element signature="e#10314#10389#0" />
+            <element signature="e#10399#10475#0" />
+            <element signature="e#10485#10560#0" />
+            <element signature="e#10570#10645#0" />
+            <element signature="e#8052#8191#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/single_task.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#3586#3732#0" />
+            <element signature="e#986#1033#0" />
+            <element signature="e#1074#1197#0" />
+            <element signature="e#1317#1802#0" />
+            <element signature="e#1363#1796#0" />
+            <element signature="e#1336#1435#0" />
+            <element signature="e#1453#1551#0" />
+            <element signature="e#1569#1669#0" />
+            <element signature="e#1687#1787#0" />
+            <element signature="e#1805#1904#0" />
+            <element signature="e#1905#2505#0" />
+            <element signature="e#1923#2021#0" />
+            <element signature="e#2039#2139#0" />
+            <element signature="e#2157#2256#0" />
+            <element signature="e#2274#2373#0" />
+            <element signature="e#2391#2490#0" />
+            <element signature="e#2445#3047#0" />
+            <element signature="e#2463#2563#0" />
+            <element signature="e#2581#2680#0" />
+            <element signature="e#2698#2797#0" />
+            <element signature="e#2815#2915#0" />
+            <element signature="e#2933#3032#0" />
+            <element signature="e#3099#3699#0" />
+            <element signature="e#3117#3216#0" />
+            <element signature="e#3234#3332#0" />
+            <element signature="e#3350#3449#0" />
+            <element signature="e#3467#3566#0" />
+            <element signature="e#3584#3684#0" />
+            <element signature="e#2058#2079#0" />
+            <element signature="e#9557#9696#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/interpute_robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="185" lean-forward="true" selection-start-line="185" selection-end-line="185" />
+        <state relative-caret-position="64">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
-            <element signature="e#391#1886#0" />
             <element signature="e#576#785#0" />
             <element signature="e#840#1886#0" />
             <element signature="e#896#932#0" />
-            <element signature="e#1334#1857#0" />
-            <element signature="e#1400#1572#0" />
-            <element signature="e#1567#1686#0" />
-            <element signature="e#1524#1817#0" />
-            <element signature="e#1549#1664#0" />
             <element signature="e#1805#1932#0" />
             <element signature="e#1724#1817#0" />
             <element signature="e#1933#2190#0" />
@@ -1225,8 +1301,6 @@
             <element signature="e#2678#3182#0" />
             <element signature="e#3012#3182#0" />
             <element signature="e#3043#3123#0" />
-            <element signature="e#3425#4497#0" />
-            <element signature="e#4087#4463#0" />
             <element signature="e#4421#4463#0" />
             <element signature="e#4516#9401#0" />
             <element signature="e#4530#7956#0" />
@@ -1245,8 +1319,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="1321" column="24" lean-forward="true" selection-start-line="1321" selection-start-column="24" selection-end-line="1321" selection-end-column="24" />
+        <state relative-caret-position="2082">
+          <caret line="1097" lean-forward="true" selection-start-line="1097" selection-end-line="1097" />
           <folding>
             <element signature="e#979#1359#0" />
             <element signature="e#1370#1625#0" />
@@ -1486,20 +1560,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="320" column="20" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="20" />
+          <folding>
+            <element signature="e#154#193#0" />
+            <element signature="e#204#269#0" />
+            <element signature="e#857#874#0" />
+            <element signature="e#1002#1095#0" />
+            <element signature="e#1012#1088#0" />
+            <element signature="e#1116#1209#0" />
+            <element signature="e#1126#1202#0" />
+            <element signature="e#1230#1321#0" />
+            <element signature="e#1240#1314#0" />
+            <element signature="e#1328#1342#0" />
+            <element signature="e#4033#4200#0" />
+            <element signature="e#4210#4356#0" />
+            <element signature="e#4368#4465#0" />
+            <element signature="e#4477#4712#0" />
+            <element signature="e#4729#4947#0" />
+            <element signature="e#4968#5191#0" />
+            <element signature="e#5207#5422#0" />
+            <element signature="e#7512#7635#0" />
+            <element signature="e#7207#13981#0" />
+            <element signature="e#12359#12723#0" />
+            <element signature="e#12359#12370#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interrupt_robot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#595#804#0" />
+            <element signature="e#959#1251#0" />
+            <element signature="e#1122#1251#0" />
+            <element signature="e#1166#1251#0" />
+            <element signature="e#941#977#0" />
+            <element signature="e#1628#3324#0" />
+            <element signature="e#1778#1825#0" />
+            <element signature="e#2144#3324#0" />
+            <element signature="e#1400#1646#0" />
+            <element signature="e#1567#1646#0" />
+            <element signature="e#1698#2134#0" />
+            <element signature="e#2580#2864#0" />
+            <element signature="e#1805#1888#0" />
+            <element signature="e#2041#2134#0" />
+            <element signature="e#3041#3324#0" />
+            <element signature="e#3215#3286#0" />
+            <element signature="e#2422#2868#0" />
+            <element signature="e#2607#2939#0" />
+            <element signature="e#2975#3370#0" />
+            <element signature="e#3397#4021#0" />
+            <element signature="e#10175#10445#0" />
+            <element signature="e#10264#10314#0" />
+            <element signature="e#10402#10445#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/taskrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
+        <state relative-caret-position="140">
+          <caret line="87" column="26" lean-forward="true" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="26" />
           <folding>
             <element signature="e#601#810#0" />
-            <element signature="e#846#1007#0" />
-            <element signature="e#1047#1246#0" />
             <element signature="e#1289#1370#0" />
             <element signature="e#1425#1951#0" />
             <element signature="e#1453#1489#0" />
-            <element signature="e#1994#2230#0" />
-            <element signature="e#2070#2207#0" />
-            <element signature="e#2277#2449#0" />
             <element signature="e#2482#2966#0" />
             <element signature="e#2556#2966#0" />
             <element signature="e#2577#2669#0" />
@@ -1519,7 +1658,7 @@
             <element signature="e#4870#4967#0" />
             <element signature="e#4870#4903#0" />
             <element signature="e#5035#5211#0" />
-            <element signature="e#5282#5779#0" />
+            <element signature="e#5298#5795#0" />
             <element signature="e#5418#5619#0" />
             <element signature="e#5699#5779#0" />
             <element signature="e#5916#6304#0" />
@@ -1556,138 +1695,19 @@
             <element signature="e#11475#11504#0" />
             <element signature="e#12642#12718#0" />
             <element signature="e#10914#10992#0" />
-            <element signature="e#11064#12368#0" />
-            <element signature="e#11160#12368#0" />
+            <element signature="e#12904#14221#0" />
+            <element signature="e#12999#14220#0" />
             <element signature="e#11177#11323#0" />
             <element signature="e#11483#11799#0" />
             <element signature="e#11843#11890#0" />
             <element signature="e#12006#12053#0" />
             <element signature="e#12172#12219#0" />
+            <element signature="e#12402#12898#0" />
+            <element signature="e#12425#12898#0" />
             <element signature="e#12458#12898#0" />
             <element signature="e#12517#12898#0" />
             <element signature="e#12542#12699#0" />
             <element signature="e#12759#12898#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/learn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="430" column="23" lean-forward="true" selection-start-line="430" selection-start-column="23" selection-end-line="430" selection-end-column="23" />
-          <folding>
-            <element signature="e#547#756#0" />
-            <element signature="e#819#2095#0" />
-            <element signature="e#1237#1467#0" />
-            <element signature="e#1305#1467#0" />
-            <element signature="e#1494#1599#0" />
-            <element signature="e#1676#2139#0" />
-            <element signature="e#1769#1883#0" />
-            <element signature="e#1935#2015#0" />
-            <element signature="e#2050#2209#0" />
-            <element signature="e#1728#1882#0" />
-            <element signature="e#2029#2071#0" />
-            <element signature="e#2785#3317#0" />
-            <element signature="e#3200#3317#0" />
-            <element signature="e#3511#3550#0" />
-            <element signature="e#2190#2947#0" />
-            <element signature="e#2287#2947#0" />
-            <element signature="e#2363#2509#0" />
-            <element signature="e#2616#2692#0" />
-            <element signature="e#2736#2783#0" />
-            <element signature="e#2824#2947#0" />
-            <element signature="e#2980#4014#1" />
-            <element signature="e#9764#10191#0" />
-            <element signature="e#9774#9848#0" />
-            <element signature="e#9858#9932#0" />
-            <element signature="e#9942#10016#0" />
-            <element signature="e#10026#10100#0" />
-            <element signature="e#10110#10184#0" />
-            <element signature="e#10219#10652#0" />
-            <element signature="e#10229#10304#0" />
-            <element signature="e#10314#10389#0" />
-            <element signature="e#10399#10475#0" />
-            <element signature="e#10485#10560#0" />
-            <element signature="e#10570#10645#0" />
-            <element signature="e#8052#8191#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/single_task.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="52" column="2" selection-start-line="52" selection-start-column="2" selection-end-line="78" selection-end-column="11" />
-          <folding>
-            <element signature="e#336#1125#0" />
-            <element signature="e#433#1125#0" />
-            <element signature="e#3586#3732#0" />
-            <element signature="e#772#942#0" />
-            <element signature="e#842#859#0" />
-            <element signature="e#986#1033#0" />
-            <element signature="e#1074#1197#0" />
-            <element signature="e#6049#6592#0" />
-            <element signature="e#6090#6592#0" />
-            <element signature="e#9275#9696#0" />
-            <element signature="e#9300#9497#0" />
-            <element signature="e#9557#9696#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-514">
-          <caret line="239" column="6" lean-forward="true" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
-          <folding>
-            <element signature="e#154#193#0" />
-            <element signature="e#976#1409#0" />
-            <element signature="e#986#1061#0" />
-            <element signature="e#1071#1145#0" />
-            <element signature="e#1155#1231#0" />
-            <element signature="e#1241#1317#0" />
-            <element signature="e#1327#1402#0" />
-            <element signature="e#1441#1875#0" />
-            <element signature="e#1451#1527#0" />
-            <element signature="e#1537#1612#0" />
-            <element signature="e#1622#1697#0" />
-            <element signature="e#1707#1783#0" />
-            <element signature="e#1793#1868#0" />
-            <element signature="e#1911#2343#0" />
-            <element signature="e#1921#1996#0" />
-            <element signature="e#2006#2080#0" />
-            <element signature="e#2090#2165#0" />
-            <element signature="e#2175#2250#0" />
-            <element signature="e#2260#2336#0" />
-            <element signature="e#2376#2808#0" />
-            <element signature="e#2386#2460#0" />
-            <element signature="e#2470#2546#0" />
-            <element signature="e#2556#2631#0" />
-            <element signature="e#2641#2716#0" />
-            <element signature="e#2726#2801#0" />
-            <element signature="e#2829#3256#0" />
-            <element signature="e#2839#2913#0" />
-            <element signature="e#2923#2997#0" />
-            <element signature="e#3007#3081#0" />
-            <element signature="e#3091#3165#0" />
-            <element signature="e#3175#3249#0" />
-            <element signature="e#3284#3717#0" />
-            <element signature="e#3294#3369#0" />
-            <element signature="e#3379#3454#0" />
-            <element signature="e#3464#3540#0" />
-            <element signature="e#3550#3625#0" />
-            <element signature="e#3635#3710#0" />
-            <element signature="e#3711#4314#0" />
-            <element signature="e#4033#4200#0" />
-            <element signature="e#4210#4356#0" />
-            <element signature="e#4368#4465#0" />
-            <element signature="e#4477#4712#0" />
-            <element signature="e#4729#4947#0" />
-            <element signature="e#4968#5191#0" />
-            <element signature="e#5207#5422#0" />
-            <element signature="e#7207#13981#0" />
-            <element signature="e#12359#12723#0" />
-            <element signature="e#12359#12370#0" />
           </folding>
         </state>
       </provider>

@@ -11,6 +11,7 @@ RE_SM_HAS_ITEM = re.compile("上交")
 RE_SM_COMPLETE = re.compile(".+对你点头道：辛苦了， 你先去休息一下吧")
 RE_ZB_COMPLETE = re.compile("你的追捕任务已经完成了")
 
+
 class TaskRobot(MudRobot):
     """"""
 
@@ -29,17 +30,21 @@ class TaskRobot(MudRobot):
         self.headless = headless
 
     def append_cmd(self):
-        js ="$(\".bottom-bar\").append(\"<span class='item-commands' style='display:none'><span WG='WG' cmd=''></span></span>\");"
+        js = "$(\".bottom-bar\").append(\"<span class='item-commands' style='display:none'><span WG='WG' cmd=''></span></span>\");"
         self.driver.execute_script(js)
 
     def append_command(self):
-        js ="$(\".bottom-bar\").append(\"<span class='item-commands' style='display:none'><span WG_command='WG_command' class='tool-item' command=''></span></span>\");"
+        js = "$(\".bottom-bar\").append(\"<span class='item-commands' style='display:none'><span WG_command='WG_command' class='tool-item' command=''></span></span>\");"
+        self.driver.execute_script(js)
+
+    def append_perform(self):
+        js = "$(\".combat-commands\").append(\"<span WG_perform='WG_perform' class='pfm-item' pid=''></span>\");"
         self.driver.execute_script(js)
 
     def get_reply_message(self):
         return self.driver.find_element_by_css_selector('div.content-message > pre').text
 
-    def kill(self,person, weapon_name=None):
+    def kill(self, person, weapon_name=None):
         if weapon_name:
             # chagne the weapon
             pass
@@ -48,38 +53,77 @@ class TaskRobot(MudRobot):
         obj, obj_id = self.get_obj_and_objid(person)
 
         # # kill the object
-        cmd = "kill "+obj_id
+        cmd = "kill " + obj_id
         self.execute_cmd(cmd)
 
         # wait for the finish
         if ' ' in person:
-            person_after = re.split(' ',person)[-1]+'的尸体'
+            person_after = re.split(' ', person)[-1] + '的尸体'
         else:
             person_after = person + '的尸体'
 
-        WebDriverWait(self.driver, L_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='"+person_after+"']"))
+        WebDriverWait(self.driver, L_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
 
     def execute_cmd(self, cmds):
         splited_cmds = cmds.split(';')
         for cmd in splited_cmds:
-            js = "$(\"span[WG='WG']\").attr(\"cmd\", \""+cmd+"\").click();"
+            js = "$(\"span[WG='WG']\").attr(\"cmd\", \"" + cmd + "\").click();"
             # logging.info(js)
-            self.driver.execute_script(js)
+            try_times = 3
+            while True:
+                try:
+                    self.driver.execute_script(js)
+                except Exception as e:
+                    try_times -= 1
+                    if not try_times:
+                        raise Exception
+                else:
+                    break
 
         sleep(S_WAIT)
 
     def execute_command(self, cmd):
 
-        js = "$(\"span[WG_command='WG_command']\").attr(\"command\", \""+cmd+"\").click();"
+        js = "$(\"span[WG_command='WG_command']\").attr(\"command\", \"" + cmd + "\").click();"
         # logging.info(js)
-        self.driver.execute_script(js)
+        try_times = 3
+        while True:
+            try:
+                self.driver.execute_script(js)
+            except Exception as e:
+                try_times -= 1
+                if not try_times:
+                    raise Exception
+            else:
+                break
+
+    def perform_command(self, cmds):
+
+        if ',' in cmds:
+            splited_cmds = cmds.split(',')
+        else:
+            splited_cmds = cmds.split(';')
+
+        for cmd in splited_cmds:
+            js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+            # logging.info(js)
+            try_times = 3
+            while True:
+                try:
+                    self.driver.execute_script(js)
+                except Exception as e:
+                    try_times -= 1
+                    if not try_times:
+                        raise Exception
+                else:
+                    break
 
         sleep(S_WAIT)
 
     def use_yjd(self):
         self.execute_command('pack')
 
-        for time in range(0,6):
+        for time in range(0, 6):
             try:
                 self.driver.find_element_by_xpath("//*[text()='养精丹']").click()
                 sleep(S_WAIT)
@@ -96,13 +140,13 @@ class TaskRobot(MudRobot):
 
         for time in range(times):
             try:
-                self.driver.find_element_by_xpath("//*[text()='"+item_name+"']").click()
+                self.driver.find_element_by_xpath("//*[text()='" + item_name + "']").click()
                 sleep(S_WAIT)
             except Exception as e:
                 logging.info('There is no {} existed!'.format(item_name))
                 break
             else:
-                item_use = self.driver.find_element_by_xpath("//*[text()='"+item_name+"']/../span[@class='item-commands']/span[3]")
+                item_use = self.driver.find_element_by_xpath("//*[text()='" + item_name + "']/../span[@class='item-commands']/span[3]")
                 item_use.click()
                 sleep(S_WAIT)
 
@@ -110,13 +154,13 @@ class TaskRobot(MudRobot):
         self.execute_command('pack')
 
         try:
-            self.driver.find_element_by_xpath("//*[text()='"+item_name+"']").click()
+            self.driver.find_element_by_xpath("//*[text()='" + item_name + "']").click()
             sleep(S_WAIT)
         except Exception as e:
             logging.info('no item for {}'.format(item_name))
             return 0
         else:
-            numbers_text = self.driver.find_element_by_xpath("//hic[text()='"+item_name+"']/../span[@class='obj-value']").text
+            numbers_text = self.driver.find_element_by_xpath("//hic[text()='" + item_name + "']/../span[@class='obj-value']").text
             numbers = int(re.match('(\d+).', numbers_text).groups()[0])
             return numbers
 
@@ -126,7 +170,7 @@ class TaskRobot(MudRobot):
         sm_place = SM_INFO[school]['sm_place']
         teacher_name = SM_INFO[school]['teacher']
 
-        logging.info('{}:{}'.format(sm_place, teacher_name ))
+        logging.info('{}:{}'.format(sm_place, teacher_name))
 
         while True:
 
@@ -136,7 +180,7 @@ class TaskRobot(MudRobot):
             # take the sm
             teacher, teacher_id = self.get_obj_and_objid(teacher_name)
 
-            cmd = 'task sm '+teacher_id
+            cmd = 'task sm ' + teacher_id
             self.execute_cmd(cmd)
 
             # get reply information
@@ -156,6 +200,7 @@ class TaskRobot(MudRobot):
 
             elif RE_SM_NEED_ITEM.search(reply_text):
                 task_item = RE_SM_NEED_ITEM.search(reply_text).groups()[0]
+                # logging.info('in submit phase, item is {}'.format(task_item))
 
                 if not self.is_in_good_list(task_item):
                     giveup = self.driver.find_element_by_css_selector("span[cmd^='task sm " + teacher_id + " giveup']")
@@ -208,7 +253,7 @@ class TaskRobot(MudRobot):
         # RE_TASK_TIMES.match(run_times_text)
         total_run_times = int(RE_TASK_TIMES.match(run_times_text).groups()[1])
 
-        logging.info('max fb for {} times'.format(total_run_times))
+        logging.info('max zb for {} times'.format(total_run_times))
         return total_run_times
 
     def is_zb_complete(self):
@@ -236,14 +281,14 @@ class TaskRobot(MudRobot):
         officer, officer_id = self.get_obj_and_objid('扬州知府 程药发')
         # quick
         if total_run_times < 40:
-            cmd = 'ask3 '+officer_id
+            cmd = 'ask3 ' + officer_id
             self.execute_cmd(cmd)
         else:
-            cmd = 'ask1 '+officer_id
+            cmd = 'ask1 ' + officer_id
             self.execute_cmd(cmd)
-            cmd = 'ask2 '+officer_id
+            cmd = 'ask2 ' + officer_id
             self.execute_cmd(cmd)
-            cmd = 'ask3 '+officer_id
+            cmd = 'ask3 ' + officer_id
             self.execute_cmd(cmd)
 
         try_times = 3
@@ -256,8 +301,8 @@ class TaskRobot(MudRobot):
                 if not try_times:
                     raise Exception
 
-            sleep(S_WAIT*20)
-            cmd = 'ask3 '+officer_id
+            sleep(S_WAIT * 20)
+            cmd = 'ask3 ' + officer_id
             self.execute_cmd(cmd)
 
     def perform_xsl(self):
@@ -272,7 +317,6 @@ class TaskRobot(MudRobot):
         need_times = 20 - run_times
 
         for i in range(need_times):
-
             self.execute_cmd('cr yz/lw/shangu')
             self.execute_cmd('cr')
             self.execute_cmd('cr over')
@@ -285,12 +329,12 @@ class TaskRobot(MudRobot):
         # obj = self.driver.find_element_by_xpath("//wht[text()='" + good_name + "']/..")
         # print(obj.text)
 
-        obj_id = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']/..").get_attribute('obj')
+        obj_id = self.driver.find_element_by_xpath("//*[text()='" + good_name + "']/..").get_attribute('obj')
         return obj_id
 
     def get_good_obj(self, good_name):
 
-        obj = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']")
+        obj = self.driver.find_element_by_xpath("//*[text()='" + good_name + "']")
         return obj
 
     def is_in_good_list(self, good_name):
@@ -316,18 +360,18 @@ class TaskRobot(MudRobot):
 
         saler, saler_id = self.get_obj_and_objid(saler_name)
 
-        #show list
-        cmd = 'list '+saler_id
+        # show list
+        cmd = 'list ' + saler_id
         self.execute_cmd(cmd)
 
         good_id = None
         try_times = 5
-        #buy good
+        # buy good
         while not good_id and try_times:
             good_id = self.get_good_id(good_name)
             try_times -= 1
 
-        cmd = '_confirm buy -1 '+good_id+' from '+saler_id
+        cmd = '_confirm buy -1 ' + good_id + ' from ' + saler_id
         self.execute_cmd(cmd)
 
         confirm_buy = self.driver.find_element_by_css_selector('span.btn-text')
@@ -342,13 +386,13 @@ class TaskRobot(MudRobot):
 
         saler, saler_id = self.get_obj_and_objid(seller)
 
-        #show list
-        cmd = 'list '+saler_id
+        # show list
+        cmd = 'list ' + saler_id
         self.execute_cmd(cmd)
 
         good = None
         try_times = 3
-        #buy good
+        # buy good
         while not good and try_times:
             good = self.get_good_obj(good_name)
             try_times -= 1
@@ -356,7 +400,7 @@ class TaskRobot(MudRobot):
         good.click()
         sleep(S_WAIT)
 
-        sell_good = self.driver.find_element_by_xpath("//*[text()='"+good_name+"']/../div[@class='item-commands']/span[2]")
+        sell_good = self.driver.find_element_by_xpath("//*[text()='" + good_name + "']/../div[@class='item-commands']/span[2]")
         sell_good.click()
         sleep(S_WAIT)
 
@@ -384,7 +428,7 @@ class TaskRobot(MudRobot):
         cmd = 'reward1 ' + teacher_id
         self.execute_cmd(cmd)
 
-        sleep(S_WAIT*2)
+        sleep(S_WAIT * 2)
 
         cmd = 'reward2 ' + teacher_id
         self.execute_cmd(cmd)
@@ -392,7 +436,7 @@ class TaskRobot(MudRobot):
     def check_room_name(self, room_name):
 
         try:
-            self.driver.find_element_by_xpath("//span[@class='room-name'][text()='"+room_name+"']")
+            self.driver.find_element_by_xpath("//span[@class='room-name'][text()='" + room_name + "']")
         except Exception as e:
             return None
         else:
@@ -417,8 +461,8 @@ class TaskRobot(MudRobot):
         self.move(PLACES['扬州城-矿山'])
         self.execute_cmd('wa')
 
-def main(login_nm, login_pwd, login_user, is_debug=IS_HEADLESS):
 
+def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS):
     with TaskRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
         try:
@@ -442,7 +486,7 @@ def main(login_nm, login_pwd, login_user, is_debug=IS_HEADLESS):
             elif login_user == '明慧':
                 robot.perform_sm(school='峨眉')
             else:
-                robot.perform_sm()
+                robot.perform_sm(school=school)
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -461,7 +505,6 @@ def main(login_nm, login_pwd, login_user, is_debug=IS_HEADLESS):
             logging.error(e)
             is_success = False
 
-
         try:
             robot.go_to_wa()
         except Exception as e:
@@ -470,6 +513,7 @@ def main(login_nm, login_pwd, login_user, is_debug=IS_HEADLESS):
         if not is_success:
             raise Exception
 
+
 if __name__ == '__main__':
 
     for id in IDS:
@@ -477,7 +521,7 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
-                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'])
+                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'])
                     logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break
                 except Exception as e:

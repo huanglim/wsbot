@@ -20,10 +20,34 @@ if __name__ == '__main__':
     assert RE_MPZ.match(test)
     res = RE_MPZ.match(test)
 
-    print(res)
+    # import itertools
+    # for i,j in itertools.zip_longest(longest,testing):
+    #     print(
+    #         '{},{}'.format(i,j)
+    #     )
+    #
+    # for i in longest:
+    #     try:
+    #         j = next(iter(testing))
+    #     except Exception as e:
+    #         pass
+    #
+    #     print('{},{}'.format(i,j))
+
+    test_dict = {
+        'a':123,
+        'b':234
+    }
+
+    import random
+
+    d = random.choice(test_dict)
+
+    print(d)
+    # print(res)
     # for d in dungeons:
     #     print('#'+d)
     #     for i in dungeon_template(d):
     #         print(i)
 
-    print(len(testing))
+    # print(len(testing))

@@ -5,17 +5,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from queue import Queue
 
 from threading import Thread
+from collections import namedtuple
 
 from taskrobot import TaskRobot
 
 import logging, re
 from config import *
+import random
 
 
 RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
 CHAN_WAIT_SEC = 5
 IS_IN_FIGHT = False
 IS_STOPPED = False
+
+KILL_DICT = {}
+
+# Person = namedtuple('Person',['name', 'obj_id'])
 
 class InterrupteRobot(LearnRobot):
 
@@ -33,7 +39,20 @@ class InterrupteRobot(LearnRobot):
         self.port = port
         self.headless = headless
 
-    def kill(self,person, weapon_name=None):
+    def save_to_kill_dict(self, persons):
+
+        if ',' in persons:
+            person_list = persons.split(',')
+        else:
+            person_list = [persons,]
+
+        for person in person_list:
+            if person not in KILL_DICT:
+                obj, obj_id = self.get_obj_and_objid(person)
+                KILL_DICT[person] = obj_id
+
+
+    def kill(self, persons, login_user='', school='', weapon_name=None):
         global IS_IN_FIGHT
         global IS_STOPPED
 
@@ -41,53 +60,80 @@ class InterrupteRobot(LearnRobot):
             # chagne the weapon
             pass
 
+        logging.info('{},{},{}'.format(persons, login_user, school))
+
+        self.save_to_kill_dict(persons)
+
         # locate the object
-        obj, obj_id = self.get_obj_and_objid(person)
-        IS_IN_FIGHT = True
+        # obj, obj_id = self.get_obj_and_objid(persons)
+        for person in KILL_DICT:
+            IS_IN_FIGHT = True
 
-        # # kill the object
-        cmd = "kill "+obj_id
-        self.execute_cmd(cmd)
+            # # kill the object
+            cmd = "kill "+KILL_DICT[person]
+            self.execute_cmd(cmd)
+            # for different school perform different skills
+            # skill_cmd = PERFORM_SKILLS[school]
+            # self.execute_cmd(skill_cmd)
 
-        # wait for the finish
-        if ' ' in person:
-            person_after = re.split(' ',person)[-1]+'的尸体'
-        else:
-            person_after = person + '的尸体'
-
-        while True:
-            try:
-                WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
-                if IS_STOPPED:
-                    logging.info('receive cmd that stop looping killing')
-                    break
-            except Exception as e:
-                try:
-                    self.get_objid(person)
-                    if IS_STOPPED:
-                        logging.info('receive cmd that stop looping killing')
-                        break
-                    logging.info('target {} still there, continue fighting!'.format(person))
-                except Exception as e:
-                    logging.info('target {} disappeared, quit fighting'.format(person))
-                    break
+            # wait for the finish
+            if ' ' in person:
+                person_after = re.split(' ', person)[-1] + '的尸体'
             else:
-                logging.info('killed {}!'.format(person))
-                break
+                person_after = person + '的尸体'
+
+            while True:
+                try:
+                    WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
+                    if IS_STOPPED:
+                        logging.info('{} receive cmd that stop looping killing'.format(login_user))
+                        KILL_DICT.clear()
+                        break
+                except Exception as e:
+                    try:
+                        self.get_objid(person)
+                        if IS_STOPPED:
+                            logging.info('receive cmd that stop looping killing')
+                            break
+                        logging.info('{}: target {} still there, continue fighting!'.format(login_user, person))
+                    except Exception as e:
+                        logging.info('{}:target {} disappeared, quit fighting'.format(login_user,persons))
+                        break
+                else:
+                    try:
+                        KILL_DICT.pop(person)
+                    except Exception as e:
+                        logging.info('{}:the person has been removed'.format(login_user))
+                    else:
+                        logging.info('{}:killed {}!'.format(login_user, person))
+                        break
 
         IS_IN_FIGHT = False
 
 def perform_chan(wd_queue, chan_queue):
 
-    logging.info('Start the perform chan function')
+    logging.info('Start the perform chan function, there is {} wd'.format(len(wd_queue)))
 
-    cmd = 'perform sword.chan;'
+    # cmd = 'e perform sword.chan;'
+    person_dict = {}
     while True:
         for q in wd_queue:
             chan_queue.get()
-            logging.info('Send to perform chan')
-            q.put(cmd)
-            sleep(CHAN_WAIT_SEC)
+            if not person_dict:
+                person_dict = KILL_DICT.copy()
+
+            if person_dict:
+                # for keys in person_dict:
+
+                person, obj_id = person_dict.popitem()
+                logging.info('Send to perform chan')
+                cmd = 'e kill '+obj_id
+                q.put(cmd)
+                cmd = 'p sword.chan;'
+                q.put(cmd)
+
+            if not person_dict:
+                sleep(CHAN_WAIT_SEC)
 
 def perform_monitor(monitor_queue):
     global  IS_STOPPED
@@ -130,7 +176,7 @@ def parse_cmd(cmd):
     res = RE_COMMAND.match(cmd)
     if res:
         res_groups = res.groups()
-        logging.info('The res_groups is {}'.format(res_groups))
+        # logging.info('The res_groups is {}'.format(res_groups))
 
         function_short_name = res_groups[0]
         arg = res_groups[2]
@@ -140,7 +186,7 @@ def parse_cmd(cmd):
         if ARG_MAPPING.get(arg):
             arg = ARG_MAPPING.get(arg)
 
-        if arg:
+        if arg and function_to_run != 'kill':
             if ',' in arg:
                 arg1, arg2 = arg.split(',')
                 arg = '"{}","{}"'.format(arg1, arg2)
@@ -159,6 +205,7 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
             sleep(S_WAIT)
             robot.append_cmd()
             robot.append_command()
+            robot.append_perform()
         except Exception as e:
             raise
 
@@ -166,23 +213,27 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
 
         while True:
             cmd = command_query.get()
-            logging.info('received the commands: {}'.format(cmd))
+            logging.info('{}: received the commands: {}'.format(login_user, cmd))
             # parse the cmd
             function_to_run, arg = parse_cmd(cmd)
-            logging.info('function_to_run :{}, arg: {}'.format(function_to_run, arg))
+            logging.info('{}: function_to_run :{}, arg: {}'.format(login_user, function_to_run, arg))
 
             if function_to_run:
-                if arg:
-                    run_string = 'robot.' + function_to_run + '(' + arg + ')'
+                if function_to_run == 'kill':
+                    args = (arg, login_user, school)
+                    t = Thread(target=robot.kill, args=args, daemon=True)
+                    t.start()
                 else:
-                    run_string = 'robot.' + function_to_run + '()'
-                logging.info(run_string)
+                    if arg:
+                        run_string = 'robot.' + function_to_run + '(' + arg + ')'
+                    else:
+                        run_string = 'robot.' + function_to_run + '()'
 
-                try:
-                    eval(run_string)
-                except Exception as e:
-                    logging.error(e)
-                    raise
+                    try:
+                        eval(run_string)
+                    except Exception as e:
+                        logging.error(e)
+                        raise
             # process for the cmd
 
 def main():
@@ -334,12 +385,12 @@ def main():
     #     },
     # ],
 
-    # 'simonrob02': [
-    #     {
-    #         'user_name': '小道玄一',
-    #         'user_school': '武当'
-    #     },
-    # ],
+    'simonrob02': [
+        {
+            'user_name': '小道玄一',
+            'user_school': '武当'
+        },
+    ],
 
     # 'simonrob03': [
     #     {
@@ -348,12 +399,6 @@ def main():
     #     },
     # ],
 
-    'simonrob04': [
-        {
-            'user_name': '明慧',
-            'user_school': '峨眉'
-        },
-    ],
 }
 
     queues = []
