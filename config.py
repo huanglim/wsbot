@@ -50,7 +50,7 @@ IDS = {
             'user_school': '华山'
         },
     ],
-
+    #
     'simonrob02': [
         {
             'user_name': '小道玄一',
@@ -242,27 +242,27 @@ IDS = {
     'giveme5': [
         {
             'user_name': '助人为乐',
-            'user_school': '华山',
+            'user_school': '武当',
             'user_pwd': 'dryrun'
         },
         {
             'user_name': '扶人过马路',
-            'user_school': '华山',
+            'user_school': '武当',
             'user_pwd': 'dryrun'
         },
         {
             'user_name': '叔叔不骗人',
-            'user_school': '华山',
+            'user_school': '武当',
             'user_pwd': 'dryrun'
         },
         {
             'user_name': '与人为善',
-            'user_school': '逍遥',
+            'user_school': '武当',
             'user_pwd': 'dryrun'
         },
         {
             'user_name': '活雷锋',
-            'user_school': '华山',
+            'user_school': '武当',
             'user_pwd': 'dryrun'
         },
     ]

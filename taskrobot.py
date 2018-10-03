@@ -96,6 +96,7 @@ class TaskRobot(MudRobot):
                     raise Exception
             else:
                 break
+        sleep(S_WAIT)
 
     def perform_command(self, cmds):
 
@@ -235,6 +236,7 @@ class TaskRobot(MudRobot):
 
     def get_fb_times(self):
         self.execute_command('tasks')
+
 
         run_times_text = self.driver.find_element_by_xpath("/ html / body / div[2] / div[2] / div[2] / div / div[2] / pre").text
 

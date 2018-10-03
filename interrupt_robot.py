@@ -18,6 +18,8 @@ RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
 CHAN_WAIT_SEC = 5
 IS_IN_FIGHT = False
 IS_STOPPED = False
+IS_ATTACKED = False
+ATTACK_PRIORITY_MODE = False
 
 KILL_DICT = {}
 
@@ -41,8 +43,8 @@ class InterrupteRobot(LearnRobot):
 
     def save_to_kill_dict(self, persons):
 
-        if ',' in persons:
-            person_list = persons.split(',')
+        if ';' in persons:
+            person_list = persons.split(';')
         else:
             person_list = [persons,]
 
@@ -55,6 +57,7 @@ class InterrupteRobot(LearnRobot):
     def kill(self, persons, login_user='', school='', weapon_name=None):
         global IS_IN_FIGHT
         global IS_STOPPED
+        global IS_ATTACKED
 
         if weapon_name:
             # chagne the weapon
@@ -64,6 +67,10 @@ class InterrupteRobot(LearnRobot):
 
         self.save_to_kill_dict(persons)
 
+        if ATTACK_PRIORITY_MODE and school != '逍遥':
+            while not IS_ATTACKED:
+                sleep(S_WAIT)
+
         # locate the object
         # obj, obj_id = self.get_obj_and_objid(persons)
         for person in KILL_DICT:
@@ -72,11 +79,10 @@ class InterrupteRobot(LearnRobot):
             # # kill the object
             cmd = "kill "+KILL_DICT[person]
             self.execute_cmd(cmd)
-            # for different school perform different skills
-            # skill_cmd = PERFORM_SKILLS[school]
-            # self.execute_cmd(skill_cmd)
-
+            if ATTACK_PRIORITY_MODE:
+                IS_ATTACKED = True
             # wait for the finish
+
             if ' ' in person:
                 person_after = re.split(' ', person)[-1] + '的尸体'
             else:
@@ -84,10 +90,15 @@ class InterrupteRobot(LearnRobot):
 
             while True:
                 try:
+                    # for different school perform different skills
+                    # skill_cmd = PERFORM_SKILLS[school]
+                    # self.execute_cmd(skill_cmd)
                     WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
                     if IS_STOPPED:
                         logging.info('{} receive cmd that stop looping killing'.format(login_user))
                         KILL_DICT.clear()
+                        if ATTACK_PRIORITY_MODE:
+                            IS_ATTACKED = False
                         break
                 except Exception as e:
                     try:
@@ -109,6 +120,8 @@ class InterrupteRobot(LearnRobot):
                         break
 
         IS_IN_FIGHT = False
+        if ATTACK_PRIORITY_MODE:
+            IS_ATTACKED = False
 
 def perform_chan(wd_queue, chan_queue):
 
@@ -237,6 +250,8 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
             # process for the cmd
 
 def main():
+    global IS_ATTACKED
+    global ATTACK_PRIORITY_MODE
 
     process_ids = {
     # # 人工智障 小道玄一
@@ -422,6 +437,11 @@ def main():
                 # save all wudang user in a specified queue
                 if user['user_school'] == '武当':
                     wd_queues.append(q)
+
+                if user['user_school'] == '逍遥':
+                    logging.info('Detected 逍遥, set the 逍遥 attack first mode')
+                    ATTACK_PRIORITY_MODE = True
+                    IS_ATTACKED = False
 
                 threads.append(t)
                 t.start()
