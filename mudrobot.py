@@ -30,6 +30,7 @@ from config import WSMUD_URL, WAITSEC, \
 from chatppattern import CHATPATTERN_GENERAL, CHATPATTERN_LOW_PRORITY, \
     USER_TRAINING_SET, CHATPATTERN_DUNGEON, \
     CHATPATTERN_FOLLOWER
+import random
 
 RE_COMMAND_DIALOG = re.compile("(小僧真一|真一|zy)(\s|，|,)?(.*)")
 
@@ -53,6 +54,8 @@ RE_COMMAND_LTJL = re.compile("ltjl")
 RE_COMMAND_MPLT = re.compile("mplt")
 RE_COMMAND_LIST = re.compile("(wkzn|boss|qnjs|ltcx)")
 RE_COMMAND_TRAINING = re.compile("(pxzy|xlzy|gszy|训练真一|培训真一|告诉真一)(\s|，|,)?[qQ](.*)[aA](.*)")
+RE_COMMAND_ROLL = re.compile("roll")
+
 RE_DIALOG = re.compile('：')
 
 RE_BOSS = re.compile("听说(.+)出现在(.+)一带")
@@ -69,7 +72,7 @@ RE_DISCONNECT = re.compile("你的连接中断了")
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
                     datefmt='%a, %d %b %Y %H:%M:%S',
-                    #filename='app.log',
+                    # filename='interrupt.log',
                     # filemode='w'
     )
 
@@ -97,6 +100,7 @@ class MudRobot(object):
         self.last_hio_dialog = ""
         self.last_hig_dialog = ""
         self.last_hir_dialog = ""
+        self.last_hiz_dialog = ""
 
         self.current_wk = 0
 
@@ -305,6 +309,23 @@ class MudRobot(object):
 
                 return new_dialogs[::-1]
 
+    def get_hiz_dialog(self):
+        logging.debug('in the hiz')
+        hiz_dialogs = self.driver.find_elements_by_xpath("//div[@class='channel']/child::pre/hiz")
+
+        new_dialogs = []
+        if hiz_dialogs:
+            for d in hiz_dialogs[::-1]:
+                if d.text == self.last_hiz_dialog:
+                    break
+                else:
+                    new_dialogs.append(d.text)
+
+            if new_dialogs:
+                self.last_hiz_dialog = new_dialogs[0]
+
+                return new_dialogs[::-1]
+
     def update_sys_info(self, session=None):
 
         #xy
@@ -509,7 +530,7 @@ class MudRobot(object):
 
         return message
 
-    def send_message(self, message):
+    def send_message(self, message, channel='chat'):
 
         try:
             self.driver.find_element_by_xpath("//div[@class='chat-panel hide']")
@@ -519,6 +540,11 @@ class MudRobot(object):
             # talk_btn = self.driver.find_element_by_xpath("/html/body/div[2]/div[6]/span[3]/span[2]")
             talk_btn = self.driver.find_element_by_xpath("//span[@command='showchat']")
             talk_btn.click()
+
+        if channel=='pty':
+            pty_channel = self.driver.find_element_by_xpath("//span[@channel='pty']")
+            pty_channel.click()
+            time.sleep(S_WAIT)
 
         sender_box = self.driver.find_element_by_xpath("//input[@class='sender-box']")
         sender_box.send_keys(message)
@@ -806,6 +832,20 @@ class MudRobot(object):
                             message = self.generate_answer(chat_content)
                             logging.info(message)
                             self.send_message(message)
+
+    def response_to_roll(self, dialogs):
+
+        # roll_flag = True
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
+                if RE_COMMAND_ROLL.match(content):
+
+                    logging.info('in the response to roll')
+                    auth = self.get_message_auth(msg)
+                    message = '{} 的roll点结果是: {}'.format(auth, random.randint(1,100))
+                    logging.info(message)
+                    self.send_message(message,channel='pty')
 
     def response_to_training(self, dialogs, session, is_enabled=False):
 

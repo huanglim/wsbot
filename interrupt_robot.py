@@ -22,6 +22,13 @@ IS_ATTACKED = False
 ATTACK_PRIORITY_MODE = False
 
 KILL_DICT = {}
+#
+# logging.basicConfig(level=logging.INFO,
+#                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
+#                     datefmt='%a, %d %b %Y %H:%M:%S',
+#                     filename='interrupt.log',
+#                     filemode='w'
+#     )
 
 # Person = namedtuple('Person',['name', 'obj_id'])
 
@@ -74,13 +81,15 @@ class InterrupteRobot(LearnRobot):
         # locate the object
         # obj, obj_id = self.get_obj_and_objid(persons)
         for person in KILL_DICT:
-            IS_IN_FIGHT = True
 
             # # kill the object
             cmd = "kill "+KILL_DICT[person]
             self.execute_cmd(cmd)
-            if ATTACK_PRIORITY_MODE:
+            if ATTACK_PRIORITY_MODE and not IS_ATTACKED:
+                self.send_message(message='我已开怪!',channel='pty')
                 IS_ATTACKED = True
+
+            IS_IN_FIGHT = True
             # wait for the finish
 
             if ' ' in person:
@@ -123,17 +132,33 @@ class InterrupteRobot(LearnRobot):
         if ATTACK_PRIORITY_MODE:
             IS_ATTACKED = False
 
+    def show_skill_left_time(self, pid='sword.chan'):
+
+        # skill refresh by every 0.3 second
+        chan_shadow_value = self.driver.find_element_by_xpath("//div[@class='combat-commands']//span[@pid='"+pid+"']//span[@class='shadow']").get_attribute('style')
+
+
 def perform_chan(wd_queue, chan_queue):
+    global IS_ATTACKED
 
     logging.info('Start the perform chan function, there is {} wd'.format(len(wd_queue)))
 
-    # cmd = 'e perform sword.chan;'
     person_dict = {}
+    sleep_sec = 0
+    #
+    # if ATTACK_PRIORITY_MODE:
+    #     while not IS_ATTACKED:
+    #         logging.info('is attacked {}?'.format(IS_ATTACKED))
+    #         sleep(S_WAIT)
+
     while True:
         for q in wd_queue:
             chan_queue.get()
             if not person_dict:
                 person_dict = KILL_DICT.copy()
+                number_of_wd = len(wd_queue)
+                number_of_enemy = len(person_dict)
+                sleep_sec = 20 // number_of_wd * number_of_enemy
 
             if person_dict:
                 # for keys in person_dict:
@@ -144,9 +169,11 @@ def perform_chan(wd_queue, chan_queue):
                 q.put(cmd)
                 cmd = 'p sword.chan;'
                 q.put(cmd)
+                sleep(S_WAIT)
 
             if not person_dict:
-                sleep(CHAN_WAIT_SEC)
+
+                sleep(sleep_sec)
 
 def perform_monitor(monitor_queue):
     global  IS_STOPPED
@@ -407,12 +434,22 @@ def main():
         },
     ],
 
-    # 'simonrob03': [
-    #     {
-    #         'user_name': '守口如瓶',
-    #         'user_school': '逍遥'
-    #     },
-    # ],
+
+    '1510002': [
+        {
+            'user_name': '以后放不开',
+            'user_school': '武当',
+            'user_pwd':'qwerty'
+        },
+    ],
+
+
+    'simonrob03': [
+        {
+            'user_name': '守口如瓶',
+            'user_school': '逍遥'
+        },
+    ],
 
 }
 

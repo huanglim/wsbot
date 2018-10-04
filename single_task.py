@@ -28,11 +28,11 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
             robot.stop()
             # robot.get_gift(greeting='国庆节快乐')
             # robot.take_jg()
-            # robot.dazuo()
+            robot.dazuo()
             # robot.sell()
             # robot.go_to_wa()
-            robot.baishi(teacher="岳不群")
-            robot.learn(teacher='岳不群',skill_name='紫霞神功')
+            # robot.baishi(teacher="岳不群")
+            # robot.learn(teacher='岳不群',skill_name='紫霞神功')
         except Exception as e:
             logging.error(e)
             is_success = False
