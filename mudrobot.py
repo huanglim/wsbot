@@ -833,18 +833,21 @@ class MudRobot(object):
                             logging.info(message)
                             self.send_message(message)
 
-    def response_to_roll(self, dialogs):
+    def response_to_roll(self, dialogs, show_all_msg=False):
 
         # roll_flag = True
         for msg in dialogs:
             if RE_DIALOG.search(msg):
                 content = self.get_message_content(msg)
+                if show_all_msg:
+                    logging.info(msg)
                 if RE_COMMAND_ROLL.match(content):
 
                     logging.info('in the response to roll')
                     auth = self.get_message_auth(msg)
                     message = '{} 的roll点结果是: {}'.format(auth, random.randint(1,100))
-                    logging.info(message)
+                    if not show_all_msg:
+                        logging.info(message)
                     self.send_message(message,channel='pty')
 
     def response_to_training(self, dialogs, session, is_enabled=False):

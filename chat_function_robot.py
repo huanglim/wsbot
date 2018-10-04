@@ -8,8 +8,6 @@ from taskrobot import TaskRobot
 import logging, re
 from config import *
 
-
-
 def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
@@ -37,12 +35,13 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
                 if dialogs:
                     try:
-                        robot.response_to_roll(dialogs)
+                        robot.response_to_roll(dialogs, show_all_msg=True)
                     except Exception as e:
                         logging.error('error in get response to roll')
                         raise
 
                 # if disconnect then reconnect
+
                 if robot.is_disconnected():
                     sleep(200)
                     robot.refresh()

@@ -1,5 +1,6 @@
 from learn import LearnRobot
 from time import sleep
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from queue import Queue
@@ -135,8 +136,28 @@ class InterrupteRobot(LearnRobot):
     def show_skill_left_time(self, pid='sword.chan'):
 
         # skill refresh by every 0.3 second
-        chan_shadow_value = self.driver.find_element_by_xpath("//div[@class='combat-commands']//span[@pid='"+pid+"']//span[@class='shadow']").get_attribute('style')
+        try:
+            cool_down_style = self.driver.find_element_by_xpath("//div[@class='combat-commands']/span[@pid='"+pid+"']/span[@class='shadow']").get_attribute('style')
+            if cool_down_style == 'left: 0px; display: none;':
+                cool_down = True
+            else:
+                RE_PCT = re.compile("left: (.+)px; display: block;")
+                res = RE_PCT.match(cool_down_style).groups()[0]
+                c_time = datetime.now()
 
+        except Exception as e:
+            raise
+
+    def show_enemy_status(self, sid='busy'):
+
+        try:
+            cool_down_style = self.driver.find_element_by_xpath("//span[class='item-status-bar']/span[@sid='"+sid+"']/span[@class='shadow']").get_attribute('style')
+        except Exception as e:
+            pass
+        else:
+            RE_PCT = re.compile("right: (.+)px;")
+            res = RE_PCT.match(cool_down_style).groups()[0]
+            c_time = datetime.now()
 
 def perform_chan(wd_queue, chan_queue):
     global IS_ATTACKED
@@ -434,23 +455,40 @@ def main():
         },
     ],
 
+    # 'simonrob03': [
+    #     {
+    #         'user_name': '守口如瓶',
+    #         'user_school': '逍遥'
+    #     },
+    # ],
 
     '1510002': [
         {
             'user_name': '以后放不开',
             'user_school': '武当',
-            'user_pwd':'qwerty'
+            'user_pwd': 'qwerty'
         },
-    ],
-
-
-    'simonrob03': [
         {
-            'user_name': '守口如瓶',
-            'user_school': '逍遥'
+            'user_name': '鲜于旭刚',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '不会翻车',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '思念的雪',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '申屠勘部',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
     ],
-
 }
 
     queues = []
