@@ -248,27 +248,27 @@ IDS = {
         {
             'user_name': '助人为乐',
             'user_school': '武当',
-            'user_pwd': 'dryrun'
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '扶人过马路',
             'user_school': '武当',
-            'user_pwd': 'dryrun'
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '叔叔不骗人',
             'user_school': '武当',
-            'user_pwd': 'dryrun'
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '与人为善',
             'user_school': '武当',
-            'user_pwd': 'dryrun'
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '活雷锋',
             'user_school': '武当',
-            'user_pwd': 'dryrun'
+            'user_pwd': 'qwerty'
         },
     ]
 }
