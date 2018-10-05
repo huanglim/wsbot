@@ -44,12 +44,12 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
                 if robot.is_disconnected():
                     sleep(200)
-                    robot.refresh()
+                    robot.refresh(user_name=login_user)
 
             except Exception as e:
                 logging.error(e)
                 if error_count > 5:
-                    robot.refresh()
+                    robot.refresh(user_name=login_user)
                     error_count = 0
                 else:
                     error_count += 1

@@ -1265,12 +1265,12 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
                 # if disconnect then reconnect
                 if robot.is_disconnected():
                     time.sleep(200)
-                    robot.refresh()
+                    robot.refresh(user_name='小僧真一')
 
             except Exception as e:
                 logging.error(e)
                 if error_count > 5:
-                    robot.refresh()
+                    robot.refresh(user_name='小僧真一')
                     error_count = 0
                 else:
                     error_count += 1
