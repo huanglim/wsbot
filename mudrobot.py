@@ -1187,7 +1187,7 @@ def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 
     with MudRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
-        robot.login(login_nm, login_pwd)
+        robot.login(login_nm, login_pwd, user_name='小僧真一')
         logging.info("小僧真一 is running")
 
         robot.start_mining()

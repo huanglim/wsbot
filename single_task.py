@@ -28,11 +28,12 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
             robot.stop()
             # robot.get_gift(greeting='国庆节快乐')
             # robot.take_jg()
-            # robot.dazuo()
+            robot.dazuo()
             # robot.sell()
             # robot.go_to_wa()
             # robot.baishi(teacher="宋远桥")
-            robot.learn(teacher='谷虚',skill_name='基本拳脚')
+            # robot.learn(teacher='谷虚',skill_name='武当剑法')
+            # robot.learn(teacher='宋远桥',skill_name='基本拳脚')
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -51,7 +52,7 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
 if __name__ == '__main__':
 
     process_ids = {
-    #
+
     # 'huangrob01': [
     #     {
     #         'user_name': '姜列嗣',
