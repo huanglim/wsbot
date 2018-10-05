@@ -44,105 +44,105 @@ LOGIN_NAME_h1 = 'huangrob01'
 LOGIN_PASSWORD_h1 = 'huang001'
 
 IDS = {
-    'simonrob01': [
-        {
-            'user_name': '小僧真一',
-            'user_school': '华山'
-        },
-    ],
+    # 'simonrob01': [
+    #     {
+    #         'user_name': '小僧真一',
+    #         'user_school': '华山'
+    #     },
+    # ],
+    # #
+    # 'simonrob02': [
+    #     {
+    #         'user_name': '小道玄一',
+    #         'user_school': '武当'
+    #     },
+    # ],
     #
-    'simonrob02': [
-        {
-            'user_name': '小道玄一',
-            'user_school': '武当'
-        },
-    ],
-
-    'simonrob03': [
-        {
-            'user_name': '守口如瓶',
-            'user_school': '逍遥'
-        },
-    ],
-
-    'simonrob04': [
-        {
-            'user_name': '明慧',
-            'user_school': '峨眉'
-        },
-    ],
-
-    '1510002': [
-        {
-            'user_name': '以后放不开',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-        {
-            'user_name': '鲜于旭刚',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-        {
-            'user_name': '不会翻车',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-        {
-            'user_name': '思念的雪',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-        {
-            'user_name': '申屠勘部',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-    ],
+    # 'simonrob03': [
+    #     {
+    #         'user_name': '守口如瓶',
+    #         'user_school': '逍遥'
+    #     },
+    # ],
+    #
+    # 'simonrob04': [
+    #     {
+    #         'user_name': '明慧',
+    #         'user_school': '峨眉'
+    #     },
+    # ],
+    #
+    # '1510002': [
+    #     {
+    #         'user_name': '以后放不开',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     {
+    #         'user_name': '鲜于旭刚',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     {
+    #         'user_name': '不会翻车',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     {
+    #         'user_name': '思念的雪',
+    #         'user_school': '逍遥',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     {
+    #         'user_name': '申屠勘部',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    # ],
 
     # 人工智障 小道玄一
     'huangrob01': [
         {
             'user_name': '姜列嗣',
-            'user_school': '华山'
+            'user_school': '武当'
         },
         {
             'user_name': '潘琮',
-            'user_school': '华山'
+            'user_school': '武当'
         },
         {
             'user_name': '赫连劼铸',
-            'user_school': '华山'
+            'user_school': '武当'
         },
         {
             'user_name': '鲜于宗鹰',
-            'user_school': '华山'
+            'user_school': '武当'
         },
         {
             'user_name': '金舜儋',
-            'user_school': '华山'
+            'user_school': '武当'
         },
     ],
     'simonrob06': [
         {
             'user_name': '西门寒语',
-            'user_school': '华山'
+            'user_school': '少林'
         },
         {
             'user_name': '钱霆俟',
-            'user_school': '华山'
+            'user_school': '少林'
         },
         {
             'user_name': '葛伋拯',
-            'user_school': '华山'
+            'user_school': '丐帮'
         },
         {
             'user_name': '魏产承明',
-            'user_school': '华山'
+            'user_school': '丐帮'
         },
         {
             'user_name': '严魏吉',
-            'user_school': '华山'
+            'user_school': '武当'
         },
     ],
 
@@ -173,15 +173,15 @@ IDS = {
     'simonrob05': [
         {
             'user_name': '郎璥',
-            'user_school': '华山'
+            'user_school': '峨眉'
         },
         {
             'user_name': '夏侯乐炜',
-            'user_school': '华山'
+            'user_school': '峨眉'
         },
         {
             'user_name': '赵浦铸',
-            'user_school': '华山'
+            'user_school': '峨眉'
         },
         {
             'user_name': '冯力谊',
@@ -239,33 +239,33 @@ IDS = {
         },
     ],
 
-    'giveme5': [
-        {
-            'user_name': '助人为乐',
-            'user_school': '武当',
-            'user_pwd': 'dryrun'
-        },
-        {
-            'user_name': '扶人过马路',
-            'user_school': '武当',
-            'user_pwd': 'dryrun'
-        },
-        {
-            'user_name': '叔叔不骗人',
-            'user_school': '武当',
-            'user_pwd': 'dryrun'
-        },
-        {
-            'user_name': '与人为善',
-            'user_school': '武当',
-            'user_pwd': 'dryrun'
-        },
-        {
-            'user_name': '活雷锋',
-            'user_school': '武当',
-            'user_pwd': 'dryrun'
-        },
-    ]
+    # 'giveme5': [
+    #     {
+    #         'user_name': '助人为乐',
+    #         'user_school': '武当',
+    #         'user_pwd': 'dryrun'
+    #     },
+    #     {
+    #         'user_name': '扶人过马路',
+    #         'user_school': '武当',
+    #         'user_pwd': 'dryrun'
+    #     },
+    #     {
+    #         'user_name': '叔叔不骗人',
+    #         'user_school': '武当',
+    #         'user_pwd': 'dryrun'
+    #     },
+    #     {
+    #         'user_name': '与人为善',
+    #         'user_school': '武当',
+    #         'user_pwd': 'dryrun'
+    #     },
+    #     {
+    #         'user_name': '活雷锋',
+    #         'user_school': '武当',
+    #         'user_pwd': 'dryrun'
+    #     },
+    # ]
 }
 
 if MYSQL:
@@ -335,6 +335,7 @@ COMMANDS_MAPPING = {
     'e':'execute_cmd',
     'p':'perform_command',
 
+    'eq':'equip',
 
     'l':'learn',
     'learn':'learn',

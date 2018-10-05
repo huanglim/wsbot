@@ -28,11 +28,11 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
             robot.stop()
             # robot.get_gift(greeting='国庆节快乐')
             # robot.take_jg()
-            robot.dazuo()
+            # robot.dazuo()
             # robot.sell()
             # robot.go_to_wa()
-            # robot.baishi(teacher="岳不群")
-            # robot.learn(teacher='岳不群',skill_name='紫霞神功')
+            # robot.baishi(teacher="宋远桥")
+            robot.learn(teacher='谷虚',skill_name='基本拳脚')
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -51,101 +51,64 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
 if __name__ == '__main__':
 
     process_ids = {
+    #
+    # 'huangrob01': [
+    #     {
+    #         'user_name': '姜列嗣',
+    #         'user_school': '武当'
+    #     },
+    #     {
+    #         'user_name': '潘琮',
+    #         'user_school': '武当'
+    #     },
+    #     {
+    #         'user_name': '赫连劼铸',
+    #         'user_school': '武当'
+    #     },
+    #     {
+    #         'user_name': '鲜于宗鹰',
+    #         'user_school': '武当'
+    #     },
+    #     {
+    #         'user_name': '金舜儋',
+    #         'user_school': '武当'
+    #     },
+    # ],
+    # 'simonrob06': [
+    #     {
+    #         'user_name': '严魏吉',
+    #         'user_school': '武当'
+    #     },
+    # ],
 
-        # 拜师岳不群
-        'huangrob01': [
-            {
-                'user_name': '姜列嗣',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '潘琮',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '赫连劼铸',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '鲜于宗鹰',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '金舜儋',
-                'user_school': '华山'
-            },
-        ],
 
-        'simonrob05': [
-            {
-                'user_name': '郎璥',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '夏侯乐炜',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '赵浦铸',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '冯力谊',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '许镇骞',
-                'user_school': '华山'
-            },
-        ],
-
-        'simonrob06': [
-            {
-                'user_name': '西门寒语',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '钱霆俟',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '葛伋拯',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '魏产承明',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '严魏吉',
-                'user_school': '华山'
-            },
-        ],
-
-        # 智障人工 明慧
-
-        'huangrob02': [
-            {
-                'user_name': '尤峙黎',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '韩榜',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '范俣世',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '李侪拯',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '西门剑世',
-                'user_school': '华山'
-            },
-        ],
+    'giveme5': [
+        {
+            'user_name': '助人为乐',
+            'user_school': '武当',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '扶人过马路',
+            'user_school': '武当',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '叔叔不骗人',
+            'user_school': '武当',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '与人为善',
+            'user_school': '武当',
+            'user_pwd': 'dryrun'
+        },
+        {
+            'user_name': '活雷锋',
+            'user_school': '武当',
+            'user_pwd': 'dryrun'
+        },
+    ]
 
     }
 
@@ -374,8 +337,8 @@ if __name__ == '__main__':
 #     ]
 # }
 
-    teacher = '高根明'
-    skill_name = '华山剑法'
+    teacher = '谷虚'
+    skill_name = '武当剑法'
 
     for id in process_ids:
         for user in process_ids[id]:

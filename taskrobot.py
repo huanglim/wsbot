@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 import logging, re
 from config import *
+from datetime import datetime
 
 RE_SM_NEED_ITEM = re.compile(".+对你说道：我要的是(.+)，你要是找不到就换别的吧")
 RE_SM_HAS_ITEM = re.compile("上交")
@@ -106,20 +107,74 @@ class TaskRobot(MudRobot):
             splited_cmds = cmds.split(';')
 
         for cmd in splited_cmds:
-            js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
-            # logging.info(js)
-            try_times = 3
-            while True:
-                try:
-                    self.driver.execute_script(js)
-                except Exception as e:
-                    try_times -= 1
-                    if not try_times:
-                        raise Exception
-                else:
-                    break
+
+            # if cmd:
+            #     js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+            #     # logging.info(js)
+            #     try_times = 3
+            #     while True:
+            #         try:
+            #             self.driver.execute_script(js)
+            #         except Exception as e:
+            #             try_times -= 1
+            #             if not try_times:
+            #                 raise Exception
+            #         else:
+            #             sleep(S_WAIT)
+            #             break
+
+            # add loop
+            retry_times = 8
+            if cmd:
+                while True:
+                    if self.is_cool_down(cmd):
+                        js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+                        # logging.info(js)
+                        try_times = 3
+                        while True:
+                            try:
+                                self.driver.execute_script(js)
+                                self.driver.execute_script(js)
+                            except Exception as e:
+                                try_times -= 1
+                                if not try_times:
+                                    raise Exception
+                            else:
+                                break
+                        break
+                    else:
+                        retry_times -= 1
+                        if not retry_times:
+                            logging.error("The skill didn't cooldown for 2 seconds!")
+                            break
+                        sleep(S_WAIT)
 
         sleep(S_WAIT)
+
+    def is_cool_down(self, pid):
+
+        # skill refresh by every 0.3 second
+        try:
+            # sleep(S_WAIT)
+            # logging.info('pid is {}, skill name is {}'.format(pid, self.driver.find_element_by_css_selector(".pfm-item[pid='"+pid+"']").text))
+            # logging.info('pid is {}, skill name is {}'.format(pid,self.driver.find_element_by_xpath("//html/body/div[2]/div[7]/div/div[2]/span[1]").text))
+            cool_down_style = self.driver.find_element_by_xpath("//span[@class='pfm-item' and @pid='"+pid+"']/span[@class='shadow']").get_property('left')
+            # cool_down_style = self.driver.find_element_by_css_selector(".pfm-item[pid='" + pid + "']>span.shadow").get_attribute('style')
+            logging.info('cool down style is {}'.format(cool_down_style))
+            if cool_down_style is None:
+                logging.info('cooldown ok')
+                cool_down = True
+            else:
+                logging.info('cooldown not good')
+                cool_down = False
+                # RE_PCT = re.compile("left: (.+)px; display: block;")
+                # res = RE_PCT.match(cool_down_style).groups()[0]
+                # c_time = datetime.now()
+        except Exception as e:
+            logging.info('no such skill {}, error is {}'.format(pid, e))
+            raise Exception
+        else:
+            return cool_down
 
     def use_yjd(self):
         self.execute_command('pack')
@@ -457,12 +512,49 @@ class TaskRobot(MudRobot):
         self.move('扬州城-广场')
         self.click_person_and_run_cmd(person, greeting)
 
+    def is_equiped(self,item):
+
+        try:
+            self.driver.find_element_by_xpath("//span[@class='eq-name']/*[text()='"+item+"']")
+        except Exception as e:
+            return
+        else:
+            return True
+
+
+    def equip(self, item):
+        # equip tool
+        self.execute_command('pack')
+
+        if self.is_equiped(item):
+            logging.info('Equiped!')
+            self.execute_command('pack')
+            return
+
+        self.stop()
+
+        obj = self.driver.find_element_by_xpath("//*[text()='" + item + "']")
+        obj.click()
+        sleep(S_WAIT)
+
+        eq_cmd = self.driver.find_element_by_xpath("//*[text()='" + item + "']/../span[@class='item-commands']/span[3]").get_attribute('cmd')
+
+        self.execute_cmd(eq_cmd)
+
+        self.execute_command('pack')
+
     def go_to_wa(self):
 
         self.stop()
         self.move(PLACES['扬州城-矿山'])
         self.execute_cmd('wa')
 
+        reply = self.get_reply_message()
+        RE_CAN_NOT_MINING = re.compile("挖矿不拿铁镐可怎么挖，你可以去扬州城的铁匠那里购买")
+        if RE_CAN_NOT_MINING.search(reply):
+            logging.info("The user didn't equire tool.")
+            self.equip('铁镐')
+            self.execute_cmd('wa')
 
 def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS):
     with TaskRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:

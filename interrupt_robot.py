@@ -61,7 +61,6 @@ class InterrupteRobot(LearnRobot):
                 obj, obj_id = self.get_obj_and_objid(person)
                 KILL_DICT[person] = obj_id
 
-
     def kill(self, persons, login_user='', school='', weapon_name=None):
         global IS_IN_FIGHT
         global IS_STOPPED
@@ -99,10 +98,11 @@ class InterrupteRobot(LearnRobot):
                 person_after = person + '的尸体'
 
             while True:
+                # for different school perform different skills
+                # skill_cmd = PERFORM_SKILLS[school]
+                # self.execute_cmd(skill_cmd)
+
                 try:
-                    # for different school perform different skills
-                    # skill_cmd = PERFORM_SKILLS[school]
-                    # self.execute_cmd(skill_cmd)
                     WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
                     if IS_STOPPED:
                         logging.info('{} receive cmd that stop looping killing'.format(login_user))
@@ -118,13 +118,18 @@ class InterrupteRobot(LearnRobot):
                             break
                         logging.info('{}: target {} still there, continue fighting!'.format(login_user, person))
                     except Exception as e:
-                        logging.info('{}:target {} disappeared, quit fighting'.format(login_user,persons))
-                        break
+                        # check for obj again
+                        try:
+                            self.get_objid(person)
+                        except Exception as e:
+                            logging.info('{}:target {} disappeared, quit fighting'.format(login_user, persons))
+                            break
                 else:
                     try:
                         KILL_DICT.pop(person)
                     except Exception as e:
                         logging.info('{}:the person has been removed'.format(login_user))
+                        break
                     else:
                         logging.info('{}:killed {}!'.format(login_user, person))
                         break
@@ -161,6 +166,7 @@ class InterrupteRobot(LearnRobot):
 
 def perform_chan(wd_queue, chan_queue):
     global IS_ATTACKED
+    chan_cooldown_time = 20
 
     logging.info('Start the perform chan function, there is {} wd'.format(len(wd_queue)))
 
@@ -179,7 +185,7 @@ def perform_chan(wd_queue, chan_queue):
                 person_dict = KILL_DICT.copy()
                 number_of_wd = len(wd_queue)
                 number_of_enemy = len(person_dict)
-                sleep_sec = 20 // number_of_wd * number_of_enemy
+                sleep_sec = chan_cooldown_time // number_of_wd * number_of_enemy
 
             if person_dict:
                 # for keys in person_dict:
@@ -190,7 +196,7 @@ def perform_chan(wd_queue, chan_queue):
                 q.put(cmd)
                 cmd = 'p sword.chan;'
                 q.put(cmd)
-                sleep(S_WAIT)
+                # sleep(S_WAIT)
 
             if not person_dict:
 
@@ -266,7 +272,10 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
             sleep(S_WAIT)
             robot.append_cmd()
             robot.append_command()
+
+            robot.equip('铁剑')
             robot.append_perform()
+            robot.execute_command('showcombat')
         except Exception as e:
             raise
 
@@ -294,7 +303,7 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
                         eval(run_string)
                     except Exception as e:
                         logging.error(e)
-                        raise
+                        # raise
             # process for the cmd
 
 def main():
@@ -448,12 +457,12 @@ def main():
     #     },
     # ],
 
-    'simonrob02': [
-        {
-            'user_name': '小道玄一',
-            'user_school': '武当'
-        },
-    ],
+    # 'simonrob02': [
+    #     {
+    #         'user_name': '小道玄一',
+    #         'user_school': '武当'
+    #     },
+    # ],
 
     # 'simonrob03': [
     #     {
@@ -463,16 +472,16 @@ def main():
     # ],
 
     '1510002': [
-        {
-            'user_name': '以后放不开',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-        {
-            'user_name': '鲜于旭刚',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
+    #     {
+    #         'user_name': '以后放不开',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     {
+    #         'user_name': '鲜于旭刚',
+    #         'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
         {
             'user_name': '不会翻车',
             'user_school': '武当',
