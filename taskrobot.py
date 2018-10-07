@@ -81,7 +81,7 @@ class TaskRobot(MudRobot):
                 else:
                     break
 
-        sleep(S_WAIT)
+        sleep(0.25)
 
     def execute_command(self, cmd):
 
@@ -99,7 +99,7 @@ class TaskRobot(MudRobot):
                 break
         sleep(S_WAIT)
 
-    def perform_command(self, cmds):
+    def perform_command(self, cmds, reset=True):
 
         if ',' in cmds:
             splited_cmds = cmds.split(',')
@@ -123,11 +123,32 @@ class TaskRobot(MudRobot):
             #             sleep(S_WAIT)
             #             break
 
+            # if cmd:
+            #     if reset:
+            #         js = "$(\"span.pfm-item[pid='sword.chan']>span.shadow\").css({\"left\": \"0px\", \"display\": \"none\"})"
+            #         logging.info(js)
+            #         self.driver.execute_script(js)
+            #
+            #     js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+            #     # logging.info(js)
+            #     try_times = 3
+            #     while True:
+            #         try:
+            #             self.driver.execute_script(js)
+            #         except Exception as e:
+            #             try_times -= 1
+            #             if not try_times:
+            #                 raise Exception
+            #         else:
+            #             sleep(S_WAIT)
+            #             break
+
             # add loop
             retry_times = 8
             if cmd:
                 while True:
-                    if self.is_cool_down(cmd):
+                    if self.is_cool_down(cmd) and \
+                        self.not_in_status(status='忙乱'):
                         js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
                         # logging.info(js)
                         try_times = 3
@@ -147,9 +168,19 @@ class TaskRobot(MudRobot):
                         if not retry_times:
                             logging.error("The skill didn't cooldown for 2 seconds!")
                             break
-                        sleep(S_WAIT)
+                        sleep(0.25)
 
-        sleep(S_WAIT)
+        sleep(0.1)
+
+    def not_in_status(self, status='忙乱'):
+
+        while True:
+            try:
+                self.driver.find_element_by_xpath("//span[class='item-status-bar']/*[text()='"+status+"']")
+            except Exception as e:
+                return True
+            else:
+                sleep(0.25)
 
     def is_cool_down(self, pid):
 
@@ -515,14 +546,13 @@ class TaskRobot(MudRobot):
     def is_equiped(self,item):
 
         try:
-            self.driver.find_element_by_xpath("//span[@class='eq-name']/*[text()='"+item+"']")
+            self.driver.find_element_by_xpath("//span[@class='eq-name']/*[contains(text(),'"+item+"')]")
         except Exception as e:
             return
         else:
             return True
 
-
-    def equip(self, item):
+    def equip(self, item, weapon='铁剑'):
         # equip tool
         self.execute_command('pack')
 
@@ -533,11 +563,11 @@ class TaskRobot(MudRobot):
 
         self.stop()
 
-        obj = self.driver.find_element_by_xpath("//*[text()='" + item + "']")
+        obj = self.driver.find_element_by_xpath("//*[contains(text(),'"+item+"')]")
         obj.click()
         sleep(S_WAIT)
 
-        eq_cmd = self.driver.find_element_by_xpath("//*[text()='" + item + "']/../span[@class='item-commands']/span[3]").get_attribute('cmd')
+        eq_cmd = self.driver.find_element_by_xpath("//*[contains(text(),'"+item+"')]/../span[@class='item-commands']/span[3]").get_attribute('cmd')
 
         self.execute_cmd(eq_cmd)
 

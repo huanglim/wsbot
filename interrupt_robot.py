@@ -60,6 +60,7 @@ class InterrupteRobot(LearnRobot):
             if person not in KILL_DICT:
                 obj, obj_id = self.get_obj_and_objid(person)
                 KILL_DICT[person] = obj_id
+                logging.info('the person {} has saved'.format(person))
 
     def kill(self, persons, login_user='', school='', weapon_name=None):
         global IS_IN_FIGHT
@@ -153,16 +154,15 @@ class InterrupteRobot(LearnRobot):
         except Exception as e:
             raise
 
-    def show_enemy_status(self, sid='busy'):
+    def not_in_status(self, status='忙乱'):
 
-        try:
-            cool_down_style = self.driver.find_element_by_xpath("//span[class='item-status-bar']/span[@sid='"+sid+"']/span[@class='shadow']").get_attribute('style')
-        except Exception as e:
-            pass
-        else:
-            RE_PCT = re.compile("right: (.+)px;")
-            res = RE_PCT.match(cool_down_style).groups()[0]
-            c_time = datetime.now()
+        while True:
+            try:
+                self.driver.find_element_by_xpath("//span[class='item-status-bar']/*[text()='"+status+"']")
+            except Exception as e:
+                return True
+            else:
+                sleep(0.25)
 
 def perform_chan(wd_queue, chan_queue):
     global IS_ATTACKED
@@ -185,7 +185,9 @@ def perform_chan(wd_queue, chan_queue):
                 person_dict = KILL_DICT.copy()
                 number_of_wd = len(wd_queue)
                 number_of_enemy = len(person_dict)
-                sleep_sec = chan_cooldown_time // number_of_wd * number_of_enemy
+                # sleep_sec = chan_cooldown_time // number_of_wd * number_of_enemy
+                # sleep_sec = chan_cooldown_time // number_of_wd -1 # * number_of_enemy
+                sleep_sec = 7
 
             if person_dict:
                 # for keys in person_dict:
@@ -196,7 +198,6 @@ def perform_chan(wd_queue, chan_queue):
                 q.put(cmd)
                 cmd = 'p sword.chan;'
                 q.put(cmd)
-                # sleep(S_WAIT)
 
             if not person_dict:
 
@@ -230,8 +231,8 @@ def is_in_fight(chan_queue):
             while True:
                 if not chan_queue.empty():
                     chan_queue.get()
-                    logging.info('empty the chan queue')
                 else:
+                    # logging.info('chan queue is emptied')
                     break
             sleep(S_WAIT)
 
@@ -262,7 +263,7 @@ def parse_cmd(cmd):
 
     return function_to_run, arg
 
-def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is_debug=IS_HEADLESS):
+def single_robot(command_query, login_nm, login_pwd, login_user, school=None, weapon='',is_debug=IS_HEADLESS):
 
     with InterrupteRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
 
@@ -273,7 +274,7 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
             robot.append_cmd()
             robot.append_command()
 
-            robot.equip('铁剑')
+            robot.equip(item=weapon)
             robot.append_perform()
             robot.execute_command('showcombat')
         except Exception as e:
@@ -283,10 +284,10 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, is
 
         while True:
             cmd = command_query.get()
-            logging.info('{}: received the commands: {}'.format(login_user, cmd))
+            # logging.info('{}: received the commands: {}'.format(login_user, cmd))
             # parse the cmd
             function_to_run, arg = parse_cmd(cmd)
-            logging.info('{}: function_to_run :{}, arg: {}'.format(login_user, function_to_run, arg))
+            # logging.info('{}: function_to_run :{}, arg: {}'.format(login_user, function_to_run, arg))
 
             if function_to_run:
                 if function_to_run == 'kill':
@@ -460,7 +461,8 @@ def main():
     # 'simonrob02': [
     #     {
     #         'user_name': '小道玄一',
-    #         'user_school': '武当'
+    #         'user_school': '武当',
+    #         'user_weapon': '云龙剑'
     #     },
     # ],
 
@@ -472,16 +474,16 @@ def main():
     # ],
 
     '1510002': [
-    #     {
-    #         'user_name': '以后放不开',
-    #         'user_school': '武当',
-    #         'user_pwd': 'qwerty'
-    #     },
-    #     {
-    #         'user_name': '鲜于旭刚',
-    #         'user_school': '武当',
-    #         'user_pwd': 'qwerty'
-    #     },
+        {
+            'user_name': '以后放不开',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '鲜于旭刚',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
         {
             'user_name': '不会翻车',
             'user_school': '武当',
@@ -490,6 +492,7 @@ def main():
         {
             'user_name': '思念的雪',
             'user_school': '逍遥',
+            'user_weapon': '云龙剑',
             'user_pwd': 'qwerty'
         },
         {
@@ -512,7 +515,7 @@ def main():
         for user in process_ids[id]:
             try:
                 q = Queue()
-                args = (q, id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'])
+                args = (q, id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'], user.get('user_weapon', '铁剑'))
                 t = Thread(target=single_robot, args=args, daemon=True)
 
                 # save all of the queue in the queue list
@@ -557,13 +560,13 @@ def main():
     while True:
         try:
             cmd = input(promote)
+            logging.info('The cmd is {}'.format(cmd))
         except KeyboardInterrupt as e:
             logging.info('End the program!')
             break
         except Exception as e:
             logging.error(e)
         else:
-
             for q in queues:
                 q.put(cmd)
 

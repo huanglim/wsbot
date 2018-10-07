@@ -41,4 +41,5 @@ if __name__ == '__main__':
     #     for i in dungeon_template(d):
     #         print(i)
 
-    print(len(testing))
+    # print(len(testing))
+    print(testing[0:3])

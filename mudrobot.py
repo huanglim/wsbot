@@ -547,7 +547,7 @@ class MudRobot(object):
             time.sleep(S_WAIT)
 
         sender_box = self.driver.find_element_by_xpath("//input[@class='sender-box']")
-        sender_box.send_keys(message)
+        sender_box.send_keys(message[0:100])
 
         sender_btn = self.driver.find_element_by_xpath("//span[@class='glyphicon glyphicon-send sender-btn']")
         sender_btn.click()
@@ -802,6 +802,8 @@ class MudRobot(object):
                         elif minutes >= 30 and minutes < 60:
                             msg = '{},已结束{}分{}秒; '.format(item, minutes - 30, seconds)
                             msgs.append(msg)
+                        elif minutes >= 60:
+                            self.mpz_info.pop(item)
 
                     if msgs:
                         message = ''.join(msgs)
