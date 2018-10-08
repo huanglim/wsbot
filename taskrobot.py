@@ -176,11 +176,15 @@ class TaskRobot(MudRobot):
 
         while True:
             try:
-                self.driver.find_element_by_xpath("//span[class='item-status-bar']/*[text()='"+status+"']")
+                print('not_in_status')
+                # print(self.driver.find_element_by_xpath("//span[class='item-status-bar']/*[text()='"+status+"']").get_attribute('innerHTML'))
+                print(self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[5]/div[2]").get_attribute('innerHTML'))
             except Exception as e:
+                print(e)
                 return True
             else:
                 sleep(0.25)
+                break
 
     def is_cool_down(self, pid):
 

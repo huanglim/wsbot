@@ -802,8 +802,15 @@ class MudRobot(object):
                         elif minutes >= 30 and minutes < 60:
                             msg = '{},已结束{}分{}秒; '.format(item, minutes - 30, seconds)
                             msgs.append(msg)
-                        elif minutes >= 60:
-                            self.mpz_info.pop(item)
+
+                    keys = list(self.mpz_info.keys())
+                    for k in keys:
+                        td = datetime.now() - self.mpz_info[item]
+                        minutes, seconds = td.seconds // 60, td.seconds % 60
+
+                        if minutes > 60:
+                            self.mpz_info.pop(k)
+
 
                     if msgs:
                         message = ''.join(msgs)

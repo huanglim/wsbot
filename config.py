@@ -3,7 +3,7 @@ import os, sys
 IS_ALL_ENABLE = True
 INDIVIDUAL_COMMAND = False
 
-UPDATE_WKZN_STATUS_CHANGE = False
+UPDATE_WKZN_STATUS_CHANGE = True
 MYSQL = False
 if sys.platform.startswith('linux'):
     IS_REMOTE = True
@@ -47,7 +47,7 @@ IDS = {
     'simonrob01': [
         {
             'user_name': '隐姓埋名',
-            'user_school': '华山'
+            'user_school': '武当'
         },
     ],
     #

@@ -42,4 +42,16 @@ if __name__ == '__main__':
     #         print(i)
 
     print(len(testing))
+    dic = {
+        "树林":123, "财主家":234, "流氓巷":54,
+    }
+
+    keys = dic.keys()
+    print(keys)
+    try:
+        for item in keys:
+            print(dic.pop(item))
+    except Exception as e:
+        pass
+
     # print(testing[0:3])
