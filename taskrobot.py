@@ -74,6 +74,7 @@ class TaskRobot(MudRobot):
             while True:
                 try:
                     self.driver.execute_script(js)
+                    sleep(0.1)
                 except Exception as e:
                     try_times -= 1
                     if not try_times:
