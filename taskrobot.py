@@ -508,6 +508,8 @@ class TaskRobot(MudRobot):
             self.execute_cmd(directions)
         else:
             self.execute_cmd(PLACES.get(directions))
+            if not self.check_room_name(PLACES.get(directions)):
+                self.execute_cmd(PLACES.get(directions))
 
     def take_jg(self):
 
