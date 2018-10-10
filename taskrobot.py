@@ -392,11 +392,17 @@ class TaskRobot(MudRobot):
 
         if good_name in FOOD_LIST:
             # buy from food
-            self.move(PLACES["扬州城-醉仙楼"])
+            self.move("扬州城-醉仙楼")
             saler_name = "店小二"
         elif good_name in GENERAL_LIST:
-            self.move(PLACES["扬州城-杂货铺"])
+            self.move("扬州城-杂货铺")
             saler_name = "杂货铺老板 杨永福"
+        elif good_name in FORGE_LIST:
+            self.move("扬州城-打铁铺")
+            saler_name = "铁匠铺老板 铁匠"
+        elif good_name in MEDIC_LIST:
+            self.move(PLACES["扬州城-药铺"])
+            saler_name = "药铺老板 平一指"
         else:
             saler_name = ''
             logging.error('not in the list')
