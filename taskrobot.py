@@ -108,69 +108,21 @@ class TaskRobot(MudRobot):
             splited_cmds = cmds.split(';')
 
         for cmd in splited_cmds:
-
-            # if cmd:
-            #     js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
-            #     # logging.info(js)
-            #     try_times = 3
-            #     while True:
-            #         try:
-            #             self.driver.execute_script(js)
-            #         except Exception as e:
-            #             try_times -= 1
-            #             if not try_times:
-            #                 raise Exception
-            #         else:
-            #             sleep(S_WAIT)
-            #             break
-
-            # if cmd:
-            #     if reset:
-            #         js = "$(\"span.pfm-item[pid='sword.chan']>span.shadow\").css({\"left\": \"0px\", \"display\": \"none\"})"
-            #         logging.info(js)
-            #         self.driver.execute_script(js)
-            #
-            #     js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
-            #     # logging.info(js)
-            #     try_times = 3
-            #     while True:
-            #         try:
-            #             self.driver.execute_script(js)
-            #         except Exception as e:
-            #             try_times -= 1
-            #             if not try_times:
-            #                 raise Exception
-            #         else:
-            #             sleep(S_WAIT)
-            #             break
-
-            # add loop
-            retry_times = 8
             if cmd:
+                js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+                # logging.info(js)
+                try_times = 3
                 while True:
-                    if self.is_cool_down(cmd) and \
-                        self.not_in_status(status='忙乱'):
-                        js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
-                        # logging.info(js)
-                        try_times = 3
-                        while True:
-                            try:
-                                self.driver.execute_script(js)
-                                self.driver.execute_script(js)
-                            except Exception as e:
-                                try_times -= 1
-                                if not try_times:
-                                    raise Exception
-                            else:
-                                break
-                        break
+                    try:
+                        self.driver.execute_script(js)
+                        self.driver.execute_script(js)
+                    except Exception as e:
+                        try_times -= 1
+                        if not try_times:
+                            raise Exception
                     else:
-                        retry_times -= 1
-                        if not retry_times:
-                            logging.error("The skill didn't cooldown for 2 seconds!")
-                            break
-                        sleep(0.25)
-
+                        sleep(S_WAIT)
+                        break
         sleep(0.1)
 
     def not_in_status(self, status='忙乱'):
@@ -191,24 +143,22 @@ class TaskRobot(MudRobot):
 
         # skill refresh by every 0.3 second
         try:
-            # sleep(S_WAIT)
-            # logging.info('pid is {}, skill name is {}'.format(pid, self.driver.find_element_by_css_selector(".pfm-item[pid='"+pid+"']").text))
-            # logging.info('pid is {}, skill name is {}'.format(pid,self.driver.find_element_by_xpath("//html/body/div[2]/div[7]/div/div[2]/span[1]").text))
-            cool_down_style = self.driver.find_element_by_xpath("//span[@class='pfm-item' and @pid='"+pid+"']/span[@class='shadow']").get_property('left')
-            # cool_down_style = self.driver.find_element_by_css_selector(".pfm-item[pid='" + pid + "']>span.shadow").get_attribute('style')
-            logging.info('cool down style is {}'.format(cool_down_style))
-            if cool_down_style is None:
-                logging.info('cooldown ok')
+            # cool_down_style = self.driver.find_element_by_xpath("//span[@class='pfm-item' and @pid='"+pid+"']/span[@class='shadow']").get_property('left')
+            # cool_down_style = self.driver.find_element_by_css_selector(".pfm-item[pid='" + pid + "']>span.shadow").get_property('left')
+            cool_down_style = self.driver.find_element_by_css_selector(".pfm-item[pid='" + pid + "']").get_attribute('innerHTML')
+            # if cool_down_style is None:
+            # logging.info('The cooldown info is {}'.format(cool_down_style))
+            if 'display: none;' in cool_down_style or \
+                    '<span class="shadow"></span>' in cool_down_style:
+                # logging.info('cooldown ok')
                 cool_down = True
             else:
-                logging.info('cooldown not good')
+                # logging.info('The pfm is still in CD')
                 cool_down = False
-                # RE_PCT = re.compile("left: (.+)px; display: block;")
-                # res = RE_PCT.match(cool_down_style).groups()[0]
-                # c_time = datetime.now()
         except Exception as e:
             logging.info('no such skill {}, error is {}'.format(pid, e))
-            raise Exception
+            # raise Exception
+            return
         else:
             return cool_down
 
@@ -267,7 +217,7 @@ class TaskRobot(MudRobot):
         while True:
 
             # move to sm
-            self.move(PLACES[sm_place])
+            self.move(sm_place)
 
             # take the sm
             teacher, teacher_id = self.get_obj_and_objid(teacher_name)
@@ -643,7 +593,6 @@ def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS)
 
         if not is_success:
             raise Exception
-
 
 if __name__ == '__main__':
 

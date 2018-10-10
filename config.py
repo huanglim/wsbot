@@ -333,6 +333,7 @@ COMMANDS_MAPPING = {
 
     'k': 'kill',
     'kill': 'kill',
+    'kmg':'kill_mg',
 
     's': 'stop',
     'stop': 'stop',

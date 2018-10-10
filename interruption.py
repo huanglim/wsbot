@@ -14,15 +14,15 @@ import logging, re
 from config import *
 import random
 
-
 RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
-CHAN_WAIT_SEC = 5
-IS_IN_FIGHT = False
-IS_STOPPED = False
-IS_ATTACKED = False
-ATTACK_PRIORITY_MODE = False
 
 KILL_DICT = {}
+KILL_INFO = {
+    'is_monitored': False,
+    'is_chan_cmd_send': False,
+    'cmd_put': False
+}
+
 #
 # logging.basicConfig(level=logging.INFO,
 #                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -40,7 +40,8 @@ class InterrupteRobot(LearnRobot):
                  port=None,
                  remote=None,
                  driver_type='Chrome',
-                 headless=True):
+                 headless=True,
+                 cmd_query=None):
         """Constructor for TaskRobot"""
         super().__init__()
         self.remote = remote
@@ -48,6 +49,7 @@ class InterrupteRobot(LearnRobot):
         self.host = host
         self.port = port
         self.headless = headless
+        self.cmd_query = cmd_query
 
     def save_to_kill_dict(self, persons):
         global KILL_DICT
@@ -55,7 +57,7 @@ class InterrupteRobot(LearnRobot):
         if ';' in persons:
             person_list = persons.split(';')
         else:
-            person_list = [persons,]
+            person_list = [persons, ]
 
         for person in person_list:
             if person not in KILL_DICT:
@@ -63,88 +65,55 @@ class InterrupteRobot(LearnRobot):
                 KILL_DICT[person] = obj_id
                 logging.info('the person {} has saved'.format(person))
 
-    def kill(self, persons, login_user='', school='', weapon_name=None):
-        global IS_IN_FIGHT
-        global IS_STOPPED
-        global IS_ATTACKED
+    def checking_npc_status(self, chan_queue):
+        global  KILL_DICT, KILL_INFO
 
-        if weapon_name:
-            # chagne the weapon
-            pass
+        while True:
+            kill_list = list(KILL_DICT.items())
+
+            if not kill_list:
+                logging.info('End the kill!')
+                break
+
+            # looping to checking the npc status
+            for npc, npc_id in kill_list:
+                info = self.get_npc_info(npc)
+                # logging.info(info)
+                if info:
+                    if not 'busy' in info:
+                        if not KILL_INFO['is_chan_cmd_send'] and \
+                            not KILL_INFO['cmd_put']:
+                            # add the chan query
+                            chan_queue.put(npc_id)
+                            KILL_INFO['cmd_put'] = True
+                    elif KILL_INFO['is_chan_cmd_send']:
+                        KILL_INFO['is_chan_cmd_send'] = False
+
+                    if '尸体' in info:
+                        KILL_DICT.pop(npc)
+                        logging.info('The {} is killed'.format(npc))
+
+            sleep(0.2)
+
+    def kill(self, persons, login_user='', school='', chan_queue=None, weapon_name=None, ):
+        global KILL_INFO
 
         logging.info('{},{},{}'.format(persons, login_user, school))
 
         self.save_to_kill_dict(persons)
 
-        if ATTACK_PRIORITY_MODE and school != '逍遥':
-            while not IS_ATTACKED:
-                sleep(S_WAIT)
-
-        # locate the object
-        # obj, obj_id = self.get_obj_and_objid(persons)
-        for person in KILL_DICT:
-
-            # # kill the object
-            cmd = "kill "+KILL_DICT[person]
-            self.execute_cmd(cmd)
-            if ATTACK_PRIORITY_MODE and not IS_ATTACKED:
-                self.send_message(message='我已开怪!',channel='pty')
-                IS_ATTACKED = True
-
-            IS_IN_FIGHT = True
-            # wait for the finish
-
-            if ' ' in person:
-                person_after = re.split(' ', person)[-1] + '的尸体'
-            else:
-                person_after = person + '的尸体'
-
-            while True:
-                # for different school perform different skills
-                # skill_cmd = PERFORM_SKILLS[school]
-                # self.execute_cmd(skill_cmd)
-
-                try:
-                    WebDriverWait(self.driver, M_WAIT).until(lambda x: x.find_element_by_xpath("//wht[text()='" + person_after + "']"))
-                    if IS_STOPPED:
-                        logging.info('{} receive cmd that stop looping killing'.format(login_user))
-                        KILL_DICT.clear()
-                        if ATTACK_PRIORITY_MODE:
-                            IS_ATTACKED = False
-                        break
-                except Exception as e:
-                    try:
-                        self.get_objid(person)
-                        if IS_STOPPED:
-                            logging.info('receive cmd that stop looping killing')
-                            break
-                        logging.info('{}: target {} still there, continue fighting!'.format(login_user, person))
-                    except Exception as e:
-                        # check for obj again
-                        try:
-                            self.get_objid(person)
-                        except Exception as e:
-                            logging.info('{}:target {} disappeared, quit fighting'.format(login_user, persons))
-                            break
-                else:
-                    try:
-                        KILL_DICT.pop(person)
-                    except Exception as e:
-                        logging.info('{}:the person has been removed'.format(login_user))
-                        break
-                    else:
-                        logging.info('{}:killed {}!'.format(login_user, person))
-                        break
-
-        IS_IN_FIGHT = False
-        if ATTACK_PRIORITY_MODE:
-            IS_ATTACKED = False
+        if not KILL_INFO.get('is_monitored'):
+            KILL_INFO['is_monitored'] = True
+            arg = (chan_queue,)
+            t = Thread(target=self.checking_npc_status, args=arg, daemon=True)
+            t.start()
 
     def show_skill_left_time(self, pid='sword.chan'):
 
         # skill refresh by every 0.3 second
         try:
-            cool_down_style = self.driver.find_element_by_xpath("//div[@class='combat-commands']/span[@pid='"+pid+"']/span[@class='shadow']").get_attribute('style')
+            cool_down_style = self.driver.find_element_by_xpath("//div[@class='combat-commands']/span[@pid='" + pid + "']/span[@class='shadow']").get_attribute(
+                'style')
             if cool_down_style == 'left: 0px; display: none;':
                 cool_down = True
             else:
@@ -155,95 +124,73 @@ class InterrupteRobot(LearnRobot):
         except Exception as e:
             raise
 
-    def not_in_status(self, status='忙乱'):
+    def get_npc_info(self, npc):
 
-        while True:
-            try:
-                print('not_in_status')
-                # print(self.driver.find_element_by_xpath("//span[class='item-status-bar']/*[text()='"+status+"']").get_attribute('innerHTML'))
-                # print(self.driver.find_element_by_xpath("//span[class='item-status-bar']").get_attribute('innerHTML'))
-                print(self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[5]/div[2]").get_attribute('innerHTML'))
+        try:
+            npc_id = self.get_objid(npc)
+            npc_info = self.driver.find_element_by_css_selector(
+                "body > div.container > div.content-room > div.room_items > [itemid='" + npc_id + "']").get_attribute('innerHTML')
+        except Exception as e:
+            print(e)
+            # raise
+        else:
+            return npc_info
 
-            except Exception as e:
-                print(e)
-                return True
-            else:
-                sleep(0.25)
+    def perform_command(self, cmds, reset=True):
+        global KILL_INFO
+
+        if ',' in cmds:
+            splited_cmds = cmds.split(',')
+        else:
+            splited_cmds = cmds.split(';')
+
+        for cmd in splited_cmds:
+            if cmd:
+                js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
+                # logging.info(js)
+
+                while True:
+                    if self.is_cool_down(cmd):
+                        break
+                    sleep(0.15)
+
+                try_times = 3
+                while True:
+                    try:
+                        self.driver.execute_script(js)
+                        self.driver.execute_script(js)
+                    except Exception as e:
+                        try_times -= 1
+                        sleep(0.25)
+                        if not try_times:
+                            raise Exception
+                    else:
+                        KILL_INFO['is_chan_cmd_send'] = True
+                        KILL_INFO['cmd_put'] = False
+                        break
+
+    def kill_mg(self):
+
+        self.stop()
+
+        self.move('襄阳城-广场')
+        cmd = 'k  蒙哥'
+
+        self.cmd_query.put(cmd)
 
 def perform_chan(wd_queue, chan_queue):
-    global IS_ATTACKED
-    chan_cooldown_time = 20
-
     logging.info('Start the perform chan function, there is {} wd'.format(len(wd_queue)))
-
-    person_dict = {}
-    sleep_sec = 0
-    #
-    # if ATTACK_PRIORITY_MODE:
-    #     while not IS_ATTACKED:
-    #         logging.info('is attacked {}?'.format(IS_ATTACKED))
-    #         sleep(S_WAIT)
 
     while True:
         for q in wd_queue:
-            chan_queue.get()
-            if not person_dict:
-                person_dict = KILL_DICT.copy()
-                number_of_wd = len(wd_queue)
-                number_of_enemy = len(person_dict)
-                # sleep_sec = chan_cooldown_time // number_of_wd * number_of_enemy
-                # sleep_sec = chan_cooldown_time // number_of_wd -1 # * number_of_enemy
-                sleep_sec = 7
-
-            if person_dict:
-                # for keys in person_dict:
-
-                person, obj_id = person_dict.popitem()
-                logging.info('Send to perform chan')
-                cmd = 'e kill '+obj_id
-                q.put(cmd)
-                cmd = 'p sword.chan;'
-                q.put(cmd)
-
-            if not person_dict:
-
-                sleep(sleep_sec)
-
-def perform_monitor(monitor_queue):
-    global  IS_STOPPED
-
-    while True:
-        cmd = monitor_queue.get()
-        short_cmd = cmd.split(' ')[0]
-
-        stop_list = ['c', 'm', 'mm', 's', 'stop', 'wa']
-        go_on_list = ['k','kill']
-
-        if short_cmd in stop_list:
-            IS_STOPPED = True
-
-        if short_cmd in go_on_list:
-            IS_STOPPED = False
-
-def is_in_fight(chan_queue):
-
-    logging.info('Start the is_in_fight function')
-
-    while True:
-        if IS_IN_FIGHT:
-            chan_queue.put('go')
-            sleep(S_WAIT)
-        else:
-            while True:
-                if not chan_queue.empty():
-                    chan_queue.get()
-                else:
-                    # logging.info('chan queue is emptied')
-                    break
-            sleep(S_WAIT)
+            obj_id = chan_queue.get()
+            logging.info('Send to perform chan')
+            cmd = 'e kill ' + obj_id
+            q.put(cmd)
+            cmd = 'p sword.chan;'
+            q.put(cmd)
 
 def parse_cmd(cmd):
-
     arg = ''
     function_to_run = ''
 
@@ -269,9 +216,8 @@ def parse_cmd(cmd):
 
     return function_to_run, arg
 
-def single_robot(command_query, login_nm, login_pwd, login_user, school=None, weapon='',is_debug=IS_HEADLESS):
-
-    with InterrupteRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug) as robot:
+def single_robot(command_query, login_nm, login_pwd, login_user, school=None, weapon='', chan_queue=None, is_debug=IS_HEADLESS):
+    with InterrupteRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug, cmd_query=command_query) as robot:
 
         try:
             logging.info('Login for {}'.format(login_user))
@@ -297,7 +243,7 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, we
 
             if function_to_run:
                 if function_to_run == 'kill':
-                    args = (arg, login_user, school)
+                    args = (arg, login_user, school, chan_queue)
                     t = Thread(target=robot.kill, args=args, daemon=True)
                     t.start()
                 else:
@@ -318,210 +264,209 @@ def main():
     global ATTACK_PRIORITY_MODE
 
     process_ids = {
-    # # 人工智障 小道玄一
-    # 'huangrob01': [
-    #     {
-    #         'user_name': '姜列嗣',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '潘琮',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '赫连劼铸',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '鲜于宗鹰',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '金舜儋',
-    #         'user_school': '华山'
-    #     },
-    # ],
-    #
-    # # 人工智障
-    # 'simonrob06': [
-    #     {
-    #         'user_name': '西门寒语',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '钱霆俟',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '葛伋拯',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '魏产承明',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '严魏吉',
-    #         'user_school': '华山'
-    #     },
-    # ],
-    #
-    # # 智障人工 明慧
-    #
-    # 'huangrob02': [
-    #     {
-    #         'user_name': '尤峙黎',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '韩榜',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '范俣世',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '李侪拯',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '西门剑世',
-    #         'user_school': '华山'
-    #     },
-    # ],
-    #
-    # # 智障人工
-    #
-    # 'simonrob05': [
-    #     {
-    #         'user_name': '郎璥',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '夏侯乐炜',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '赵浦铸',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '冯力谊',
-    #         'user_school': '华山'
-    #     },
-    #     {
-    #         'user_name': '许镇骞',
-    #         'user_school': '华山'
-    #     },
-    # ],
-    #
-    # 'simonrob07': [
-    #     {
-    #         'user_name': '明了',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '明净',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '明心',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '明真',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '明明',
-    #         'user_school': ''
-    #     },
-    # ],
-    #
-    # #
-    #
-    # 'huangrob03': [
-    #     {
-    #         'user_name': '施助峙',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '陈倡帝',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '宇文君主',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '孔淏欧',
-    #         'user_school': ''
-    #     },
-    #     {
-    #         'user_name': '云煊利',
-    #         'user_school': ''
-    #     },
-    # ],
+        # # 人工智障 小道玄一
+        # 'huangrob01': [
+        #     {
+        #         'user_name': '姜列嗣',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '潘琮',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '赫连劼铸',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '鲜于宗鹰',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '金舜儋',
+        #         'user_school': '华山'
+        #     },
+        # ],
+        #
+        # # 人工智障
+        # 'simonrob06': [
+        #     {
+        #         'user_name': '西门寒语',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '钱霆俟',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '葛伋拯',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '魏产承明',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '严魏吉',
+        #         'user_school': '华山'
+        #     },
+        # ],
+        #
+        # # 智障人工 明慧
+        #
+        # 'huangrob02': [
+        #     {
+        #         'user_name': '尤峙黎',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '韩榜',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '范俣世',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '李侪拯',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '西门剑世',
+        #         'user_school': '华山'
+        #     },
+        # ],
+        #
+        # # 智障人工
+        #
+        # 'simonrob05': [
+        #     {
+        #         'user_name': '郎璥',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '夏侯乐炜',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '赵浦铸',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '冯力谊',
+        #         'user_school': '华山'
+        #     },
+        #     {
+        #         'user_name': '许镇骞',
+        #         'user_school': '华山'
+        #     },
+        # ],
+        #
+        # 'simonrob07': [
+        #     {
+        #         'user_name': '明了',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明净',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明心',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明真',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '明明',
+        #         'user_school': ''
+        #     },
+        # ],
+        #
+        # #
+        #
+        # 'huangrob03': [
+        #     {
+        #         'user_name': '施助峙',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '陈倡帝',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '宇文君主',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '孔淏欧',
+        #         'user_school': ''
+        #     },
+        #     {
+        #         'user_name': '云煊利',
+        #         'user_school': ''
+        #     },
+        # ],
 
-    'simonrob02': [
-        {
-            'user_name': '小道玄一',
-            'user_school': '武当',
-            'user_weapon': '云龙剑'
-        },
-    ],
+        'simonrob02': [
+            {
+                'user_name': '小道玄一',
+                'user_school': '武当',
+                'user_weapon': '云龙剑'
+            },
+        ],
 
-    # 'simonrob03': [
-    #     {
-    #         'user_name': '守口如瓶',
-    #         'user_school': '逍遥'
-    #     },
-    # ],
+        # 'simonrob03': [
+        #     {
+        #         'user_name': '守口如瓶',
+        #         'user_school': '逍遥'
+        #     },
+        # ],
 
-    # '1510002': [
-    #     {
-    #         'user_name': '以后放不开',
-    #         'user_school': '武当',
-    #         'user_pwd': 'qwerty'
-    #     },
-    #     # {
-    #     #     'user_name': '鲜于旭刚',
-    #     #     'user_school': '武当',
-    #     #     'user_pwd': 'qwerty'
-    #     # },
-    #     # {
-    #     #     'user_name': '不会翻车',
-    #     #     'user_school': '武当',
-    #     #     'user_pwd': 'qwerty'
-    #     # },
-    #     # {
-    #     #     'user_name': '思念的雪',
-    #     #     'user_school': '逍遥',
-    #     #     'user_weapon': '云龙剑',
-    #     #     'user_pwd': 'qwerty'
-    #     # },
-    #     # {
-    #     #     'user_name': '申屠勘部',
-    #     #     'user_school': '武当',
-    #     #     'user_pwd': 'qwerty'
-    #     # },
-    # ],
-}
+        '1510002': [
+            {
+                'user_name': '以后放不开',
+                'user_school': '武当',
+                'user_pwd': 'qwerty'
+            },
+            {
+                'user_name': '鲜于旭刚',
+                'user_school': '武当',
+                'user_pwd': 'qwerty'
+            },
+            {
+                'user_name': '不会翻车',
+                'user_school': '武当',
+                'user_pwd': 'qwerty'
+            },
+            # {
+            #     'user_name': '思念的雪',
+            #     'user_school': '逍遥',
+            #     'user_weapon': '云龙剑',
+            #     'user_pwd': 'qwerty'
+            # },
+            {
+                'user_name': '申屠勘部',
+                'user_school': '武当',
+                'user_pwd': 'qwerty'
+            },
+        ],
+    }
 
     queues = []
     wd_queues = []
     threads = []
 
-    monitor_queue = Queue()
-    queues.append(monitor_queue)
+    chan_queue = Queue()
 
     # Start the sessions with the specified ids
     for id in process_ids:
         for user in process_ids[id]:
             try:
                 q = Queue()
-                args = (q, id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'], user.get('user_weapon', '铁剑'))
+                args = (q, id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'], user.get('user_weapon', '铁剑'), chan_queue)
                 t = Thread(target=single_robot, args=args, daemon=True)
 
                 # save all of the queue in the queue list
@@ -533,33 +478,21 @@ def main():
 
                 if user['user_school'] == '逍遥':
                     logging.info('Detected 逍遥, set the 逍遥 attack first mode')
-                    ATTACK_PRIORITY_MODE = True
-                    IS_ATTACKED = False
 
                 threads.append(t)
                 t.start()
-                sleep(S_WAIT*2)
+                sleep(S_WAIT * 2)
 
             except Exception as e:
                 logging.info('error for {}, {}'.format(id, user))
 
-    sleep(S_WAIT*10)
-
-    # Start the thread for monitor
-    args = (monitor_queue,)
-    t = Thread(target=perform_monitor, args=args, daemon=True)
-    t.start()
-
-
     # Start the thread for chan
-    chan_queue = Queue()
+
     args = (wd_queues, chan_queue)
     t = Thread(target=perform_chan, args=args, daemon=True)
     t.start()
 
-    args = (chan_queue,)
-    t = Thread(target=is_in_fight, args=args, daemon=True)
-    t.start()
+    sleep(S_WAIT * 10)
 
     promote = ''
     # looping to receive the commands
@@ -577,5 +510,4 @@ def main():
                 q.put(cmd)
 
 if __name__ == '__main__':
-
     main()
