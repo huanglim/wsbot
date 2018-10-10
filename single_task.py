@@ -26,14 +26,14 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
         # process for learning
         try:
             robot.stop()
-            # robot.get_gift(greeting='国庆节快乐')
+            # robot.get_gift(greeting='周年庆礼包')
             # robot.take_jg()
             # robot.dazuo()
             # robot.sell()
             # robot.go_to_wa()
-            # robot.baishi(teacher="宋远桥")
-            # robot.learn(teacher='谷虚',skill_name='武当剑法')
-            robot.learn(teacher='宋远桥',skill_name='太极神功')
+            robot.baishi(teacher="张三丰")
+            robot.learn(teacher='张三丰',skill_name='基本剑法')
+            # robot.learn(teacher='宋远桥',skill_name='太极拳')
         except Exception as e:
             logging.error(e)
             is_success = False
@@ -49,6 +49,13 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
 if __name__ == '__main__':
 
     process_ids = {
+    #
+    # 'simonrob01': [
+    #     {
+    #         'user_name': '姜列嗣',
+    #         'user_school': '武当'
+    #     },
+    # ],
 
     'huangrob01': [
         {
@@ -79,35 +86,35 @@ if __name__ == '__main__':
         },
     ],
 
-
-    # 'giveme5': [
-    #     {
-    #         'user_name': '助人为乐',
-    #         'user_school': '武当',
-    #         'user_pwd': 'dryrun'
-    #     },
-    #     {
-    #         'user_name': '扶人过马路',
-    #         'user_school': '武当',
-    #         'user_pwd': 'dryrun'
-    #     },
-    #     {
-    #         'user_name': '叔叔不骗人',
-    #         'user_school': '武当',
-    #         'user_pwd': 'dryrun'
-    #     },
-    #     {
-    #         'user_name': '与人为善',
-    #         'user_school': '武当',
-    #         'user_pwd': 'dryrun'
-    #     },
-    #     {
-    #         'user_name': '活雷锋',
-    #         'user_school': '武当',
-    #         'user_pwd': 'dryrun'
-    #     },
-    # ]
-
+    #
+    # # 'giveme5': [
+    # #     {
+    # #         'user_name': '助人为乐',
+    # #         'user_school': '武当',
+    # #         'user_pwd': 'dryrun'
+    # #     },
+    # #     {
+    # #         'user_name': '扶人过马路',
+    # #         'user_school': '武当',
+    # #         'user_pwd': 'dryrun'
+    # #     },
+    # #     {
+    # #         'user_name': '叔叔不骗人',
+    # #         'user_school': '武当',
+    # #         'user_pwd': 'dryrun'
+    # #     },
+    # #     {
+    # #         'user_name': '与人为善',
+    # #         'user_school': '武当',
+    # #         'user_pwd': 'dryrun'
+    # #     },
+    # #     {
+    # #         'user_name': '活雷锋',
+    # #         'user_school': '武当',
+    # #         'user_pwd': 'dryrun'
+    # #     },
+    # # ]
+    #
     }
 
     # process_ids = {
