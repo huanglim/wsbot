@@ -560,7 +560,7 @@ def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS)
         except Exception as e:
             raise
 
-        logging.info("{} {} is running".format(login_nm, login_user))
+        # logging.info("{} {} is running".format(login_nm, login_user))
         is_success = True
 
         # process for sm
@@ -600,6 +600,7 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
+                    logging.info('start for {}, {}'.format(id, user['user_name']))
                     main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], user['user_school'])
                     logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break

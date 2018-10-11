@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interruption.py" beforeDir="false" afterPath="$PROJECT_DIR$/interruption.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/taskrobot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -138,7 +134,7 @@
       <file leaf-file-name="taskrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/taskrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
+            <state relative-caret-position="428">
               <caret line="564" lean-forward="true" selection-start-line="564" selection-end-line="564" />
               <folding>
                 <element signature="e#632#841#0" />
@@ -240,11 +236,7 @@
                 <element signature="e#17911#18057#0" />
                 <element signature="e#18753#18800#0" />
                 <element signature="e#18919#18966#0" />
-                <element signature="e#19148#19687#0" />
                 <element signature="e#19171#19687#0" />
-                <element signature="e#19204#19687#0" />
-                <element signature="e#19263#19687#0" />
-                <element signature="e#19288#19488#0" />
                 <element signature="e#19548#19687#0" />
               </folding>
             </state>
@@ -1707,7 +1699,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/taskrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
+        <state relative-caret-position="428">
           <caret line="564" lean-forward="true" selection-start-line="564" selection-end-line="564" />
           <folding>
             <element signature="e#632#841#0" />
@@ -1809,11 +1801,7 @@
             <element signature="e#17911#18057#0" />
             <element signature="e#18753#18800#0" />
             <element signature="e#18919#18966#0" />
-            <element signature="e#19148#19687#0" />
             <element signature="e#19171#19687#0" />
-            <element signature="e#19204#19687#0" />
-            <element signature="e#19263#19687#0" />
-            <element signature="e#19288#19488#0" />
             <element signature="e#19548#19687#0" />
           </folding>
         </state>
