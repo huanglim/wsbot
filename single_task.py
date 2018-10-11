@@ -31,7 +31,7 @@ def main(login_nm, login_pwd, login_user, teacher=None, skill_name=None, is_debu
             # robot.dazuo()
             # robot.sell()
             # robot.go_to_wa()
-            robot.baishi(teacher="张三丰")
+            # robot.baishi(teacher="张三丰")
             robot.learn(teacher='张三丰',skill_name='基本剑法')
             # robot.learn(teacher='宋远桥',skill_name='太极拳')
         except Exception as e:

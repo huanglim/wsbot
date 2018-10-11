@@ -15,7 +15,7 @@ from config import *
 import random
 
 RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
-RE_COOLDOWN_NUM = re.compile('忙乱<span class="shadow" style="right: (.+)%;"')
+RE_COOLDOWN_NUM = re.compile('忙乱<span class="shadow" style="right: (.+?)%;"')
 
 KILL_DICT = {}
 KILL_INFO = {
@@ -360,9 +360,10 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, we
             robot.append_perform()
             robot.execute_command('showcombat')
         except Exception as e:
+            logging.info('failure for {}'.format(login_user))
             raise
 
-        logging.info("Init loading successfully")
+        logging.info("Init loading successfully for {}".format(login_user))
 
         while True:
             cmd = command_query.get()
@@ -447,27 +448,27 @@ def main():
         # ],
 
         '1510002': [
-            # {
-            #     'user_name': '以后放不开',
-            #     'user_school': '武当',
-            #     'user_pwd': 'qwerty'
-            # },
+            {
+                'user_name': '以后放不开',
+                'user_school': '武当',
+                'user_pwd': 'qwerty'
+            },
             {
                 'user_name': '鲜于旭刚',
                 'user_school': '武当',
                 'user_pwd': 'qwerty'
             },
-            # {
-            #     'user_name': '不会翻车',
-            #     'user_school': '武当',
-            #     'user_pwd': 'qwerty'
-            # },
             {
-                'user_name': '思念的雪',
-                'user_school': '逍遥',
-                'user_weapon': '云龙剑',
+                'user_name': '不会翻车',
+                'user_school': '武当',
                 'user_pwd': 'qwerty'
             },
+            # {
+            #     'user_name': '思念的雪',
+            #     'user_school': '逍遥',
+            #     'user_weapon': '云龙剑',
+            #     'user_pwd': 'qwerty'
+            # },
             # {
             #     'user_name': '申屠勘部',
             #     'user_school': '武当',

@@ -226,8 +226,10 @@ class MudRobot(object):
                 select_btn.click()
             except Exception as e:
                 try_times -= 1
+                logging.error('login failed try again')
+                time.sleep(1)
                 if not try_times:
-                    logging.error('login failed')
+                    logging.error('login failed, raise exception!')
                     raise
             else:
                 break
