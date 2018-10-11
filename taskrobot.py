@@ -465,8 +465,8 @@ class TaskRobot(MudRobot):
             self.execute_cmd(directions)
         else:
             self.execute_cmd(PLACES.get(directions))
-            if not self.check_room_name(PLACES.get(directions)):
-                self.execute_cmd(PLACES.get(directions))
+            # if not self.check_room_name(PLACES.get(directions)):
+            #     self.execute_cmd(PLACES.get(directions))
 
     def take_jg(self):
 
@@ -560,20 +560,13 @@ def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS)
         except Exception as e:
             raise
 
-        logging.info("running")
+        logging.info("{} {} is running".format(login_nm, login_user))
         is_success = True
 
         # process for sm
         try:
             robot.stop()
-            if login_user == '小道玄一':
-                robot.perform_sm(school='武当')
-            elif login_user == '守口如瓶':
-                robot.perform_sm(school='逍遥')
-            elif login_user == '明慧':
-                robot.perform_sm(school='峨眉')
-            else:
-                robot.perform_sm(school=school)
+            robot.perform_sm(school=school)
         except Exception as e:
             logging.error(e)
             is_success = False

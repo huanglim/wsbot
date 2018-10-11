@@ -334,6 +334,7 @@ COMMANDS_MAPPING = {
     'k': 'kill',
     'kill': 'kill',
     'kmg':'kill_mg',
+    'kmpz':'kill_mpz',
 
     's': 'stop',
     'stop': 'stop',
@@ -349,6 +350,9 @@ COMMANDS_MAPPING = {
     'learn':'learn',
 
     'sell':'sell',
+
+    'dz':'dazuo',
+    'dazuo':'dazuo',
 
 
 }
