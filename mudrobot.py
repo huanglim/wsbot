@@ -807,7 +807,7 @@ class MudRobot(object):
 
                     keys = list(self.mpz_info.keys())
                     for k in keys:
-                        td = datetime.now() - self.mpz_info[item]
+                        td = datetime.now() - self.mpz_info[k]
                         minutes, seconds = td.seconds // 60, td.seconds % 60
 
                         if minutes > 60:
