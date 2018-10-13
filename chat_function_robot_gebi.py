@@ -25,7 +25,7 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
         while True:
             # logging.info('in the loop')
-            sleep(2)
+            sleep(4)
             try:
                 try:
                     dialogs = robot.get_hiz_dialog()
