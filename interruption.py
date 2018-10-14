@@ -26,6 +26,8 @@ KILL_INFO = {
     'is_npc_saved': False
 }
 
+REMAINING_CD = {}
+
 #
 # logging.basicConfig(level=logging.INFO,
 #                     format='%(asctime)s [line:%(lineno)d] %(levelname)s %(message)s',
@@ -69,17 +71,18 @@ class InterrupteRobot(LearnRobot):
                 logging.info('the person {} has saved'.format(person))
 
     def checking_npc_status(self, chan_queue):
-        global  KILL_DICT, KILL_INFO
+        global  KILL_DICT, KILL_INFO, REMAINING_CD
 
-        remaining_cooldown = {}
         delta = 0.0
 
-        for npc in KILL_DICT:
-            remaining_cooldown[npc] = {}
+        for npc,npc_id in KILL_DICT.items():
+            REMAINING_CD[npc_id] = {}
 
-            remaining_cooldown[npc]['current_cd'] = 0.0
-            remaining_cooldown[npc]['last_cd'] = 0.0
-            remaining_cooldown[npc]['issue_flag'] = False
+            REMAINING_CD[npc_id]['current_cd'] = 0.0
+            REMAINING_CD[npc_id]['last_cd'] = 0.0
+            REMAINING_CD[npc_id]['issue_flag'] = False
+            REMAINING_CD[npc_id]['is_chan_cmd_send']= False,
+            REMAINING_CD[npc_id]['cmd_put']= False,
 
         while True:
             kill_list = list(KILL_DICT.items())
@@ -106,42 +109,42 @@ class InterrupteRobot(LearnRobot):
 
                     res = RE_COOLDOWN_NUM.search(info)
                     if res:
-                        remaining_cooldown[npc]['current_cd'] = float(res.groups()[0])
-                        if remaining_cooldown[npc]['current_cd'] < remaining_cooldown[npc]['last_cd']:
-                            delta = remaining_cooldown[npc]['last_cd'] - remaining_cooldown[npc]['current_cd']
-                            if remaining_cooldown[npc]['current_cd'] <= delta:
-                                remaining_cooldown[npc]['issue_flag'] = True
-                            remaining_cooldown[npc]['last_cd'] = remaining_cooldown[npc]['current_cd']
+                        REMAINING_CD[npc_id]['current_cd'] = float(res.groups()[0])
+                        if REMAINING_CD[npc_id]['current_cd'] < REMAINING_CD[npc_id]['last_cd']:
+                            delta = REMAINING_CD[npc_id]['last_cd'] - REMAINING_CD[npc_id]['current_cd']
+                            if REMAINING_CD[npc_id]['current_cd'] <= delta:
+                                REMAINING_CD[npc_id]['issue_flag'] = True
+                            REMAINING_CD[npc_id]['last_cd'] = REMAINING_CD[npc_id]['current_cd']
                         else:
-                            remaining_cooldown[npc]['last_cd'] = remaining_cooldown[npc]['current_cd']
+                            REMAINING_CD[npc_id]['last_cd'] = REMAINING_CD[npc_id]['current_cd']
                     else:
-                        remaining_cooldown[npc]['current_cd'] = 0
-                        remaining_cooldown[npc]['last_cd'] = 0
+                        REMAINING_CD[npc_id]['current_cd'] = 0
+                        REMAINING_CD[npc_id]['last_cd'] = 0
 
                     #
                     # logging.info('The is_chan_cmd_send {} and cmd_put {} '.format(
                     #     KILL_INFO['is_chan_cmd_send'],KILL_INFO['cmd_put']
                     # ))
 
-                    if remaining_cooldown[npc]['issue_flag'] or \
+                    if REMAINING_CD[npc_id]['issue_flag'] or \
                             not 'busy' in info:
-                        if not KILL_INFO['is_chan_cmd_send'] and \
-                            not KILL_INFO['cmd_put']:
+                        if not REMAINING_CD[npc_id]['is_chan_cmd_send'] and \
+                            not REMAINING_CD[npc_id]['cmd_put']:
                             # add the chan query
                             chan_queue.put(npc_id)
-                            logging.info('current is {} delta is {}'.format(remaining_cooldown[npc]['current_cd'], delta))
-                            remaining_cooldown[npc]['issue_flag']= False
-                            KILL_INFO['cmd_put'] = True
+                            logging.info('current is {} delta is {}'.format(REMAINING_CD[npc_id]['current_cd'], delta))
+                            REMAINING_CD[npc_id]['issue_flag']= False
+                            REMAINING_CD[npc_id]['cmd_put'] = True
 
-                    if KILL_INFO['is_chan_cmd_send'] and \
+                    if REMAINING_CD[npc_id]['is_chan_cmd_send'] and \
                             not 'busy' in info:
-                        KILL_INFO['is_chan_cmd_send'] = False
+                        REMAINING_CD[npc_id]['is_chan_cmd_send'] = False
 
                     if '尸体' in info:
                         KILL_DICT.pop(npc)
                         logging.info('The {} is killed'.format(npc))
 
-            sleep(0.2)
+            sleep(0.1)
 
     def kill(self, persons, login_user='', school='', chan_queue=None, weapon_name=None, ):
         global KILL_INFO, KILL_DICT
@@ -225,7 +228,11 @@ class InterrupteRobot(LearnRobot):
             return npc_info
 
     def perform_command(self, cmds, reset=True):
-        global KILL_INFO
+        global KILL_INFO, REMAINING_CD
+
+        npc_id = cmds.split('?')[1]
+
+        cmds = cmds.split('?')[0]
 
         if ',' in cmds:
             splited_cmds = cmds.split(',')
@@ -253,8 +260,8 @@ class InterrupteRobot(LearnRobot):
                         if not try_times:
                             raise Exception
                     else:
-                        KILL_INFO['is_chan_cmd_send'] = True
-                        KILL_INFO['cmd_put'] = False
+                        REMAINING_CD[npc_id]['is_chan_cmd_send'] = True
+                        REMAINING_CD[npc_id]['cmd_put'] = False
                         break
 
     def is_cool_down(self, pid):
@@ -315,7 +322,7 @@ def perform_chan(wd_queue, chan_queue):
             logging.info('Send to perform chan')
             cmd = 'e kill ' + obj_id
             q.put(cmd)
-            cmd = 'p sword.chan;'
+            cmd = 'p sword.chan;'+'?'+obj_id
             q.put(cmd)
 
 def parse_cmd(cmd):
@@ -399,38 +406,14 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, we
 def main():
     process_ids = {
         # # 人工智障 小道玄一
-        # 'huangrob01': [
-        #     {
-        #         'user_name': '姜列嗣',
-        #         'user_school': '武当'
-        #     },
-        #     {
-        #         'user_name': '潘琮',
-        #         'user_school': '武当'
-        #     },
-        #     {
-        #         'user_name': '赫连劼铸',
-        #         'user_school': '武当'
-        #     },
-        #     {
-        #         'user_name': '鲜于宗鹰',
-        #         'user_school': '武当'
-        #     },
-        #     {
-        #         'user_name': '金舜儋',
-        #         'user_school': '武当'
-        #     },
-        # ],
-        #
-        # # 人工智障
-        # 'simonrob06': [
-        #
-        #     {
-        #         'user_name': '严魏吉',
-        #         'user_school': '武当'
-        #     },
-        # ],
-        #
+
+        'simonrob01': [
+            {
+                'user_name': '隐姓埋名',
+                'user_school': '武当',
+                'user_weapon': '流氓短剑'
+            },
+        ],
 
         'simonrob02': [
             {
@@ -440,41 +423,79 @@ def main():
             },
         ],
 
-        # 'simonrob03': [
-        #     {
-        #         'user_name': '守口如瓶',
-        #         'user_school': '逍遥'
-        #     },
-        # ],
+        'simonrob03': [
+            {
+                'user_name': '守口如瓶',
+                'user_school': '逍遥'
+            },
+        ],
 
-        '1510002': [
+
+        'huangrob01': [
             {
-                'user_name': '以后放不开',
+                'user_name': '姜列嗣',
                 'user_school': '武当',
-                'user_pwd': 'qwerty'
+                'user_weapon': '云龙剑'
             },
             {
-                'user_name': '鲜于旭刚',
+                'user_name': '潘琮',
                 'user_school': '武当',
-                'user_pwd': 'qwerty'
-            },
-            {
-                'user_name': '不会翻车',
-                'user_school': '武当',
-                'user_pwd': 'qwerty'
+                'user_weapon': '流氓短剑'
             },
             # {
-            #     'user_name': '思念的雪',
-            #     'user_school': '逍遥',
-            #     'user_weapon': '云龙剑',
-            #     'user_pwd': 'qwerty'
+            #     'user_name': '赫连劼铸',
+            #     'user_school': '武当'
             # },
             # {
-            #     'user_name': '申屠勘部',
-            #     'user_school': '武当',
-            #     'user_pwd': 'qwerty'
+            #     'user_name': '鲜于宗鹰',
+            #     'user_school': '武当'
+            # },
+            # {
+            #     'user_name': '金舜儋',
+            #     'user_school': '武当'
             # },
         ],
+
+        # 人工智障
+        'simonrob06': [
+
+            {
+                'user_name': '严魏吉',
+                'user_school': '武当',
+                'user_weapon': '流氓短剑'
+            },
+        ],
+        #
+
+
+        # '1510002': [
+        #     {
+        #         'user_name': '以后放不开',
+        #         'user_school': '武当',
+        #         'user_pwd': 'qwerty'
+        #     },
+        #     {
+        #         'user_name': '鲜于旭刚',
+        #         'user_school': '武当',
+        #         'user_pwd': 'qwerty'
+        #     },
+        #     {
+        #         'user_name': '不会翻车',
+        #         'user_school': '武当',
+        #         'user_pwd': 'qwerty'
+        #     },
+        #     # {
+        #     #     'user_name': '思念的雪',
+        #     #     'user_school': '逍遥',
+        #     #     'user_weapon': '云龙剑',
+        #     #     'user_pwd': 'qwerty'
+        #     # },
+        #     # {
+        #     #     'user_name': '申屠勘部',
+        #     #     'user_school': '武当',
+        #     #     'user_pwd': 'qwerty'
+        #     # },
+        # ],
     }
 
     queues = []
