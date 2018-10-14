@@ -62,7 +62,7 @@ if __name__ == '__main__':
         '15113': [
 
             {
-                'user_name': '孙蛟',
+                'user_name': '孙鲛',
                 'user_school': '华山',
                 'user_pwd': 'qwerty'
             },
