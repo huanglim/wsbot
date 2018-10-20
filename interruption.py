@@ -17,6 +17,7 @@ import random
 RE_COMMAND = re.compile("(\S+)(\s)?(.+)?")
 RE_COOLDOWN_NUM = re.compile('忙乱<span class="shadow" style="right: (.+?)%;"')
 
+RELIVE_MODE = False
 KILL_DICT = {}
 KILL_INFO = {
     'is_monitored': False,
@@ -46,7 +47,8 @@ class InterrupteRobot(LearnRobot):
                  remote=None,
                  driver_type='Chrome',
                  headless=True,
-                 cmd_query=None):
+                 cmd_query=None,
+                 chan_queue=None):
         """Constructor for TaskRobot"""
         super().__init__()
         self.remote = remote
@@ -55,6 +57,7 @@ class InterrupteRobot(LearnRobot):
         self.port = port
         self.headless = headless
         self.cmd_query = cmd_query
+        self.chan_queue = chan_queue
 
     def save_to_kill_dict(self, persons):
         global KILL_DICT
@@ -76,13 +79,16 @@ class InterrupteRobot(LearnRobot):
         delta = 0.0
 
         for npc,npc_id in KILL_DICT.items():
+            logging.info('npc {} npcid {}'.format(npc,npc_id))
+
             REMAINING_CD[npc_id] = {}
 
             REMAINING_CD[npc_id]['current_cd'] = 0.0
             REMAINING_CD[npc_id]['last_cd'] = 0.0
             REMAINING_CD[npc_id]['issue_flag'] = False
-            REMAINING_CD[npc_id]['is_chan_cmd_send']= False,
-            REMAINING_CD[npc_id]['cmd_put']= False,
+            REMAINING_CD[npc_id]['is_chan_cmd_send']= False
+            REMAINING_CD[npc_id]['cmd_put']= False
+            REMAINING_CD[npc_id]['status'] = False
 
         while True:
             kill_list = list(KILL_DICT.items())
@@ -99,7 +105,7 @@ class InterrupteRobot(LearnRobot):
 
             # looping to checking the npc status
             for npc, npc_id in kill_list:
-                info = self.get_npc_info(npc)
+                info = self.get_npc_info(npc_id)
                 # logging.info(info)
 
                 if info:
@@ -109,6 +115,9 @@ class InterrupteRobot(LearnRobot):
 
                     res = RE_COOLDOWN_NUM.search(info)
                     if res:
+                        if not REMAINING_CD[npc_id]['status']:
+                            REMAINING_CD[npc_id]['status'] = True
+                            logging.info('{} status is True'.format(npc))
                         REMAINING_CD[npc_id]['current_cd'] = float(res.groups()[0])
                         if REMAINING_CD[npc_id]['current_cd'] < REMAINING_CD[npc_id]['last_cd']:
                             delta = REMAINING_CD[npc_id]['last_cd'] - REMAINING_CD[npc_id]['current_cd']
@@ -118,12 +127,15 @@ class InterrupteRobot(LearnRobot):
                         else:
                             REMAINING_CD[npc_id]['last_cd'] = REMAINING_CD[npc_id]['current_cd']
                     else:
+                        if REMAINING_CD[npc_id]['status']:
+                            REMAINING_CD[npc_id]['status'] = True
+                            logging.info('{} status is False'.format(npc))
                         REMAINING_CD[npc_id]['current_cd'] = 0
                         REMAINING_CD[npc_id]['last_cd'] = 0
 
                     #
                     # logging.info('The is_chan_cmd_send {} and cmd_put {} '.format(
-                    #     KILL_INFO['is_chan_cmd_send'],KILL_INFO['cmd_put']
+                    #     REMAINING_CD[npc_id]['is_chan_cmd_send'],REMAINING_CD[npc_id]['cmd_put']
                     # ))
 
                     if REMAINING_CD[npc_id]['issue_flag'] or \
@@ -132,19 +144,22 @@ class InterrupteRobot(LearnRobot):
                             not REMAINING_CD[npc_id]['cmd_put']:
                             # add the chan query
                             chan_queue.put(npc_id)
-                            logging.info('current is {} delta is {}'.format(REMAINING_CD[npc_id]['current_cd'], delta))
+                            # logging.info('current is {} delta is {}'.format(REMAINING_CD[npc_id]['current_cd'], delta))
                             REMAINING_CD[npc_id]['issue_flag']= False
                             REMAINING_CD[npc_id]['cmd_put'] = True
 
-                    if REMAINING_CD[npc_id]['is_chan_cmd_send'] and \
-                            not 'busy' in info:
+                    if REMAINING_CD[npc_id]['is_chan_cmd_send']:
                         REMAINING_CD[npc_id]['is_chan_cmd_send'] = False
+
+                    # if REMAINING_CD[npc_id]['is_chan_cmd_send'] and \
+                    #         not 'busy' in info:
+                    #     REMAINING_CD[npc_id]['is_chan_cmd_send'] = False
 
                     if '尸体' in info:
                         KILL_DICT.pop(npc)
                         logging.info('The {} is killed'.format(npc))
 
-            sleep(0.1)
+            sleep(0.2)
 
     def kill(self, persons, login_user='', school='', chan_queue=None, weapon_name=None, ):
         global KILL_INFO, KILL_DICT
@@ -215,10 +230,10 @@ class InterrupteRobot(LearnRobot):
     def get_npc_id(self, npc):
         pass
 
-    def get_npc_info(self, npc):
+    def get_npc_info(self, npc_id):
         try:
             # npc_id = self.get_objid(npc)
-            npc_id = KILL_DICT[npc]
+            # npc_id = KILL_DICT[npc]
             npc_info = self.driver.find_element_by_css_selector(
                 "body > div.container > div.content-room > div.room_items > [itemid='" + npc_id + "']").get_attribute('innerHTML')
         except Exception as e:
@@ -227,12 +242,28 @@ class InterrupteRobot(LearnRobot):
         else:
             return npc_info
 
+    def execute_cmd(self, cmds):
+        splited_cmds = cmds.split(';')
+        for cmd in splited_cmds:
+            js = "$(\"span[WG='WG']\").attr(\"cmd\", \"" + cmd + "\").click();"
+            try_times = 3
+            while True:
+                try:
+                    sleep(0.1)
+                    self.driver.execute_script(js)
+                except Exception as e:
+                    try_times -= 1
+                    if not try_times:
+                        raise Exception
+                else:
+                    break
+
     def perform_command(self, cmds, reset=True):
         global KILL_INFO, REMAINING_CD
 
-        npc_id = cmds.split('?')[1]
+        cmds, npc_id = cmds.split('?')
 
-        cmds = cmds.split('?')[0]
+        # logging.info('npc_id {} cmds {}'.format(npc_id, cmds))
 
         if ',' in cmds:
             splited_cmds = cmds.split(',')
@@ -244,10 +275,16 @@ class InterrupteRobot(LearnRobot):
                 js = "$(\"span[WG_perform='WG_perform']\").attr(\"pid\", \"" + cmd + "\").click();"
                 # logging.info(js)
 
+                try_times =2
                 while True:
                     if self.is_cool_down(cmd):
                         break
-                    sleep(0.15)
+                    else:
+                        try_times -= 1
+                        if not try_times:
+                            self.chan_queue.put(npc_id)
+                            return
+                    sleep(0.2)
 
                 try_times = 3
                 while True:
@@ -256,10 +293,11 @@ class InterrupteRobot(LearnRobot):
                         self.driver.execute_script(js)
                     except Exception as e:
                         try_times -= 1
-                        sleep(0.25)
+                        sleep(0.2)
                         if not try_times:
                             raise Exception
                     else:
+                        logging.info('Performed on {}'.format(npc_id))
                         REMAINING_CD[npc_id]['is_chan_cmd_send'] = True
                         REMAINING_CD[npc_id]['cmd_put'] = False
                         break
@@ -269,6 +307,16 @@ class InterrupteRobot(LearnRobot):
 
         if KILL_INFO['is_stopped']:
             logging.info('stop perform skill')
+            return True
+
+        status_info = self.driver.find_element_by_css_selector('body > div.container > div.tool-bar.bottom-bar > div ').text
+        if '你已经死亡' in status_info:
+            if RELIVE_MODE:
+                # cmd = "relive locale"
+                self.do_command_by_text('去武庙复活')
+                # self.execute_cmd(cmd)
+            else:
+                self.do_command_by_text('原地复活')
             return True
 
         # skill refresh by every 0.3 second
@@ -319,7 +367,7 @@ def perform_chan(wd_queue, chan_queue):
     while True:
         for q in wd_queue:
             obj_id = chan_queue.get()
-            logging.info('Send to perform chan')
+            # logging.info('Send to perform chan')
             cmd = 'e kill ' + obj_id
             q.put(cmd)
             cmd = 'p sword.chan;'+'?'+obj_id
@@ -354,7 +402,7 @@ def parse_cmd(cmd):
 def single_robot(command_query, login_nm, login_pwd, login_user, school=None, weapon='', chan_queue=None, is_debug=IS_HEADLESS):
     global KILL_INFO
 
-    with InterrupteRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug, cmd_query=command_query) as robot:
+    with InterrupteRobot(host=host_ip, port=port, remote=IS_REMOTE, headless=is_debug, cmd_query=command_query, chan_queue=chan_queue) as robot:
 
         try:
             logging.info('Login for {}'.format(login_user))

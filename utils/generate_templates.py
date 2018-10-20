@@ -9,7 +9,7 @@ def dungeon_template(dungeon_name):
 
 if __name__ == '__main__':
     longest = '一一一一一一一一一一二二二二二二二二二二三三三三三三三三三三四四四四四四四四四四五五五五五五五五五五六六六六六六六六六六七七七七七七七七七八八八八八八八八八八九九九九九九九九九九零零零零零零零零零零'
-    testing = '衣服:武当;鞋子:武当;头:武当悟性(或涟星的冰玉簪),华山学习;项链:杨不悔的项链;饰品:花无缺的玉佩;护腕:崔莺莺的手镯或武当橙;腰带:峨眉(紫以上);'
+    testing = '武功1000级并且在武道塔里面打出足够的残页可以进阶, 武道塔30-60层, 每1,5,8层掉落进阶残页.技能进阶需要潜能，计算式为:20W*技能等级+30W(黄色3，紫色4，橙色5)'
     dungeons = ["树林", "财主家", "流氓巷", "丽春院", "兵营", "庄府", "鳌拜府", "天地会", "神龙教", "关外",
                 "温府", "五毒教", "恒山", "青城山", "衡山", "泰山", "嵩山", "云梦沼泽", "桃花岛", "白驼山",
                 "星宿海", "冰火岛", "移花宫", "燕子坞", "黑木崖", "缥缈峰", "光明顶", "天龙寺", "血刀门",
@@ -40,18 +40,18 @@ if __name__ == '__main__':
     #     print('#'+d)
     #     for i in dungeon_template(d):
     #         print(i)
-
+    #
     print(len(testing))
-    dic = {
-        "树林":123, "财主家":234, "流氓巷":54,
-    }
-
-    keys = dic.keys()
-    print(keys)
-    try:
-        for item in keys:
-            print(dic.pop(item))
-    except Exception as e:
-        pass
+    # dic = {
+    #     "树林":123, "财主家":234, "流氓巷":54,
+    # }
+    #
+    # keys = dic.keys()
+    # print(keys)
+    # try:
+    #     for item in keys:
+    #         print(dic.pop(item))
+    # except Exception as e:
+    #     pass
 
     # print(testing[0:3])
