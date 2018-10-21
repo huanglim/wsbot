@@ -59,12 +59,10 @@ if __name__ == '__main__':
     IS_HEADLESS = True
 
     process_ids = {
-        '15113': [
-
+        'simonrob05': [
             {
-                'user_name': '孙鲛',
+                'user_name': '郎璥',
                 'user_school': '华山',
-                'user_pwd': 'qwerty'
             },
         ]
     }

@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatppattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatppattern.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interruption.py" beforeDir="false" afterPath="$PROJECT_DIR$/interruption.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/single_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/single_task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/generate_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/generate_templates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_function_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_function_robot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +20,8 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="274" selection-start-line="274" selection-end-line="274" />
+            <state relative-caret-position="193">
+              <caret line="218" column="15" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="15" />
               <folding>
                 <element signature="e#870#963#0" />
                 <element signature="e#880#956#0" />
@@ -53,26 +49,10 @@
                 <element signature="e#2605#2680#0" />
                 <element signature="e#2690#2766#0" />
                 <element signature="e#2776#2851#0" />
-                <element signature="e#2894#3326#0" />
-                <element signature="e#2904#2979#0" />
-                <element signature="e#2989#3063#0" />
-                <element signature="e#3073#3148#0" />
-                <element signature="e#3158#3233#0" />
-                <element signature="e#3243#3319#0" />
-                <element signature="e#3346#3778#0" />
-                <element signature="e#3356#3430#0" />
-                <element signature="e#3440#3516#0" />
-                <element signature="e#3526#3601#0" />
-                <element signature="e#3611#3686#0" />
-                <element signature="e#3696#3771#0" />
-                <element signature="e#3810#4237#0" />
-                <element signature="e#3820#3894#0" />
                 <element signature="e#3904#3978#0" />
                 <element signature="e#3988#4062#0" />
                 <element signature="e#4072#4146#0" />
                 <element signature="e#4156#4230#0" />
-                <element signature="e#4257#4876#0" />
-                <element signature="e#4267#4379#0" />
                 <element signature="e#4389#4501#0" />
                 <element signature="e#4511#4624#0" />
                 <element signature="e#4634#4746#0" />
@@ -98,8 +78,8 @@
       <file leaf-file-name="interruption.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/interruption.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="362" lean-forward="true" selection-start-line="362" selection-end-line="362" />
+            <state relative-caret-position="6886">
+              <caret line="362" selection-start-line="362" selection-end-line="362" />
               <folding>
                 <element signature="e#516#649#0" />
                 <element signature="e#670#671#0" />
@@ -107,27 +87,6 @@
                 <element signature="e#1626#2018#0" />
                 <element signature="e#1816#2018#0" />
                 <element signature="e#1860#2018#0" />
-                <element signature="e#2075#5519#0" />
-                <element signature="e#4186#4187#0" />
-                <element signature="e#5169#5220#0" />
-                <element signature="e#5408#5495#0" />
-                <element signature="e#5621#6971#0" />
-                <element signature="e#5739#5920#0" />
-                <element signature="e#6022#6098#0" />
-                <element signature="e#6161#6241#0" />
-                <element signature="e#6280#6667#0" />
-                <element signature="e#6762#6971#0" />
-                <element signature="e#7036#7607#0" />
-                <element signature="e#7097#7557#0" />
-                <element signature="e#7401#7557#0" />
-                <element signature="e#7648#7652#0" />
-                <element signature="e#7695#8088#0" />
-                <element signature="e#8131#8627#0" />
-                <element signature="e#8686#10088#0" />
-                <element signature="e#10131#11360#0" />
-                <element signature="e#11394#11489#0" />
-                <element signature="e#11523#12136#0" />
-                <element signature="e#12182#12526#0" />
               </folding>
             </state>
           </provider>
@@ -238,11 +197,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="chatppattern.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chatppattern.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="374" lean-forward="true" selection-start-line="374" selection-end-line="374" />
+              <caret line="374" selection-start-line="374" selection-end-line="374" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="66" column="9" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -250,8 +218,8 @@
       <file leaf-file-name="generate_templates.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="739">
-              <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+            <state relative-caret-position="968">
+              <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -259,7 +227,7 @@
       <file leaf-file-name="single_task.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/single_task.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
+            <state relative-caret-position="484">
               <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
               <folding>
                 <element signature="e#519#665#0" />
@@ -380,7 +348,7 @@
       <file leaf-file-name="modules.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/modules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="682">
+            <state relative-caret-position="792">
               <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="38" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
@@ -474,11 +442,11 @@
         <option value="$PROJECT_DIR$/chat_function_robot_gebi.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/chat_function_robot.py" />
         <option value="$PROJECT_DIR$/single_task.py" />
         <option value="$PROJECT_DIR$/interruption.py" />
         <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/chatppattern.py" />
+        <option value="$PROJECT_DIR$/chat_function_robot.py" />
       </list>
     </option>
   </component>
@@ -696,7 +664,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28707483" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.28707483" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -712,21 +680,21 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1282552" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28707483" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3292517" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3292517" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1007,13 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="67" column="14" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/taskrobot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
@@ -1121,7 +1082,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/modules.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
+        <state relative-caret-position="792">
           <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="38" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
@@ -1234,7 +1195,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/single_task.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
+        <state relative-caret-position="484">
           <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
           <folding>
             <element signature="e#519#665#0" />
@@ -1242,10 +1203,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/interruption.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6886">
+          <caret line="362" selection-start-line="362" selection-end-line="362" />
+          <folding>
+            <element signature="e#516#649#0" />
+            <element signature="e#670#671#0" />
+            <element signature="e#1293#1574#0" />
+            <element signature="e#1626#2018#0" />
+            <element signature="e#1816#2018#0" />
+            <element signature="e#1860#2018#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="968">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chatppattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="374" selection-start-line="374" selection-end-line="374" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="274" selection-start-line="274" selection-end-line="274" />
+        <state relative-caret-position="193">
+          <caret line="218" column="15" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="15" />
           <folding>
             <element signature="e#870#963#0" />
             <element signature="e#880#956#0" />
@@ -1273,26 +1263,10 @@
             <element signature="e#2605#2680#0" />
             <element signature="e#2690#2766#0" />
             <element signature="e#2776#2851#0" />
-            <element signature="e#2894#3326#0" />
-            <element signature="e#2904#2979#0" />
-            <element signature="e#2989#3063#0" />
-            <element signature="e#3073#3148#0" />
-            <element signature="e#3158#3233#0" />
-            <element signature="e#3243#3319#0" />
-            <element signature="e#3346#3778#0" />
-            <element signature="e#3356#3430#0" />
-            <element signature="e#3440#3516#0" />
-            <element signature="e#3526#3601#0" />
-            <element signature="e#3611#3686#0" />
-            <element signature="e#3696#3771#0" />
-            <element signature="e#3810#4237#0" />
-            <element signature="e#3820#3894#0" />
             <element signature="e#3904#3978#0" />
             <element signature="e#3988#4062#0" />
             <element signature="e#4072#4146#0" />
             <element signature="e#4156#4230#0" />
-            <element signature="e#4257#4876#0" />
-            <element signature="e#4267#4379#0" />
             <element signature="e#4389#4501#0" />
             <element signature="e#4511#4624#0" />
             <element signature="e#4634#4746#0" />
@@ -1314,53 +1288,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/interruption.py">
+    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="362" lean-forward="true" selection-start-line="362" selection-end-line="362" />
-          <folding>
-            <element signature="e#516#649#0" />
-            <element signature="e#670#671#0" />
-            <element signature="e#1293#1574#0" />
-            <element signature="e#1626#2018#0" />
-            <element signature="e#1816#2018#0" />
-            <element signature="e#1860#2018#0" />
-            <element signature="e#2075#5519#0" />
-            <element signature="e#4186#4187#0" />
-            <element signature="e#5169#5220#0" />
-            <element signature="e#5408#5495#0" />
-            <element signature="e#5621#6971#0" />
-            <element signature="e#5739#5920#0" />
-            <element signature="e#6022#6098#0" />
-            <element signature="e#6161#6241#0" />
-            <element signature="e#6280#6667#0" />
-            <element signature="e#6762#6971#0" />
-            <element signature="e#7036#7607#0" />
-            <element signature="e#7097#7557#0" />
-            <element signature="e#7401#7557#0" />
-            <element signature="e#7648#7652#0" />
-            <element signature="e#7695#8088#0" />
-            <element signature="e#8131#8627#0" />
-            <element signature="e#8686#10088#0" />
-            <element signature="e#10131#11360#0" />
-            <element signature="e#11394#11489#0" />
-            <element signature="e#11523#12136#0" />
-            <element signature="e#12182#12526#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/generate_templates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="739">
-          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chatppattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="374" lean-forward="true" selection-start-line="374" selection-end-line="374" />
+        <state relative-caret-position="357">
+          <caret line="66" column="9" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
         </state>
       </provider>
     </entry>
