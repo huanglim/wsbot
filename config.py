@@ -10,8 +10,8 @@ if sys.platform.startswith('linux'):
     IS_HEADLESS = True
 else:
     IS_REMOTE = False
-    # IS_HEADLESS = True
-    IS_HEADLESS = False
+    IS_HEADLESS = True
+    # IS_HEADLESS = False
 
 host_ip = '47.100.242.240'
 port = '4444'
