@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/chat_function_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_function_robot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mudrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mudrobot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,10 +20,22 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="111" column="30" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="30" />
+            <state relative-caret-position="665">
+              <caret line="276" column="6" lean-forward="true" selection-start-line="276" selection-start-column="6" selection-end-line="276" selection-end-column="6" />
               <folding>
                 <element signature="e#153#192#0" />
+                <element signature="e#899#992#0" />
+                <element signature="e#1012#1105#0" />
+                <element signature="e#1125#1218#0" />
+                <element signature="e#1135#1211#0" />
+                <element signature="e#1238#1684#0" />
+                <element signature="e#1719#2235#0" />
+                <element signature="e#2255#2695#0" />
+                <element signature="e#2737#2828#0" />
+                <element signature="e#2848#3293#0" />
+                <element signature="e#3313#3833#0" />
+                <element signature="e#3875#4581#0" />
+                <element signature="e#5335#5943#0" />
               </folding>
             </state>
           </provider>
@@ -49,9 +61,10 @@
       <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="652" lean-forward="true" selection-start-line="652" selection-end-line="652" />
+            <state relative-caret-position="176">
+              <caret line="646" lean-forward="true" selection-start-line="646" selection-end-line="646" />
               <folding>
+                <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#993#1373#0" />
                 <element signature="e#1384#1639#0" />
                 <element signature="e#2586#2613#0" />
@@ -135,7 +148,6 @@
                 <element signature="e#22987#23423#0" />
                 <element signature="e#23048#23423#0" />
                 <element signature="e#23090#23423#0" />
-                <element signature="e#23624#24225#0" />
                 <element signature="e#23489#24293#0" />
                 <element signature="e#23546#24293#0" />
                 <element signature="e#23588#24293#0" />
@@ -374,9 +386,9 @@
       <find>悟性</find>
       <find>武道</find>
       <find>韩</find>
-      <find>魏</find>
       <find>dt</find>
       <find>res</find>
+      <find>魏</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -422,9 +434,9 @@
         <option value="$PROJECT_DIR$/single_task.py" />
         <option value="$PROJECT_DIR$/chatppattern.py" />
         <option value="$PROJECT_DIR$/utils/generate_templates.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/taskrobot.py" />
         <option value="$PROJECT_DIR$/chat_function_robot.py" />
+        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
       </list>
     </option>
@@ -1018,16 +1030,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="111" column="30" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="30" />
-          <folding>
-            <element signature="e#153#192#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
@@ -1035,11 +1037,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="276" column="6" lean-forward="true" selection-start-line="276" selection-start-column="6" selection-end-line="276" selection-end-column="6" />
+          <folding>
+            <element signature="e#153#192#0" />
+            <element signature="e#899#992#0" />
+            <element signature="e#1012#1105#0" />
+            <element signature="e#1125#1218#0" />
+            <element signature="e#1135#1211#0" />
+            <element signature="e#1238#1684#0" />
+            <element signature="e#1719#2235#0" />
+            <element signature="e#2255#2695#0" />
+            <element signature="e#2737#2828#0" />
+            <element signature="e#2848#3293#0" />
+            <element signature="e#3313#3833#0" />
+            <element signature="e#3875#4581#0" />
+            <element signature="e#5335#5943#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="652" lean-forward="true" selection-start-line="652" selection-end-line="652" />
+        <state relative-caret-position="176">
+          <caret line="646" lean-forward="true" selection-start-line="646" selection-end-line="646" />
           <folding>
+            <element signature="e#0#9#0" expanded="true" />
             <element signature="e#993#1373#0" />
             <element signature="e#1384#1639#0" />
             <element signature="e#2586#2613#0" />
@@ -1123,7 +1148,6 @@
             <element signature="e#22987#23423#0" />
             <element signature="e#23048#23423#0" />
             <element signature="e#23090#23423#0" />
-            <element signature="e#23624#24225#0" />
             <element signature="e#23489#24293#0" />
             <element signature="e#23546#24293#0" />
             <element signature="e#23588#24293#0" />

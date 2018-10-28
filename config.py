@@ -64,8 +64,10 @@ IDS = {
             'user_school': '逍遥'
         },
     ],
+
+    # 武师
     'huangrob01': [
-        # 武师
+
         {
             'user_name': '姜列嗣',
             'user_school': '武当'
@@ -117,8 +119,10 @@ IDS = {
             'user_school': '武当'
         },
     ],
+
+    # 武士
     'simonrob07': [
-        # 武士
+
         {
             'user_name': '明了',
             'user_school': '华山'
@@ -202,8 +206,9 @@ IDS = {
     ],
 
     # 助人为乐 4 武师 1 武士
+    # 武士
     'huangrob03': [
-        # 武士
+
         # 人工智障
         {
             'user_name': '宇文地师',
