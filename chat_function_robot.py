@@ -25,7 +25,7 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
         while True:
             # logging.info('in the loop')
-            sleep(4)
+            sleep(5)
             try:
                 try:
                     dialogs = robot.get_hiz_dialog()
@@ -59,10 +59,17 @@ if __name__ == '__main__':
     IS_HEADLESS = True
 
     process_ids = {
-        'simonrob05': [
+        # 'simonrob05': [
+        #     {
+        #         'user_name': '郎璥',
+        #         'user_school': '华山',
+        #     },
+        # ],
+
+        'simonrob06': [
             {
-                'user_name': '郎璥',
-                'user_school': '华山',
+                'user_name': '魏产承明',
+                'user_school': '丐帮',
             },
         ]
     }
