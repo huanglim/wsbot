@@ -33,6 +33,9 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
                     logging.error('error in get hiz')
                     raise
 
+                if robot.bpz_flag:
+                    robot.update_bpz_status()
+
                 if dialogs:
                     try:
                         robot.response_to_roll(dialogs, show_all_msg=True)
@@ -57,7 +60,7 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
 
 if __name__ == '__main__':
 
-    IS_HEADLESS = True
+    # IS_HEADLESS = True
 
     process_ids = {
         'simonrob05': [

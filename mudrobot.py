@@ -635,6 +635,22 @@ class MudRobot(object):
                 session.add(dialog)
                 session.commit()
 
+    def update_bpz_status(self):
+
+        # time delta
+        td_since_start = datetime.now() - self.bpz_start_time
+        minutes_since_start, seconds_since_start = td_since_start.seconds // 60, td_since_start.seconds % 60
+
+        td = datetime.now() - self.bpz_last_time
+
+        # logging.info('mins{}, td sec{}'.format(minutes_since_start, td.seconds))
+
+        if minutes_since_start > 28:
+            self.bpz_flag = False
+        elif td.seconds > 285:
+            message = "帮派战已持续{}分{}秒, 请注意扫黄!".format(minutes_since_start, seconds_since_start)
+            self.send_message(message,channel='pty')
+
     def response_to_ltjl(self, dialogs, session=None):
 
         ltjl_flag = True
@@ -885,27 +901,14 @@ class MudRobot(object):
 
     def response_to_bpz(self, dialogs, show_all_msg=False, combine_mode=True):
 
-        if self.bpz_flag:
-            # time delta
-            td_since_start = datetime.now() - self.bpz_start_time
-            minutes_since_start, seconds_since_start = td_since_start.seconds // 60, td_since_start.seconds % 60
+        for msg in dialogs:
+            if RE_DIALOG.search(msg):
+                content = self.get_message_content(msg)
 
-            td = datetime.now() - self.bpz_last_time
-
-            if minutes_since_start > 28:
-                self.bpz_flag = False
-            elif td.seconds > 285:
-                message = "帮派战已持续{}分{}秒, 请注意扫黄!".format(minutes_since_start, seconds_since_start)
-                self.send_message(message,channel='pty')
-        else:
-            for msg in dialogs:
-                if RE_DIALOG.search(msg):
-                    content = self.get_message_content(msg)
-
-                    if RE_BPZ.match(content):
-                        logging.info('start the bpz')
-                        self.bpz_start_time = self.bpz_last_time =datetime.now()
-                        self.bpz_flag = True
+                if RE_BPZ.match(content):
+                    logging.info('start the bpz')
+                    self.bpz_start_time = self.bpz_last_time =datetime.now()
+                    self.bpz_flag = True
 
     def response_to_training(self, dialogs, session, is_enabled=False):
 
@@ -1194,7 +1197,6 @@ class MudRobot(object):
         time.sleep(S_WAIT)
         self.do_command_by_text(text_command)
         time.sleep(S_WAIT)
-
 
     def is_disconnected(self):
         reply_text = self.driver.find_element_by_css_selector('div.content-message>pre').text

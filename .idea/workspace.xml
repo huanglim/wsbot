@@ -46,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mudrobot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mudrobot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-767">
-              <caret line="885" column="23" selection-start-line="885" selection-start-column="8" selection-end-line="885" selection-end-column="23" />
+            <state relative-caret-position="116">
+              <caret line="652" lean-forward="true" selection-start-line="652" selection-end-line="652" />
               <folding>
                 <element signature="e#993#1373#0" />
                 <element signature="e#1384#1639#0" />
@@ -89,10 +89,6 @@
                 <element signature="e#10858#11156#0" />
                 <element signature="e#10902#11031#0" />
                 <element signature="e#11077#11156#0" />
-                <element signature="e#11196#11683#0" />
-                <element signature="e#11385#11683#0" />
-                <element signature="e#11429#11558#0" />
-                <element signature="e#11604#11683#0" />
                 <element signature="e#11739#12813#0" />
                 <element signature="e#11909#12813#0" />
                 <element signature="e#11953#12683#0" />
@@ -115,10 +111,6 @@
                 <element signature="e#15593#15631#0" />
                 <element signature="e#15987#16067#0" />
                 <element signature="e#16119#18604#0" />
-                <element signature="e#16359#18604#0" />
-                <element signature="e#16403#18316#0" />
-                <element signature="e#16506#18316#0" />
-                <element signature="e#16649#18316#0" />
                 <element signature="e#16972#17582#0" />
                 <element signature="e#17088#17582#0" />
                 <element signature="e#17726#18316#0" />
@@ -143,6 +135,7 @@
                 <element signature="e#22987#23423#0" />
                 <element signature="e#23048#23423#0" />
                 <element signature="e#23090#23423#0" />
+                <element signature="e#23624#24225#0" />
                 <element signature="e#23489#24293#0" />
                 <element signature="e#23546#24293#0" />
                 <element signature="e#23588#24293#0" />
@@ -203,7 +196,7 @@
                 <element signature="e#33260#33370#0" />
                 <element signature="e#33422#33551#0" />
                 <element signature="e#33587#33853#0" />
-                <element signature="e#34038#34974#0" />
+                <element signature="e#34083#34431#0" />
                 <element signature="e#33936#35264#0" />
                 <element signature="e#33997#35264#0" />
                 <element signature="e#34069#35264#0" />
@@ -292,6 +285,7 @@
                 <element signature="e#51362#51751#0" />
                 <element signature="e#51409#51683#0" />
                 <element signature="e#51530#51683#0" />
+                <element signature="e#51785#52442#0" />
                 <element signature="e#51987#52442#0" />
                 <element signature="e#52135#52136#0" />
               </folding>
@@ -308,11 +302,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="594">
+              <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -353,7 +347,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_at</find>
       <find>go</find>
       <find>get_attr</find>
       <find>the person has been removed</find>
@@ -383,6 +376,7 @@
       <find>韩</find>
       <find>魏</find>
       <find>dt</find>
+      <find>res</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -430,8 +424,8 @@
         <option value="$PROJECT_DIR$/utils/generate_templates.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/taskrobot.py" />
-        <option value="$PROJECT_DIR$/mudrobot.py" />
         <option value="$PROJECT_DIR$/chat_function_robot.py" />
+        <option value="$PROJECT_DIR$/mudrobot.py" />
       </list>
     </option>
   </component>
@@ -487,7 +481,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.taskrobot">
+  <component name="RunManager" selected="Python.chat_function_robot">
+    <configuration name="chat_function_robot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsmud" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chat_function_robot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="generate_templates" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wsmud" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -501,24 +513,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/generate_templates.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="interrupt_robot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="wsmud" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/interrupt_robot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -580,18 +574,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.generate_templates" />
-      <item itemvalue="Python.interrupt_robot" />
       <item itemvalue="Python.single_task" />
       <item itemvalue="Python.interruption" />
       <item itemvalue="Python.taskrobot" />
+      <item itemvalue="Python.chat_function_robot" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.chat_function_robot" />
         <item itemvalue="Python.taskrobot" />
         <item itemvalue="Python.generate_templates" />
         <item itemvalue="Python.single_task" />
         <item itemvalue="Python.interruption" />
-        <item itemvalue="Python.interrupt_robot" />
       </list>
     </recent_temporary>
   </component>
@@ -644,10 +638,10 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.118489586" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.118489586" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28707483" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28707483" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -687,7 +681,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="77" />
+      <option name="time" value="79" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1034,10 +1028,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mudrobot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-767">
-          <caret line="885" column="23" selection-start-line="885" selection-start-column="8" selection-end-line="885" selection-end-column="23" />
+        <state relative-caret-position="116">
+          <caret line="652" lean-forward="true" selection-start-line="652" selection-end-line="652" />
           <folding>
             <element signature="e#993#1373#0" />
             <element signature="e#1384#1639#0" />
@@ -1076,10 +1077,6 @@
             <element signature="e#10858#11156#0" />
             <element signature="e#10902#11031#0" />
             <element signature="e#11077#11156#0" />
-            <element signature="e#11196#11683#0" />
-            <element signature="e#11385#11683#0" />
-            <element signature="e#11429#11558#0" />
-            <element signature="e#11604#11683#0" />
             <element signature="e#11739#12813#0" />
             <element signature="e#11909#12813#0" />
             <element signature="e#11953#12683#0" />
@@ -1102,10 +1099,6 @@
             <element signature="e#15593#15631#0" />
             <element signature="e#15987#16067#0" />
             <element signature="e#16119#18604#0" />
-            <element signature="e#16359#18604#0" />
-            <element signature="e#16403#18316#0" />
-            <element signature="e#16506#18316#0" />
-            <element signature="e#16649#18316#0" />
             <element signature="e#16972#17582#0" />
             <element signature="e#17088#17582#0" />
             <element signature="e#17726#18316#0" />
@@ -1130,6 +1123,7 @@
             <element signature="e#22987#23423#0" />
             <element signature="e#23048#23423#0" />
             <element signature="e#23090#23423#0" />
+            <element signature="e#23624#24225#0" />
             <element signature="e#23489#24293#0" />
             <element signature="e#23546#24293#0" />
             <element signature="e#23588#24293#0" />
@@ -1190,7 +1184,7 @@
             <element signature="e#33260#33370#0" />
             <element signature="e#33422#33551#0" />
             <element signature="e#33587#33853#0" />
-            <element signature="e#34038#34974#0" />
+            <element signature="e#34083#34431#0" />
             <element signature="e#33936#35264#0" />
             <element signature="e#33997#35264#0" />
             <element signature="e#34069#35264#0" />
@@ -1279,16 +1273,10 @@
             <element signature="e#51362#51751#0" />
             <element signature="e#51409#51683#0" />
             <element signature="e#51530#51683#0" />
+            <element signature="e#51785#52442#0" />
             <element signature="e#51987#52442#0" />
             <element signature="e#52135#52136#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
