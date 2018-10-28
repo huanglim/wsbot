@@ -66,6 +66,7 @@ RE_ZM = re.compile("(灭绝|洪七公|逍遥子|玄难|岳不群|张三丰)")
 RE_HQZC = re.compile("婚庆主持")
 RE_JH = re.compile("我宣布(.+)和(.+)从现在起正式结为夫妻")
 RE_WKZN = re.compile("你获得了(.+)点经验")
+RE_BPZ = re.compile("成员听令.即刻起开始进攻")
 
 RE_DISCONNECT = re.compile("你的连接中断了")
 
@@ -128,6 +129,10 @@ class MudRobot(object):
         self.jh_content = ""
         self.jh_effective_time = None
         self.jh_init_flag = None
+
+        self.bpz_flag = False
+        self.bpz_start_time = None
+        self.bpz_last_time = None
 
     def __enter__(self):
         if not self.remote:
@@ -877,6 +882,30 @@ class MudRobot(object):
                 logging.info(message)
 
             self.send_message(message,channel='pty')
+
+    def response_to_bpz(self, dialogs, show_all_msg=False, combine_mode=True):
+
+        if self.bpz_flag:
+            # time delta
+            td_since_start = datetime.now() - self.bpz_start_time
+            minutes_since_start, seconds_since_start = td_since_start.seconds // 60, td_since_start.seconds % 60
+
+            td = datetime.now() - self.bpz_last_time
+
+            if minutes_since_start > 28:
+                self.bpz_flag = False
+            elif td.seconds > 285:
+                message = "帮派战已持续{}分{}秒, 请注意扫黄!".format(minutes_since_start, seconds_since_start)
+                self.send_message(message,channel='pty')
+        else:
+            for msg in dialogs:
+                if RE_DIALOG.search(msg):
+                    content = self.get_message_content(msg)
+
+                    if RE_BPZ.match(content):
+                        logging.info('start the bpz')
+                        self.bpz_start_time = self.bpz_last_time =datetime.now()
+                        self.bpz_flag = True
 
     def response_to_training(self, dialogs, session, is_enabled=False):
 

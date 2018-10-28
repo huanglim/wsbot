@@ -36,6 +36,7 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
                 if dialogs:
                     try:
                         robot.response_to_roll(dialogs, show_all_msg=True)
+                        robot.response_to_bpz(dialogs)
                     except Exception as e:
                         logging.error('error in get response to roll')
                         raise
@@ -59,19 +60,19 @@ if __name__ == '__main__':
     IS_HEADLESS = True
 
     process_ids = {
-        # 'simonrob05': [
-        #     {
-        #         'user_name': '郎璥',
-        #         'user_school': '华山',
-        #     },
-        # ],
-
-        'simonrob06': [
+        'simonrob05': [
             {
-                'user_name': '魏产承明',
-                'user_school': '丐帮',
+                'user_name': '郎璥',
+                'user_school': '华山',
             },
-        ]
+        ],
+
+        # 'simonrob06': [
+        #     {
+        #         'user_name': '魏产承明',
+        #         'user_school': '丐帮',
+        #     },
+        # ]
     }
 
     teacher = '高根明'
