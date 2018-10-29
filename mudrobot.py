@@ -648,8 +648,8 @@ class MudRobot(object):
         if minutes_since_start > 28:
             self.bpz_flag = False
         elif td.seconds > 280:
-            timespan = timedelta(seconds=5)
-            self.bpz_last_time = datetime.now() - timespan
+            timespan = timedelta(seconds=15)
+            self.bpz_last_time = datetime.now() + timespan
             message = "帮派战已持续{}分{}秒, 请注意扫黄!".format(minutes_since_start, seconds_since_start)
             self.send_message(message,channel='pty')
 
