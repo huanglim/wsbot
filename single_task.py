@@ -109,7 +109,7 @@ if __name__ == '__main__':
     # # # ]
     # #
     # }
-
+    IS_HEADLESS = True
     process_ids = {
         'simonrob01': [
             {

@@ -907,7 +907,7 @@ class MudRobot(object):
             if RE_DIALOG.search(msg):
                 content = self.get_message_content(msg)
 
-                if RE_BPZ.match(content):
+                if RE_BPZ.search(content):
                     logging.info('start the bpz')
                     self.bpz_start_time = self.bpz_last_time =datetime.now()
                     self.bpz_flag = True
