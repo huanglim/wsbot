@@ -641,7 +641,10 @@ class MudRobot(object):
         td_since_start = datetime.now() - self.bpz_start_time
         minutes_since_start, seconds_since_start = td_since_start.seconds // 60, td_since_start.seconds % 60
 
-        td = datetime.now() - self.bpz_last_time
+        if datetime.now() > self.bpz_last_time:
+            td = datetime.now() - self.bpz_last_time
+        else:
+            td = timedelta(seconds=1)
 
         # logging.info('mins{}, td sec{}'.format(minutes_since_start, td.seconds))
 

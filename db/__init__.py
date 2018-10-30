@@ -84,8 +84,16 @@ def test_training(session, robot):
 
 if __name__ == '__main__':
 
-    session = Session()
-    from mudrobot import MudRobot
-    robot = MudRobot()
-    test_training(session=session, robot=robot)
-    # test_dialog(session=session, robot=robot)
+    # session = Session()
+    # from mudrobot import MudRobot
+    # robot = MudRobot()
+    # test_training(session=session, robot=robot)
+    # # test_dialog(session=session, robot=robot)
+
+    from datetime import datetime, timedelta
+
+    time_span = timedelta(seconds=15)
+    bpz_last_time = datetime.now() + time_span
+    td = datetime.now() - bpz_last_time
+
+    print(td.seconds)
