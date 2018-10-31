@@ -361,6 +361,9 @@ class InterrupteRobot(LearnRobot):
         logging.info('cmd is {}'.format(cmd))
         self.cmd_query.put(cmd)
 
+    def send_message_to_pty(self, message):
+        return self.send_message(message=message,  channel='pty')
+
 def perform_chan(wd_queue, chan_queue):
     logging.info('Start the perform chan function, there is {} wd'.format(len(wd_queue)))
 
@@ -411,9 +414,9 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, we
             robot.append_cmd()
             robot.append_command()
 
-            robot.equip(item=weapon)
-            robot.append_perform()
-            robot.execute_command('showcombat')
+            # robot.equip(item=weapon)
+            # robot.append_perform()
+            # robot.execute_command('showcombat')
         except Exception as e:
             logging.info('failure for {}'.format(login_user))
             raise
@@ -452,98 +455,65 @@ def single_robot(command_query, login_nm, login_pwd, login_user, school=None, we
             # process for the cmd
 
 def main():
+
+    IS_HEADLESS = True
+
     process_ids = {
         # # 人工智障 小道玄一
-
-        'simonrob01': [
-            {
-                'user_name': '隐姓埋名',
-                'user_school': '武当',
-                'user_weapon': '流氓短剑'
-            },
-        ],
-
-        'simonrob02': [
-            {
-                'user_name': '小道玄一',
-                'user_school': '武当',
-                'user_weapon': '云龙剑'
-            },
-        ],
-
-        'simonrob03': [
-            {
-                'user_name': '守口如瓶',
-                'user_school': '逍遥'
-            },
-        ],
-
-
-        'huangrob01': [
-            {
-                'user_name': '姜列嗣',
-                'user_school': '武当',
-                'user_weapon': '云龙剑'
-            },
-            {
-                'user_name': '潘琮',
-                'user_school': '武当',
-                'user_weapon': '流氓短剑'
-            },
-            # {
-            #     'user_name': '赫连劼铸',
-            #     'user_school': '武当'
-            # },
-            # {
-            #     'user_name': '鲜于宗鹰',
-            #     'user_school': '武当'
-            # },
-            # {
-            #     'user_name': '金舜儋',
-            #     'user_school': '武当'
-            # },
-        ],
-
+    'simonrob06': [
+        # 武师
+        # no
+        {
+            'user_name': '西门寒语',
+            'user_school': '少林'
+        },
+        # no
+        {
+            'user_name': '钱霆俟',
+            'user_school': '少林'
+        },
+        # no
+        {
+            'user_name': '葛伋拯',
+            'user_school': '丐帮'
+        },
         # 人工智障
-        'simonrob06': [
+        {
+            'user_name': '魏产承明',
+            'user_school': '丐帮'
+        },
+        # 人工智障
+        {
+            'user_name': '严魏吉',
+            'user_school': '武当'
+        },
+    ],
 
-            {
-                'user_name': '严魏吉',
-                'user_school': '武当',
-                'user_weapon': '流氓短剑'
-            },
-        ],
-        #
+    # 武士
+    'simonrob07': [
 
+        {
+            'user_name': '明了',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '明净',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '明心',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '明真',
+            'user_school': '华山'
+        },
+        {
+            'user_name': '明明',
+            'user_school': '华山'
+        },
+    ],
 
-        # '1510002': [
-        #     {
-        #         'user_name': '以后放不开',
-        #         'user_school': '武当',
-        #         'user_pwd': 'qwerty'
-        #     },
-        #     {
-        #         'user_name': '鲜于旭刚',
-        #         'user_school': '武当',
-        #         'user_pwd': 'qwerty'
-        #     },
-        #     {
-        #         'user_name': '不会翻车',
-        #         'user_school': '武当',
-        #         'user_pwd': 'qwerty'
-        #     },
-        #     # {
-        #     #     'user_name': '思念的雪',
-        #     #     'user_school': '逍遥',
-        #     #     'user_weapon': '云龙剑',
-        #     #     'user_pwd': 'qwerty'
-        #     # },
-        #     # {
-        #     #     'user_name': '申屠勘部',
-        #     #     'user_school': '武当',
-        #     #     'user_pwd': 'qwerty'
-        #     # },
-        # ],
     }
 
     queues = []

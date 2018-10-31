@@ -597,113 +597,113 @@ if __name__ == '__main__':
 
     IS_HEADLESS = True
 
-    IDS = {
-        # 3 no 武师
-        'simonrob06': [
-            # 武师
-            # no
-            {
-                'user_name': '西门寒语',
-                'user_school': '少林'
-            },
-            # no
-            {
-                'user_name': '钱霆俟',
-                'user_school': '少林'
-            },
-            # no
-            {
-                'user_name': '葛伋拯',
-                'user_school': '丐帮'
-            },
-            # 人工智障
-            {
-                'user_name': '魏产承明',
-                'user_school': '丐帮'
-            },
-            # 人工智障
-            {
-                'user_name': '严魏吉',
-                'user_school': '武当'
-            },
-        ],
-
-        # 武士
-        'simonrob07': [
-
-            {
-                'user_name': '明了',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '明净',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '明心',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '明真',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '明明',
-                'user_school': '华山'
-            },
-        ],
-
-        # 有个智障 明慧  7 武师
-
-        'simonrob04': [
-            {
-                'user_name': '明慧',
-                'user_school': '峨眉'
-            },
-        ],
-
-        # 武师
-        'simonrob05': [
-
-            {
-                'user_name': '郎璥',
-                'user_school': '峨眉'
-            },
-            {
-                'user_name': '夏侯乐炜',
-                'user_school': '峨眉'
-            },
-            {
-                'user_name': '赵浦铸',
-                'user_school': '峨眉'
-            },
-            {
-                'user_name': '冯力谊',
-                'user_school': '华山'
-            },
-            {
-                'user_name': '许镇骞',
-                'user_school': '华山'
-            },
-        ],
-
-        'giveme5': [
-        # 武士
-        {
-            'user_name': '扶人过马路',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-        # 人工智障
-        {
-            'user_name': '叔叔不骗人',
-            'user_school': '武当',
-            'user_pwd': 'qwerty'
-        },
-
-],
-
-    }
+#     IDS = {
+#         # 3 no 武师
+#         'simonrob06': [
+#             # 武师
+#             # no
+#             {
+#                 'user_name': '西门寒语',
+#                 'user_school': '少林'
+#             },
+#             # no
+#             {
+#                 'user_name': '钱霆俟',
+#                 'user_school': '少林'
+#             },
+#             # no
+#             {
+#                 'user_name': '葛伋拯',
+#                 'user_school': '丐帮'
+#             },
+#             # 人工智障
+#             {
+#                 'user_name': '魏产承明',
+#                 'user_school': '丐帮'
+#             },
+#             # 人工智障
+#             {
+#                 'user_name': '严魏吉',
+#                 'user_school': '武当'
+#             },
+#         ],
+#
+#         # 武士
+#         'simonrob07': [
+#
+#             {
+#                 'user_name': '明了',
+#                 'user_school': '华山'
+#             },
+#             {
+#                 'user_name': '明净',
+#                 'user_school': '华山'
+#             },
+#             {
+#                 'user_name': '明心',
+#                 'user_school': '华山'
+#             },
+#             {
+#                 'user_name': '明真',
+#                 'user_school': '华山'
+#             },
+#             {
+#                 'user_name': '明明',
+#                 'user_school': '华山'
+#             },
+#         ],
+#
+#         # 有个智障 明慧  7 武师
+#
+#         'simonrob04': [
+#             {
+#                 'user_name': '明慧',
+#                 'user_school': '峨眉'
+#             },
+#         ],
+#
+#         # 武师
+#         'simonrob05': [
+#
+#             {
+#                 'user_name': '郎璥',
+#                 'user_school': '峨眉'
+#             },
+#             {
+#                 'user_name': '夏侯乐炜',
+#                 'user_school': '峨眉'
+#             },
+#             {
+#                 'user_name': '赵浦铸',
+#                 'user_school': '峨眉'
+#             },
+#             {
+#                 'user_name': '冯力谊',
+#                 'user_school': '华山'
+#             },
+#             {
+#                 'user_name': '许镇骞',
+#                 'user_school': '华山'
+#             },
+#         ],
+#
+#         'giveme5': [
+#         # 武士
+#         {
+#             'user_name': '扶人过马路',
+#             'user_school': '武当',
+#             'user_pwd': 'qwerty'
+#         },
+#         # 人工智障
+#         {
+#             'user_name': '叔叔不骗人',
+#             'user_school': '武当',
+#             'user_pwd': 'qwerty'
+#         },
+#
+# ],
+#
+#     }
 
     for id in IDS:
         for user in IDS[id]:

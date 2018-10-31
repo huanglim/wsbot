@@ -390,6 +390,8 @@ COMMANDS_MAPPING = {
     'dz':'dazuo',
     'dazuo':'dazuo',
 
+    'sc':'send_message',
+    'sp':'send_message_to_pty',
 
 }
 
