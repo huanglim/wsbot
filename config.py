@@ -279,6 +279,73 @@ IDS = {
         },
     ],
 
+    '15111': [
+        # 武士
+        # 隔壁
+        {
+            'user_name': '李展列',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        # no
+        {
+            'user_name': '武馆教练',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        # 人工智障
+        {
+            'user_name': '举个栗子',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        # 助人为乐
+        {
+            'user_name': '潘彭舱',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        # 人工智障
+        {
+            'user_name': '潘曹伋',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+    ],
+
+    # 'giveme6': [
+    #     # 武士
+    #     # 隔壁
+    #     {
+    #         'user_name': '了慎',
+    #         # 'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     # no
+    #     {
+    #         'user_name': '了知',
+    #         # 'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     # 人工智障
+    #     {
+    #         'user_name': '了了',
+    #         # 'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     # 助人为乐
+    #     {
+    #         'user_name': '了凡',
+    #         # 'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    #     # 人工智障
+    #     {
+    #         'user_name': '了尘',
+    #         # 'user_school': '武当',
+    #         'user_pwd': 'qwerty'
+    #     },
+    # ],
     # others
     '1510002': [
         {

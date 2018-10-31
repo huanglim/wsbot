@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interruption.py" beforeDir="false" afterPath="$PROJECT_DIR$/interruption.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskrobot.py" beforeDir="false" afterPath="$PROJECT_DIR$/taskrobot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
-              <caret line="363" column="20" selection-start-line="363" selection-start-column="20" selection-end-line="363" selection-end-column="20" />
+            <state relative-caret-position="674">
+              <caret line="280" lean-forward="true" selection-start-line="280" selection-end-line="280" />
               <folding>
                 <element signature="e#153#192#0" />
                 <element signature="e#203#269#0" />
@@ -72,13 +70,8 @@
                 <element signature="e#4172#4285#0" />
                 <element signature="e#4310#4422#0" />
                 <element signature="e#4445#4558#0" />
-                <element signature="e#4596#5288#0" />
-                <element signature="e#4606#4610#0" />
-                <element signature="e#4632#4742#0" />
-                <element signature="e#4765#4876#0" />
-                <element signature="e#4901#5012#0" />
-                <element signature="e#5037#5147#0" />
-                <element signature="e#5172#5281#0" />
+                <element signature="e#4596#5290#0" />
+                <element signature="e#5310#6002#0" />
                 <element signature="e#5319#5927#0" />
                 <element signature="e#5329#5440#0" />
                 <element signature="e#5450#5560#0" />
@@ -186,7 +179,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="taskrobot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="taskrobot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/taskrobot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="276">
@@ -303,8 +296,8 @@
         <option value="$PROJECT_DIR$/db/__init__.py" />
         <option value="$PROJECT_DIR$/mudrobot.py" />
         <option value="$PROJECT_DIR$/interruption.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/taskrobot.py" />
+        <option value="$PROJECT_DIR$/config.py" />
       </list>
     </option>
   </component>
@@ -922,10 +915,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/taskrobot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="706" lean-forward="true" selection-start-line="706" selection-end-line="706" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="363" column="20" selection-start-line="363" selection-start-column="20" selection-end-line="363" selection-end-column="20" />
+        <state relative-caret-position="674">
+          <caret line="280" lean-forward="true" selection-start-line="280" selection-end-line="280" />
           <folding>
             <element signature="e#153#192#0" />
             <element signature="e#203#269#0" />
@@ -975,13 +975,8 @@
             <element signature="e#4172#4285#0" />
             <element signature="e#4310#4422#0" />
             <element signature="e#4445#4558#0" />
-            <element signature="e#4596#5288#0" />
-            <element signature="e#4606#4610#0" />
-            <element signature="e#4632#4742#0" />
-            <element signature="e#4765#4876#0" />
-            <element signature="e#4901#5012#0" />
-            <element signature="e#5037#5147#0" />
-            <element signature="e#5172#5281#0" />
+            <element signature="e#4596#5290#0" />
+            <element signature="e#5310#6002#0" />
             <element signature="e#5319#5927#0" />
             <element signature="e#5329#5440#0" />
             <element signature="e#5450#5560#0" />
@@ -1000,13 +995,6 @@
             <element signature="e#19552#19916#0" />
             <element signature="e#19552#19563#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/taskrobot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="706" lean-forward="true" selection-start-line="706" selection-end-line="706" />
         </state>
       </provider>
     </entry>
