@@ -70,12 +70,14 @@ if __name__ == '__main__':
             },
         ],
 
-        # 'simonrob06': [
+        # 'simonrob': [
         #     {
-        #         'user_name': '魏产承明',
-        #         'user_school': '丐帮',
+        #         'user_name': '郎璥',
+        #         'user_school': '华山',
         #     },
-        # ]
+        # ],
+
+
     }
 
     teacher = '高根明'
