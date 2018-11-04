@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat_function_robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_function_robot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat_function_robot_gebi.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_function_robot_gebi.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -124,8 +122,8 @@
       <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="72" selection-start-line="72" selection-end-line="78" />
+            <state relative-caret-position="264">
+              <caret line="41" selection-start-line="41" selection-end-line="41" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -133,8 +131,8 @@
       <file leaf-file-name="chat_function_robot_gebi.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chat_function_robot_gebi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="418">
+              <caret line="41" column="29" lean-forward="true" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -945,15 +943,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="72" selection-start-line="72" selection-end-line="78" />
+        <state relative-caret-position="264">
+          <caret line="41" selection-start-line="41" selection-end-line="41" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chat_function_robot_gebi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="418">
+          <caret line="41" column="29" lean-forward="true" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
         </state>
       </provider>
     </entry>
