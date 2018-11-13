@@ -548,8 +548,8 @@ class MudRobot(object):
             talk_btn = self.driver.find_element_by_xpath("//span[@command='showchat']")
             talk_btn.click()
 
-        if channel=='pty':
-            pty_channel = self.driver.find_element_by_xpath("//span[@channel='pty']")
+        if channel != 'chat':
+            pty_channel = self.driver.find_element_by_xpath("//span[@channel='"+channel+"']")
             pty_channel.click()
             time.sleep(S_WAIT)
 
@@ -870,9 +870,7 @@ class MudRobot(object):
                             logging.info(message)
                             self.send_message(message)
 
-    def response_to_roll(self, dialogs, show_all_msg=False, combine_mode=True):
-
-        # roll_flag = True
+    def response_to_roll(self, dialogs, show_all_msg=True, combine_mode=True):
         roll_dict = {}
 
         for msg in dialogs:
@@ -881,14 +879,10 @@ class MudRobot(object):
                 if show_all_msg:
                     logging.info(msg)
                 if RE_COMMAND_ROLL.match(content):
-
-                    logging.info('in the response to roll')
                     auth = self.get_message_auth(msg)
-
                     if combine_mode:
                         message = '{}roll了{}点; '.format(auth, random.randint(1,100))
                         roll_dict[auth] = message
-
                     else:
                         message = '{}的roll点结果是{}; '.format(auth, random.randint(1,100))
                         self.send_message(message, channel='pty')
@@ -899,7 +893,7 @@ class MudRobot(object):
                 roll_list.append(roll_dict[roll])
 
             message = ''.join(roll_list)
-            if not show_all_msg:
+            if show_all_msg:
                 logging.info(message)
 
             self.send_message(message,channel='pty')
@@ -1198,8 +1192,10 @@ class MudRobot(object):
         time.sleep(S_WAIT)
 
     def click_person_and_run_cmd(self, person, text_command):
+        logging.info('in function')
         self.driver.find_element_by_xpath("//span[@class='item-name'][text()='" + person + "']").click()
         time.sleep(S_WAIT)
+        logging.info('in function2')
         self.do_command_by_text(text_command)
         time.sleep(S_WAIT)
 
@@ -1246,6 +1242,7 @@ class MudRobot(object):
         self.move(PLACES.get('扬州城-打铁铺'))
         self.click_person_and_run_cmd('铁匠铺老板 铁匠','购买')
         self.do_command_by_text('清理包裹')
+
 
 def xszy_robot(session, login_nm, login_pwd, is_debug=IS_HEADLESS):
 

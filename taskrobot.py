@@ -268,6 +268,14 @@ class TaskRobot(MudRobot):
         confirm_btn = self.driver.find_element_by_xpath("//span[@class='dialog-btn btn-ok']")
         confirm_btn.click()
 
+    def join_party(self, pty_name='人工智障'):
+        logging.info('in join')
+        self.move("扬州城-帮派")
+        self.click_person_and_run_cmd("帮会管理员", "加入帮会")
+        self.send_message(pty_name, channel='say')
+        sleep(S_WAIT * 2)
+        self.execute_cmd('party join '+pty_name+' ok')
+
     def sell_all(self):
 
         self.move("扬州城-杂货铺")
@@ -596,43 +604,6 @@ def main(login_nm, login_pwd, login_user, school='华山', is_debug=IS_HEADLESS)
 if __name__ == '__main__':
 
     # IS_HEADLESS = True
-
-    IDS = {
-    '15111': [
-        # 武士
-        # 隔壁
-        {
-            'user_name': '李展列',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-        # no
-        {
-            'user_name': '武馆教练',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-        # 人工智障
-        {
-            'user_name': '举个栗子',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-        # 助人为乐
-        {
-            'user_name': '潘彭舱',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-        # 人工智障
-        {
-            'user_name': '潘曹伋',
-            'user_school': '逍遥',
-            'user_pwd': 'qwerty'
-        },
-    ],
-
-     }
 
     for id in IDS:
         for user in IDS[id]:
