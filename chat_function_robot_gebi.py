@@ -63,7 +63,22 @@ if __name__ == '__main__':
     IS_HEADLESS = True
 
     process_ids = {
-        'giveme5': [
+        # 'giveme5': [
+        #
+        #     # {
+        #     #     'user_name': '助人为乐',
+        #     #     'user_school': '华山',
+        #     #     'user_pwd': 'qwerty'
+        #     # },
+        #
+        #     {
+        #         'user_name': '活雷锋',
+        #         'user_school': '华山',
+        #         'user_pwd': 'qwerty'
+        #     },
+        # ],
+
+        'simonrob01': [
 
             # {
             #     'user_name': '助人为乐',
@@ -72,9 +87,9 @@ if __name__ == '__main__':
             # },
 
             {
-                'user_name': '活雷锋',
+                'user_name': '隐姓埋名',
                 'user_school': '华山',
-                'user_pwd': 'qwerty'
+                'user_pwd': 'huang001'
             },
         ],
     }

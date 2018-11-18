@@ -55,7 +55,8 @@ IDS = {
     'simonrob02': [
         {
             'user_name': '小道玄一',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
     ],
     'simonrob03': [
