@@ -313,7 +313,6 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
-
     # 'giveme6': [
     #     # 武士
     #     # 隔壁
@@ -375,6 +374,14 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
+
+    'RISTLIN': [
+        {
+            'user_name': '王员外',
+            'user_school': '华山',
+            'user_pwd': '12345678'
+        },
+    ]
 }
 
 if MYSQL:

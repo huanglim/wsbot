@@ -76,6 +76,65 @@ if __name__ == '__main__':
             },
         ],
 
+        'huangrob02': [
+
+        # 助人为乐
+        {
+            'user_name': '尤峙黎',
+            'user_school': '华山'
+        },
+        # 有个智障
+        {
+            'user_name': '韩榜',
+            'user_school': '华山'
+        },
+        # 助人为乐
+        {
+            'user_name': '范俣世',
+            'user_school': '华山'
+        },
+        # 助人为乐
+        {
+            'user_name': '李侪拯',
+            'user_school': '华山'
+        },
+        # 助人为乐
+        {
+            'user_name': '西门剑世',
+            'user_school': '华山'
+        },
+    ],
+
+    'huangrob03': [
+
+        # 人工智障
+        {
+            'user_name': '宇文地师',
+            'user_school': '华山',
+            # 'user_pwd':'qwerty',
+        },
+
+        # 人工智障
+        {
+            'user_name': '陈倡帝',
+            'user_school': '华山',
+            # 'user_pwd': 'qwerty',
+        },
+        # 有个智障
+        {
+            'user_name': '宇文君主',
+            'user_school': '华山',
+            # 'user_pwd': 'qwerty',
+        },
+        # 人工智障
+        {
+            'user_name': '孔淏欧',
+            'user_school': '华山',
+            # 'user_pwd': 'qwerty',
+        },
+
+    ],
+
         '15111': [
         # 武士
         # 隔壁
@@ -102,10 +161,38 @@ if __name__ == '__main__':
             'user_school': '逍遥',
             'user_pwd': 'qwerty'
         },
+        # # 人工智障
+        # {
+        #     'user_name': '潘曹伋',
+        #     'user_school': '逍遥',
+        #     'user_pwd': 'qwerty'
+        # },
+    ],
+
+        'giveme5': [
+        # 武士
+        # no
+        {
+            'user_name': '扶人过马路',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
         # 人工智障
         {
-            'user_name': '潘曹伋',
-            'user_school': '逍遥',
+            'user_name': '叔叔不骗人',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        # 助人为乐
+        {
+            'user_name': '与人为善',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        # 人工智障
+        {
+            'user_name': '活雷锋',
+            'user_school': '武当',
             'user_pwd': 'qwerty'
         },
     ],
@@ -119,7 +206,7 @@ if __name__ == '__main__':
             try_times = 3
             while try_times:
                 try:
-                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], teacher=teacher, skill_name=skill_name)
+                    main(id, user.get('user_pwd', LOGIN_PASSWORD), user['user_name'], teacher=teacher, skill_name=skill_name,is_debug=IS_HEADLESS)
                     logging.info('successful for {}, {}'.format(id, user['user_name']))
                     break
                 except Exception as e:
