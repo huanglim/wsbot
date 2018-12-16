@@ -70,23 +70,28 @@ IDS = {
 
         {
             'user_name': '姜列嗣',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '潘琮',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '赫连劼铸',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '鲜于宗鹰',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '金舜儋',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
     ],
 
@@ -96,27 +101,32 @@ IDS = {
         # no
         {
             'user_name': '西门寒语',
-            'user_school': '少林'
+            'user_school': '少林',
+            'user_pwd': 'qwerty'
         },
         # no
         {
             'user_name': '钱霆俟',
-            'user_school': '少林'
+            'user_school': '少林',
+            'user_pwd': 'qwerty'
         },
         # no
         {
             'user_name': '葛伋拯',
-            'user_school': '丐帮'
+            'user_school': '丐帮',
+            'user_pwd': 'qwerty'
         },
         # 人工智障
         {
             'user_name': '魏产承明',
-            'user_school': '丐帮'
+            'user_school': '丐帮',
+            'user_pwd': 'qwerty'
         },
         # 人工智障
         {
             'user_name': '严魏吉',
-            'user_school': '武当'
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
         },
     ],
 
@@ -125,23 +135,28 @@ IDS = {
 
         {
             'user_name': '明了',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '明净',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '明心',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '明真',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '明明',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
     ],
 
@@ -159,23 +174,28 @@ IDS = {
 
         {
             'user_name': '郎璥',
-            'user_school': '峨眉'
+            'user_school': '峨眉',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '夏侯乐炜',
-            'user_school': '峨眉'
+            'user_school': '峨眉',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '赵浦铸',
-            'user_school': '峨眉'
+            'user_school': '峨眉',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '冯力谊',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         {
             'user_name': '许镇骞',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
     ],
 
@@ -185,27 +205,32 @@ IDS = {
         # 助人为乐
         {
             'user_name': '尤峙黎',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         # 有个智障
         {
             'user_name': '韩榜',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         # 助人为乐
         {
             'user_name': '范俣世',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         # 助人为乐
         {
             'user_name': '李侪拯',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
         # 助人为乐
         {
             'user_name': '西门剑世',
-            'user_school': '华山'
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
         },
     ],
 
@@ -217,32 +242,32 @@ IDS = {
         {
             'user_name': '宇文地师',
             'user_school': '华山',
-            # 'user_pwd':'qwerty',
+            'user_pwd':'qwerty'
         },
 
         # 人工智障
         {
             'user_name': '陈倡帝',
             'user_school': '华山',
-            # 'user_pwd': 'qwerty',
+            'user_pwd': 'qwerty'
         },
         # 有个智障
         {
             'user_name': '宇文君主',
             'user_school': '华山',
-            # 'user_pwd': 'qwerty',
+            'user_pwd': 'qwerty'
         },
         # 人工智障
         {
             'user_name': '孔淏欧',
             'user_school': '华山',
-            # 'user_pwd': 'qwerty',
+            'user_pwd': 'qwerty'
         },
         # 隔壁
         {
             'user_name': '小僧真一',
             'user_school': '华山',
-            # 'user_pwd': 'qwerty',
+            'user_pwd': 'qwerty'
         },
     ],
     # 1 no 武士
@@ -381,7 +406,69 @@ IDS = {
             'user_school': '华山',
             'user_pwd': '12345678'
         },
-    ]
+    ],
+
+    '10660': [
+        {
+            'user_name': '起舞弄清影',
+            'user_school': '逍遥',
+            'user_pwd': 'plmokna'
+        },
+    ],
+
+    'ga1ly0225': [
+        {
+            'user_name': '嘤一熊',
+            'user_school': '华山',
+            'user_pwd': 'gpx950225'
+        },
+    ],
+
+    '1510000': [
+        {
+            'user_name': '盼兮',
+            'user_school': '峨眉',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '天地合',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '山无棱',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+    ],
+
+    '1510001': [
+        {
+            'user_name': '长孙邶黎',
+            'user_school': '武当',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '苏弓',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '乃敢与君绝',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '师太留步',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '华健儒',
+            'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+    ],
 }
 
 if MYSQL:
