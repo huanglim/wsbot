@@ -4,10 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/mudrobot.py" line="358" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-    </list>
+    <list default="true" id="8bbe0f74-a7cf-4fba-b689-177838a05b25" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,11 +163,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="chat_function_robot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-215">
-              <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
+            <state relative-caret-position="357">
+              <caret line="70" column="10" lean-forward="true" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -269,7 +266,7 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6380">
+            <state relative-caret-position="6050">
               <caret line="470" column="6" selection-start-line="470" selection-start-column="6" selection-end-line="470" selection-end-column="6" />
               <folding>
                 <element signature="e#899#992#0" />
@@ -298,7 +295,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat_function_robot_zrwl.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chat_function_robot_zrwl.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chat_function_robot_zrwl.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="511">
@@ -336,7 +333,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mpz</find>
       <find>UPDATE_WKZN_STATUS_CHANGE</find>
       <find>obj_id</find>
       <find>move</find>
@@ -345,7 +341,7 @@
       <find>is_cool</find>
       <find>is_cool_dow</find>
       <find>dazuo</find>
-      <find />
+      <find>Stop the kill</find>
       <find>is_stopped</find>
       <find>send</find>
       <find>自动出招</find>
@@ -366,6 +362,7 @@
       <find>sm</find>
       <find>roll</find>
       <find>cmd</find>
+      <find>郎</find>
     </findStrings>
     <replaceStrings>
       <replace>him_dialogs</replace>
@@ -377,9 +374,9 @@
       <replace>会|會</replace>
       <replace>|会|會</replace>
       <replace>USER_TRAINING_SET</replace>
-      <replace />
-      <replace />
-      <replace />
+      <replace>参考设置-&gt;帮助-&gt;副本攻略 输入 副本名 掉落或者数据 可查询相应信息(后续副本更新中)</replace>
+      <replace>副本攻略. 输入</replace>
+      <replace>. 询问真一 副</replace>
       <replace>&quot;],</replace>
       <replace>'</replace>
     </replaceStrings>
@@ -419,7 +416,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="950" />
     <option name="width" value="979" />
     <option name="height" value="1050" />
@@ -1171,9 +1168,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chat_function_robot_gebi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="92" column="14" selection-start-line="92" selection-start-column="14" selection-end-line="92" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="70" column="10" lean-forward="true" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6380">
+        <state relative-caret-position="6050">
           <caret line="470" column="6" selection-start-line="470" selection-start-column="6" selection-end-line="470" selection-end-column="6" />
           <folding>
             <element signature="e#899#992#0" />
@@ -1201,24 +1212,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat_function_robot_gebi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="92" column="14" selection-start-line="92" selection-start-column="14" selection-end-line="92" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chat_function_robot_zrwl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
           <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat_function_robot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-215">
-          <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
         </state>
       </provider>
     </entry>

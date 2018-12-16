@@ -26,7 +26,7 @@ S_WAIT = 0.5
 LOGIN_PASSWORD = 'huang001'
 
 LOGIN_NAME_xszy = 'huangrob03'
-LOGIN_PASSWORD_xszy = 'huang001'
+LOGIN_PASSWORD_xszy = 'qwerty'
 
 LOGIN_NAME_xdxy = 'simonrob02'
 LOGIN_PASSWORD_xdxy = 'huang001'
