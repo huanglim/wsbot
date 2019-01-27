@@ -20,7 +20,6 @@ def main(login_nm, login_pwd, login_user, teacher, skill_name, is_debug=None, ):
             # robot.append_command()
         except Exception as e:
             raise
-
         error_count = 0
 
         while True:

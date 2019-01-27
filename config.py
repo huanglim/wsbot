@@ -233,7 +233,6 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
-
     # 助人为乐 4 武师 1 武士
     # 武士
     'huangrob03': [
@@ -304,7 +303,6 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
-
     '15111': [
         # 武士
         # 隔壁
@@ -399,7 +397,6 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
-
     'RISTLIN': [
         {
             'user_name': '王员外',
@@ -407,7 +404,6 @@ IDS = {
             'user_pwd': '12345678'
         },
     ],
-
     '10660': [
         {
             'user_name': '起舞弄清影',
@@ -415,7 +411,6 @@ IDS = {
             'user_pwd': 'plmokna'
         },
     ],
-
     'ga1ly0225': [
         {
             'user_name': '嘤一熊',
@@ -423,7 +418,6 @@ IDS = {
             'user_pwd': 'gpx950225'
         },
     ],
-
     '1510000': [
         {
             'user_name': '盼兮',
@@ -441,7 +435,6 @@ IDS = {
             'user_pwd': 'qwerty'
         },
     ],
-
     '1510001': [
         {
             'user_name': '长孙邶黎',
@@ -466,6 +459,114 @@ IDS = {
         {
             'user_name': '华健儒',
             'user_school': '华山',
+            'user_pwd': 'qwerty'
+        },
+    ],
+    '15112': [
+        {
+            'user_name': '邹祖',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '单于宣',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '赵乐',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '谢僖劭',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '淳于船',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+    ],
+    '15113': [
+        {
+            'user_name': '孙鲛',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '司寇参嗣',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '邹炎',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '梁丘征磊',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '魏驾',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+    ],
+    '15114': [
+        {
+            'user_name': '诸葛勒才',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '范豪镇',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '吕乒',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '曹刚驹',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '曹伟',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+    ],
+    '15115': [
+        {
+            'user_name': '魏欧舱',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '上官振喆',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '秦壮',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '陈珹',
+            'user_school': '逍遥',
+            'user_pwd': 'qwerty'
+        },
+        {
+            'user_name': '左丘晷鑫',
+            'user_school': '逍遥',
             'user_pwd': 'qwerty'
         },
     ],
