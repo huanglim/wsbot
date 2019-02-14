@@ -4,8 +4,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 import logging, re
+import datetime
 from config import *
-from datetime import datetime
+# from datetime import datetime, timedelta
 
 RE_SM_NEED_ITEM = re.compile(".+对你说道：我要的是(.+)，你要是找不到就换别的吧")
 RE_SM_HAS_ITEM = re.compile("上交")
@@ -213,8 +214,10 @@ class TaskRobot(MudRobot):
         teacher_name = SM_INFO[school]['teacher']
 
         logging.info('{}:{}'.format(sm_place, teacher_name))
+        timedelta = datetime.timedelta(minutes=10)
+        overdue = datetime.datetime.now() + timedelta
 
-        while True:
+        while datetime.datetime.now() < overdue:
 
             # move to sm
             self.move(sm_place)
